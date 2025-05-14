@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Card from '@/components/common/card';
 import Layout from '@/components/layouts/admin';
 import TransactionList from '@/components/transaction/transaction-list';
-import Search from '@/components/common/search';
 import ErrorMessage from '@/components/ui/error-message';
 import Loader from '@/components/ui/loader/loader';
 import { useTranslation } from 'next-i18next';
@@ -29,9 +28,8 @@ export interface TranFilterType {
 export default function TransactionsPage() {
   const { t } = useTranslation();
 
-  const [searchTerm, setSearchTerm] = useState('');
-  const [orderBy, setOrder] = useState('created_at');
-  const [sortedBy, setColumn] = useState<SortOrder>(SortOrder.Desc);
+  const [order, setOrder] = useState('created_at');
+  const [sortedBy, setSortedBy] = useState<SortOrder>(SortOrder.Desc);
   const [page, setPage] = useState(1);
   const [visible, setVisible] = useState(false);
 
@@ -104,7 +102,6 @@ export default function TransactionsPage() {
             : today,
           pageNumber: page,
           pageSize: 10,
-          searchFilter: searchTerm,
           rrn: transFilter.rrn || undefined,
           terminalId: transFilter.terminalId || undefined,
           status: transFilter.status || undefined,
@@ -138,11 +135,6 @@ export default function TransactionsPage() {
     setVisible((v) => !v);
   };
 
-  function handleSearch({ searchText }: { searchText: string }) {
-    setSearchTerm(searchText);
-    setPage(1);
-  }
-
   function handlePagination(current: number) {
     setPage(current);
   }
@@ -158,16 +150,16 @@ export default function TransactionsPage() {
   return (
     <>
       <Card className="mb-8 flex flex-col">
-        <div className="flex w-full flex-col items-center md:flex-row">
+        <div className="flex w-full flex-col items-center md:flex-row md:justify-between">
           <div className="mb-4 md:mb-0 md:w-1/4">
             <h1 className="text-lg font-semibold text-heading">
               {t('form:input-label-transactions')}
             </h1>
           </div>
 
-          <div className="flex w-full flex-col items-center ms-auto md:w-3/4">
+          {/* <div className="flex w-full flex-col items-center ms-auto md:w-3/4">
             <Search onSearch={handleSearch} />
-          </div>
+          </div> */}
 
           <button
             className="mt-5 flex items-center whitespace-nowrap text-base font-semibold text-accent md:mt-0 md:ms-5"
@@ -204,7 +196,7 @@ export default function TransactionsPage() {
         isFetching={isFetching}
         merchants={data?.data?.transactions ?? []}
         onOrder={setOrder}
-        onSort={setColumn}
+        onSort={setSortedBy}
         paginatorInfo={newPaginatorInfo}
         onPagination={handlePagination}
       />

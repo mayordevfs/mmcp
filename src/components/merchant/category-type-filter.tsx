@@ -1,33 +1,40 @@
-import Select from '@/components/ui/select/select';
 import React from 'react';
 import { useTranslation } from 'next-i18next';
 import Label from '@/components/ui/label';
 import cn from 'classnames';
-import { ActionMeta } from 'react-select';
 import Input from '@/components/ui/input';
+import Button from '../ui/button';
 
 type Props = {
-  onNameFilter: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onCodeFilter: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+
+  merchantFilter: any;
+  handleSubmit: () => void;
   className?: string;
 };
 
 export default function MerchantTypeFilter({
-  onNameFilter,
-  onCodeFilter,
+  handleChange,
+  handleSubmit,
+  merchantFilter,
   className,
-}: Props) {
+}: Readonly<Props>) {
   const { t } = useTranslation();
 
   return (
-    <div className={cn('grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4', className)}>
-      
+    <div
+      className={cn(
+        'grid w-full  grid-cols-1 items-end gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4',
+        className
+      )}
+    >
       <div className="w-full">
         <Label>{t('common:name')}</Label>
         <Input
-          name='name'
+          name="name"
           placeholder={t('common:enter-name')}
-          onChange={onNameFilter}
+          onChange={handleChange}
+          value={merchantFilter.name}
           className="w-full"
         />
       </div>
@@ -35,13 +42,14 @@ export default function MerchantTypeFilter({
       <div className="w-full">
         <Label>{t('common:code')}</Label>
         <Input
-          name='name'
+          name="code"
           placeholder={t('common:enter-merchant-code')}
-          onChange={onCodeFilter}
+          onChange={handleChange}
+          value={merchantFilter.code}
           className="w-full"
         />
       </div>
-      
+      <Button onClick={handleSubmit}>Search</Button>
     </div>
   );
 }
