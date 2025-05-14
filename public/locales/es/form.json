@@ -329,5 +329,19 @@
   "button-label-add-tag": "Añadir etiqueta",
   "button-label-update-tag": "Actualizar etiqueta",
   "input-label-min-order-amount": "Cantidad mínima de pedido",
-  "input-label-reviews": "Reseñas"
+  "input-label-reviews": "Reseñas",
+  "input-label-terminal-monitoring": "Supervisión del terminal",
+
+   "input-label-merchant-category": "Categoría del comerciante",
+  "input-label-transaction-type": "Tipo de transacción",
+  "input-label-minimum-limit": "Límite mínimo",
+  "input-label-maximum-limit": "Límite máximo",
+  "input-label-daily-limit": "Límite diario",
+  "input-label-charge-fee": "Tarifa de cobro",
+  "input-label-cap-limit": "Límite superior",
+  "input-label-network-commission": "Comisión de red",
+  "input-label-platform-commission": "Comisión de la plataforma",
+  "input-label-merchant-commission": "Comisión del comerciante",
+  "input-label-aggregator-commission": "Comisión del agregador",
+  "input-label-service-fee": "Tarifa de servicio"
 }

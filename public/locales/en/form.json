@@ -463,5 +463,19 @@
   "input-label-reviews": "Reviews",
   "error-maximum-question-limit": "Maximum question limit is required",
   "input-label-maximum-question-limit": "Maximum Question Limit",
-  "error-digital-file-input-required": "You must need to upload your digital file"
+  "error-digital-file-input-required": "You must need to upload your digital file",
+  "input-label-terminal-monitoring":"Terminal Monitoring",
+
+  "input-label-merchant-category": "Merchant Category",
+  "input-label-transaction-type": "Transaction Type",
+  "input-label-minimum-limit": "Minimum Limit",
+  "input-label-maximum-limit":"Maximum Limit",
+  "input-label-daily-limit":"Daily Limit",
+  "input-label-charge-fee":"Charge Fee",
+  "input-label-cap-limit":"Cap Limit",
+  "input-label-network-commission":"Network Commission",
+  "input-label-platform-commission":"Platform Commission",
+  "input-label-merchant-commission":"Merchant Commission",
+  "input-label-aggregator-commission":"Aggregator Commission",
+  "input-label-service-fee":"Service Fee"
 }
