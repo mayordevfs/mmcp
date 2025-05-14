@@ -65,5 +65,15 @@
   "table-item-reports": "报告",
   "table-item-message": "信息",
   "table-item-customer-details": "顾客信息",
-  "table-item-feedbacks": "反馈"
+  "table-item-feedbacks": "反馈",
+
+  "table-item-terminal-monitoring": "终端监控",
+  "table-item-terminalId": "终端编号",
+  "table-item-log-date": "日志日期",
+  "table-item-geolocation": "地理位置",
+  "table-item-battery-status": "电池状态",
+  "table-item-printer-status": "打印机状态",
+  "table-item-network-data": "网络数据",
+  "table-item-sim-status": "SIM 卡状态",
+  "table-item-other-data": "其他数据"
 }

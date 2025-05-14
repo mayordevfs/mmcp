@@ -65,5 +65,15 @@
   "table-item-reports": "التقارير",
   "table-item-message": "رسالة",
   "table-item-customer-details": "تفاصيل العميل",
-  "table-item-feedbacks": "التقيمات"
+  "table-item-feedbacks": "التقيمات",
+
+  "table-item-terminal-monitoring": "مراقبة المحطة",
+  "table-item-terminalId": "معرّف المحطة",
+  "table-item-log-data": "تاريخ السجل",
+  "table-item-geolocation": "الموقع الجغرافي",
+  "table-item-battery-status": "حالة البطارية",
+  "table-item-printer-status": "حالة الطابعة",
+  "table-item-network-data": "بيانات الشبكة",
+  "table-item-sim-status": "حالة الشريحة",
+  "table-item-other-data": "بيانات أخرى"
 }

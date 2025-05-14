@@ -329,5 +329,19 @@
   "button-label-add-tag": "Tag hinzufügen",
   "button-label-update-tag": "Tag aktualisieren",
   "input-label-min-order-amount": "Mindestbestellwert",
-  "input-label-reviews": "Bewertungen"
+  "input-label-reviews": "Bewertungen",
+  "input-label-terminal-monitoring":"Terminalüberwachung",
+
+   "input-label-merchant-category": "Händlerkategorie",
+  "input-label-transaction-type": "Transaktionstyp",
+  "input-label-minimum-limit": "Mindestlimit",
+  "input-label-maximum-limit": "Höchstlimit",
+  "input-label-daily-limit": "Tageslimit",
+  "input-label-charge-fee": "Gebühr",
+  "input-label-cap-limit": "Obergrenze",
+  "input-label-network-commission": "Netzwerkprovision",
+  "input-label-platform-commission": "Plattformprovision",
+  "input-label-merchant-commission": "Händlerprovision",
+  "input-label-aggregator-commission": "Aggregatorprovision",
+  "input-label-service-fee": "Servicegebühr"
 }

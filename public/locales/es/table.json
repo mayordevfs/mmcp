@@ -65,5 +65,15 @@
   "table-item-reports": "Informes",
   "table-item-message": "Mensaje",
   "table-item-customer-details": "Detalles del cliente",
-  "table-item-feedbacks": "Comentarios"
+  "table-item-feedbacks": "Comentarios",
+
+  "table-item-terminal-monitoring": "Supervisión del terminal",
+  "table-item-terminalId": "ID del terminal",
+  "table-item-log-date": "Fecha de registro",
+  "table-item-geolocation": "Geolocalización",
+  "table-item-battery-status": "Estado de la batería",
+  "table-item-printer-status": "Estado de la impresora",
+  "table-item-network-data": "Datos de red",
+  "table-item-sim-status": "Estado de la SIM",
+  "table-item-other-data": "Otros datos"
 }

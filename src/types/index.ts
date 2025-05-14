@@ -921,6 +921,10 @@ export interface Merchant {
   // terminals?: Terminal[];
 }
 
+export interface TransType {
+
+}
+
 export interface Terminal {
   id: string; // Unique database ID
   terminalId: string; // Terminal identification number
@@ -1005,6 +1009,24 @@ export interface MerchantInput {
   isVerified?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
+}
+
+export interface TransTypeInput {
+  tranName: string,
+  tranType:SelectOption,
+  merchCategory:SelectOption,
+  maxLimit: number,
+  dailyLimit: number,
+  agentCommission: number,
+  platformCommission: number,
+  networkCommission: number,
+  aggregatorCommission: number,
+  serviceFee: number,
+  charge: number,
+  chargeType: SelectOption,
+  minLimit:number,
+  capLimit: number,
+  dailyFreq:number
 }
 
 export interface TerminalInput {

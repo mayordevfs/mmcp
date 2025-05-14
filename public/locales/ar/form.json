@@ -329,5 +329,19 @@
   "button-label-add-tag": "إضافة علامة",
   "button-label-update-tag": "تحديث العلامة",
   "input-label-min-order-amount": "الحد الأدنى للطلب",
-  "input-label-reviews": "المراجعات"
+  "input-label-reviews": "المراجعات",
+  "input-label-terminal-monitoring":"مراقبة المحطة",
+
+   "input-label-merchant-category": "فئة التاجر",
+  "input-label-transaction-type": "نوع المعاملة",
+  "input-label-minimum-limit": "الحد الأدنى",
+  "input-label-maximum-limit": "الحد الأقصى",
+  "input-label-daily-limit": "الحد اليومي",
+  "input-label-charge-fee": "رسوم التحصيل",
+  "input-label-cap-limit": "الحد الأعلى",
+  "input-label-network-commission": "عمولة الشبكة",
+  "input-label-platform-commission": "عمولة المنصة",
+  "input-label-merchant-commission": "عمولة التاجر",
+  "input-label-aggregator-commission": "عمولة المجمع",
+  "input-label-service-fee": "رسوم الخدمة"
 }

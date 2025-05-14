@@ -16,6 +16,8 @@ export const Routes = {
   storeKeepers: '/vendor/store_keepers',
   profileUpdate: '/profile-update',
   checkout: '/orders/checkout',
+  terminalMonitoring:'/terminal_monitoring',
+  transaction_type:"/transaction_type",
   link: '/admin/rest/src/pages/terminals/link.tsx',
   user: {
     ...routesFactory('/users'),
@@ -89,6 +91,9 @@ export const Routes = {
   terminal: {
     ...routesFactory('/terminals'),
   },
+  // terminal_monitoring: {
+  //   ...routesFactory('/terminal_monitoring'),
+  // },
   transaction: {
     ...routesFactory('/transactions'),
   },
