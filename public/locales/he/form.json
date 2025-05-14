@@ -329,5 +329,19 @@
   "button-label-add-tag": "הוסף תגית",
   "button-label-update-tag": "עדכן תג",
   "input-label-min-order-amount": "כמות הזמנה מינימלית",
-  "input-label-reviews": "ביקורות"
+  "input-label-reviews": "ביקורות",
+  "input-label-terminal-monitoring": "ניטור מסוף",
+
+  "input-label-merchant-category": "קטגוריית סוחר",
+  "input-label-transaction-type": "סוג עסקה",
+  "input-label-minimum-limit": "מגבלה מינימלית",
+  "input-label-maximum-limit": "מגבלה מקסימלית",
+  "input-label-daily-limit": "מגבלה יומית",
+  "input-label-charge-fee": "דמי גבייה",
+  "input-label-cap-limit": "תקרת מגבלה",
+  "input-label-network-commission": "עמלת רשת",
+  "input-label-platform-commission": "עמלת פלטפורמה",
+  "input-label-merchant-commission": "עמלת סוחר",
+  "input-label-aggregator-commission": "עמלת אגרגטור",
+  "input-label-service-fee": "דמי שירות"
 }

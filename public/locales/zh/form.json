@@ -329,5 +329,19 @@
   "button-label-add-tag": "添加标签",
   "button-label-update-tag": "更新标签",
   "input-label-min-order-amount": "最低订单金额",
-  "input-label-reviews": "评论"
+  "input-label-reviews": "评论",
+  "input-label-terminal-monitoring":"Nadzor terminala",
+
+   "input-label-merchant-category": "商户类别",
+  "input-label-transaction-type": "交易类型",
+  "input-label-minimum-limit": "最低限额",
+  "input-label-maximum-limit": "最高限额",
+  "input-label-daily-limit": "每日限额",
+  "input-label-charge-fee": "收费费用",
+  "input-label-cap-limit": "封顶限额",
+  "input-label-network-commission": "网络佣金",
+  "input-label-platform-commission": "平台佣金",
+  "input-label-merchant-commission": "商户佣金",
+  "input-label-aggregator-commission": "聚合商佣金",
+  "input-label-service-fee": "服务费"
 }

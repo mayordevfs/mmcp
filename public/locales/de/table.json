@@ -62,5 +62,15 @@
   "table-item-reports": "Berichte",
   "table-item-message": "Nachricht",
   "table-item-customer-details": "Kundendetails",
-  "table-item-feedbacks": "Rückmeldungen"
+  "table-item-feedbacks": "Rückmeldungen",
+
+  "table-item-terminal-monitoring": "Terminalüberwachung",
+  "table-item-terminalId": "Terminal-ID",
+  "table-item-log-date": "Protokolldatum",
+  "table-item-geolocation": "Geostandort",
+  "table-item-battery-status": "Batteriestatus",
+  "table-item-printer-status": "Druckerstatus",
+  "table-item-network-data": "Netzwerkdaten",
+  "table-item-sim-status": "SIM-Status",
+  "table-item-other-data": "Weitere Daten"
 }

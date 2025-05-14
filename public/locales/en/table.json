@@ -116,5 +116,16 @@
   "table-item-reports": "Reports",
   "table-item-message": "Message",
   "table-item-customer-details": "Customer Details",
-  "table-item-feedbacks": "Feedbacks"
+  "table-item-feedbacks": "Feedbacks",
+
+  "table-item-terminal-monitoring": "Terminal Monitoring",
+  "table-item-terminalId":"Terminal Id",
+  "table-item-log-date": "Log Date",
+  "table-item-geolocation": "Geolocation",
+  "table-item-battery-status": "Battery Status",
+  "table-item-printer-status": "Printer Status",
+  "table-item-network-data": "Network Data",
+  "table-item-sim-status": "Sim Status",
+  "table-item-other-data": "Other Data"
+
 }

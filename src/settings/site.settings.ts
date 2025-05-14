@@ -78,6 +78,16 @@ export const siteSettings = {
       //   icon: 'MyShopIcon',
       // },
       {
+        href: Routes.terminalMonitoring,
+        label: 'Terminal Monitoring',
+        icon: 'MonitoringIcon',
+      },
+      {
+        href: Routes.transaction_type,
+        label: 'Transaction Type',
+        icon: 'TransactionIcon',
+      },
+      {
         href: Routes.report.list,
         label: 'sidebar-nav-item-reports',
         icon: 'ReportsIcon',

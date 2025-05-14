@@ -65,5 +65,15 @@
   "table-item-reports": "דיווחים",
   "table-item-message": "הוֹדָעָה",
   "table-item-customer-details": "פרטי לקוח",
-  "table-item-feedbacks": "משוב"
+  "table-item-feedbacks": "משוב",
+
+  "table-item-terminal-monitoring": "ניטור מסוף",
+  "table-item-terminalId": "מזהה מסוף",
+  "table-item-log-date": "תאריך רישום",
+  "table-item-geolocation": "מיקום גיאוגרפי",
+  "table-item-battery-status": "מצב סוללה",
+  "table-item-printer-status": "מצב מדפסת",
+  "table-item-network-data": "נתוני רשת",
+  "table-item-sim-status": "מצב כרטיס SIM",
+  "table-item-other-data": "נתונים נוספים"
 }
