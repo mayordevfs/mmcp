@@ -126,6 +126,20 @@
   "table-item-printer-status": "Printer Status",
   "table-item-network-data": "Network Data",
   "table-item-sim-status": "Sim Status",
-  "table-item-other-data": "Other Data"
+  "table-item-other-data": "Other Data",
 
+
+  "table-item-transaction-name": "Transaction Name",
+  "table-item-transaction-id": "Transaction Id",
+  "table-item-min-limit":"Min Limit",
+  "table-item-max-limit": "Max Limit",
+  "table-item-daily-limit":"Daily Limit",
+  "table-item-charge-type":"Charge Type",
+  "table-item-charge":"Charge",
+  "table-item-cap-limit":"Cap Limit",
+  "table-item-network-commission":"Network Commission",
+  "table-item-platform-commission":"Platform Commission",
+  "table-item-merchant-commission":"Merchant Commission",
+  "table-item-aggregator-commission":"Aggregator Commission",
+  "table-item-service-fee":"Service Fee"
 }

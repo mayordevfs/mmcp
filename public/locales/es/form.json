@@ -343,5 +343,12 @@
   "input-label-platform-commission": "Comisión de la plataforma",
   "input-label-merchant-commission": "Comisión del comerciante",
   "input-label-aggregator-commission": "Comisión del agregador",
-  "input-label-service-fee": "Tarifa de servicio"
+  "input-label-service-fee": "Tarifa de servicio",
+  "input-label-daily-frequency": "Frecuencia diaria",
+
+  "form-title-update-transaction-type": "Actualizar tipo de transacción",
+
+  "input-label-entity-code": "Código de entidad",
+  "input-label-customer-type": "Tipo de cliente",
+  "input-label-branch-code": "Código de sucursal"
 }

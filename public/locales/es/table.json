@@ -75,5 +75,19 @@
   "table-item-printer-status": "Estado de la impresora",
   "table-item-network-data": "Datos de red",
   "table-item-sim-status": "Estado de la SIM",
-  "table-item-other-data": "Otros datos"
+  "table-item-other-data": "Otros datos",
+
+   "table-item-transaction-name": "Nombre de la transacción",
+  "table-item-transaction-id": "ID de transacción",
+  "table-item-min-limit": "Límite mínimo",
+  "table-item-max-limit": "Límite máximo",
+  "table-item-daily-limit": "Límite diario",
+  "table-item-charge-type": "Tipo de cargo",
+  "table-item-charge": "Cargo",
+  "table-item-cap-limit": "Límite máximo de cargo",
+  "table-item-network-commission": "Comisión de red",
+  "table-item-platform-commission": "Comisión de plataforma",
+  "table-item-merchant-commission": "Comisión del comerciante",
+  "table-item-aggregator-commission": "Comisión del agregador",
+  "table-item-service-fee": "Tarifa de servicio"
 }

@@ -343,5 +343,12 @@
   "input-label-platform-commission": "Plattformprovision",
   "input-label-merchant-commission": "Händlerprovision",
   "input-label-aggregator-commission": "Aggregatorprovision",
-  "input-label-service-fee": "Servicegebühr"
+  "input-label-service-fee": "Servicegebühr",
+  "input-label-daily-frequency": "Tägliche Häufigkeit",
+
+  "form-title-update-transaction-type": "Transaktionstyp aktualisieren",
+
+  "input-label-entity-code": "Entitätscode",
+  "input-label-customer-type": "Kundentyp",
+  "input-label-branch-code": "Filialcode"
 }

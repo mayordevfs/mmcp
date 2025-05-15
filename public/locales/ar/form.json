@@ -343,5 +343,12 @@
   "input-label-platform-commission": "عمولة المنصة",
   "input-label-merchant-commission": "عمولة التاجر",
   "input-label-aggregator-commission": "عمولة المجمع",
-  "input-label-service-fee": "رسوم الخدمة"
+  "input-label-service-fee": "رسوم الخدمة",
+  "input-label-daily-frequency": "التكرار اليومي",
+
+  "form-title-update-transaction-type": "تحديث نوع المعاملة",
+
+  "input-label-entity-code": "رمز الكيان",
+  "input-label-customer-type": "نوع العميل",
+  "input-label-branch-code": "رمز الفرع"
 }

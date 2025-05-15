@@ -72,5 +72,19 @@
   "table-item-printer-status": "Druckerstatus",
   "table-item-network-data": "Netzwerkdaten",
   "table-item-sim-status": "SIM-Status",
-  "table-item-other-data": "Weitere Daten"
+  "table-item-other-data": "Weitere Daten",
+
+  "table-item-transaction-name": "Transaktionsname",
+  "table-item-transaction-id": "Transaktions-ID",
+  "table-item-min-limit": "Mindestlimit",
+  "table-item-max-limit": "Höchstlimit",
+  "table-item-daily-limit": "Tageslimit",
+  "table-item-charge-type": "Gebührenart",
+  "table-item-charge": "Gebühr",
+  "table-item-cap-limit": "Gebührenobergrenze",
+  "table-item-network-commission": "Netzwerkprovision",
+  "table-item-platform-commission": "Plattformprovision",
+  "table-item-merchant-commission": "Händlerprovision",
+  "table-item-aggregator-commission": "Aggregatorprovision",
+  "table-item-service-fee": "Servicegebühr"
 }

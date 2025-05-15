@@ -75,5 +75,19 @@
   "table-item-printer-status": "حالة الطابعة",
   "table-item-network-data": "بيانات الشبكة",
   "table-item-sim-status": "حالة الشريحة",
-  "table-item-other-data": "بيانات أخرى"
+  "table-item-other-data": "بيانات أخرى",
+
+  "table-item-transaction-name": "اسم المعاملة",
+  "table-item-transaction-id": "معرّف المعاملة",
+  "table-item-min-limit": "الحد الأدنى",
+  "table-item-max-limit": "الحد الأقصى",
+  "table-item-daily-limit": "الحد اليومي",
+  "table-item-charge-type": "نوع الرسوم",
+  "table-item-charge": "الرسوم",
+  "table-item-cap-limit": "الحد الأقصى للرسوم",
+  "table-item-network-commission": "عمولة الشبكة",
+  "table-item-platform-commission": "عمولة المنصة",
+  "table-item-merchant-commission": "عمولة التاجر",
+  "table-item-aggregator-commission": "عمولة المجمع",
+  "table-item-service-fee": "رسوم الخدمة"
 }

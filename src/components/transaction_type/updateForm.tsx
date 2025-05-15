@@ -48,7 +48,7 @@ const chargeType = [
 ]
 
 
-export default function CreateTransactionTypeForm() {
+export default function UpdateTransactionTypeForm({id}:{id:string|string[]|undefined}) {
   const router = useRouter();
   const { t } = useTranslation();
   const merchantCategoryOptions = useGetLookup("MERCHANT_GROUP")

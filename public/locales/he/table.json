@@ -75,5 +75,19 @@
   "table-item-printer-status": "מצב מדפסת",
   "table-item-network-data": "נתוני רשת",
   "table-item-sim-status": "מצב כרטיס SIM",
-  "table-item-other-data": "נתונים נוספים"
+  "table-item-other-data": "נתונים נוספים",
+
+   "table-item-transaction-name": "שם עסקה",
+  "table-item-transaction-id": "מזהה עסקה",
+  "table-item-min-limit": "מגבלה מינימלית",
+  "table-item-max-limit": "מגבלה מקסימלית",
+  "table-item-daily-limit": "מגבלה יומית",
+  "table-item-charge-type": "סוג חיוב",
+  "table-item-charge": "חיוב",
+  "table-item-cap-limit": "תקרת חיוב",
+  "table-item-network-commission": "עמלת רשת",
+  "table-item-platform-commission": "עמלת פלטפורמה",
+  "table-item-merchant-commission": "עמלת סוחר",
+  "table-item-aggregator-commission": "עמלת אגרגטור",
+  "table-item-service-fee": "דמי שירות"
 }

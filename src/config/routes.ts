@@ -18,6 +18,7 @@ export const Routes = {
   checkout: '/orders/checkout',
   terminalMonitoring:'/terminal_monitoring',
   transaction_type:"/transaction_type",
+  create_transaction_type:'/transaction_type/create',
   link: '/admin/rest/src/pages/terminals/link.tsx',
   user: {
     ...routesFactory('/users'),
