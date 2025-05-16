@@ -351,5 +351,8 @@
 
   "input-label-entity-code": "实体代码",
   "input-label-customer-type": "客户类型",
-  "input-label-branch-code": "分行代码"
+  "input-label-branch-code": "分行代码",
+
+  "input-label-tran-code": "交易代码",
+  "input-label-rrn": "参考号 (RRN)"
 }

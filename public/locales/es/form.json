@@ -350,5 +350,8 @@
 
   "input-label-entity-code": "Código de entidad",
   "input-label-customer-type": "Tipo de cliente",
-  "input-label-branch-code": "Código de sucursal"
+  "input-label-branch-code": "Código de sucursal",
+
+  "input-label-tran-code": "Código de transacción",
+  "input-label-rrn": "Número de referencia (RRN)"
 }

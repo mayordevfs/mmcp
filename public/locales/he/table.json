@@ -89,5 +89,13 @@
   "table-item-platform-commission": "עמלת פלטפורמה",
   "table-item-merchant-commission": "עמלת סוחר",
   "table-item-aggregator-commission": "עמלת אגרגטור",
-  "table-item-service-fee": "דמי שירות"
+  "table-item-service-fee": "דמי שירות",
+
+  "table-item-transaction-time": "זמן עסקה",
+  "table-item-card-no": "מספר כרטיס",
+  "table-item-response-code": "קוד תגובה",
+  "table-item-reconcile-status": "סטטוס התאמה",
+  "table-item-trans-ref-no": "מספר אסמכתא",
+  "table-item-file-type": "סוג קובץ",
+  "table-item-file-name": "שם קובץ"
 }

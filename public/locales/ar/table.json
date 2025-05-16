@@ -89,5 +89,13 @@
   "table-item-platform-commission": "عمولة المنصة",
   "table-item-merchant-commission": "عمولة التاجر",
   "table-item-aggregator-commission": "عمولة المجمع",
-  "table-item-service-fee": "رسوم الخدمة"
+  "table-item-service-fee": "رسوم الخدمة",
+
+  "table-item-transaction-time": "وقت المعاملة",
+  "table-item-card-no": "رقم البطاقة",
+  "table-item-response-code": "رمز الاستجابة",
+  "table-item-reconcile-status": "حالة التسوية",
+  "table-item-trans-ref-no": "رقم المرجع",
+  "table-item-file-type": "نوع الملف",
+  "table-item-file-name": "اسم الملف"
 }

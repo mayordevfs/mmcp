@@ -350,5 +350,9 @@
 
   "input-label-entity-code": "رمز الكيان",
   "input-label-customer-type": "نوع العميل",
-  "input-label-branch-code": "رمز الفرع"
+  "input-label-branch-code": "رمز الفرع",
+
+  "input-label-tran-code": "رمز المعاملة",
+  "input-label-rrn": "رقم المرجع (RRN)"
+
 }

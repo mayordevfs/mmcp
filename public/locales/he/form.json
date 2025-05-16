@@ -350,5 +350,8 @@
 
    "input-label-entity-code": "קוד ישות",
   "input-label-customer-type": "סוג לקוח",
-  "input-label-branch-code": "קוד סניף"
+  "input-label-branch-code": "קוד סניף",
+
+  "input-label-tran-code": "קוד עסקה",
+  "input-label-rrn": "מספר אסמכתא (RRN)"
 }

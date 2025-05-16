@@ -19,6 +19,7 @@ export const Routes = {
   terminalMonitoring:'/terminal_monitoring',
   transaction_type:"/transaction_type",
   create_transaction_type:'/transaction_type/create',
+  reconciled_transactions:"/reconciled_transactions",
   link: '/admin/rest/src/pages/terminals/link.tsx',
   user: {
     ...routesFactory('/users'),

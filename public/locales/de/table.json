@@ -86,5 +86,13 @@
   "table-item-platform-commission": "Plattformprovision",
   "table-item-merchant-commission": "Händlerprovision",
   "table-item-aggregator-commission": "Aggregatorprovision",
-  "table-item-service-fee": "Servicegebühr"
+  "table-item-service-fee": "Servicegebühr",
+
+  "table-item-transaction-time": "Transaktionszeit",
+  "table-item-card-no": "Kartennummer",
+  "table-item-response-code": "Antwortcode",
+  "table-item-reconcile-status": "Abgleichstatus",
+  "table-item-trans-ref-no": "Transaktionsreferenznummer",
+  "table-item-file-type": "Dateityp",
+  "table-item-file-name": "Dateiname"
 }

@@ -350,5 +350,8 @@
 
   "input-label-entity-code": "Entitätscode",
   "input-label-customer-type": "Kundentyp",
-  "input-label-branch-code": "Filialcode"
+  "input-label-branch-code": "Filialcode",
+
+  "input-label-tran-code": "Transaktionscode",
+  "input-label-rrn": "Referenznummer (RRN)"
 }

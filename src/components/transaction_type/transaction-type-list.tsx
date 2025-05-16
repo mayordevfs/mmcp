@@ -68,12 +68,12 @@ const TransactionTypeList = ({
       dataIndex: 'tranName',
       key: 'tranName',
       align: 'center',
-      width: 240,
+      width: 340,
     },
     {
       title: t('table:table-item-transaction-id'),
-      dataIndex:"id" ,
-      key: 'id',
+      dataIndex:"tranCode" ,
+      key: 'tranCode',
       align: 'center',
       width: 240,
     },
@@ -152,7 +152,7 @@ const TransactionTypeList = ({
       width: 80,
     },
     {
-      title: t('table:table-item-agent-commission'),
+      title: t('table:table-item-merchant-commission'),
       dataIndex: 'agentCommission',
       key: 'agentCommission',
       align: 'center',
@@ -212,7 +212,8 @@ const TransactionTypeList = ({
         <ActionButtons
           id={tranTypeId}
           editUrl={`${Routes.transaction_type}/edit/${tranTypeId}`}
-          detailsUrl={`${Routes.transaction}/${tranTypeId}`}
+
+          // detailsUrl={`${Routes.transaction}/${tranTypeId}`}
           // addTerminalUrl={`${Routes.merchant.list}/${id}/add-terminal`}
         />
       ),

@@ -9,6 +9,7 @@ import { CheckMarkCircle } from '@/components/icons/checkmark-circle';
 import { useModalAction } from '@/components/ui/modal/modal.context';
 import { CloseFillIcon } from '@/components/icons/close-fill';
 import { AdminIcon } from '@/components/icons/admin-icon';
+import { ReactNode } from 'react';
 
 type Props = {
   id: string;
@@ -28,6 +29,7 @@ type Props = {
   showBillerModal?: boolean;
   customLocale?: string;
   billerCode?: string;
+  children?:ReactNode
 };
 
 const ActionButtons = ({
@@ -47,7 +49,8 @@ const ActionButtons = ({
   showMakeAdminButton = false,
   showReplyQuestion = false,
   showBillerModal = false,
-  customLocale
+  customLocale,
+  children
 }: Props) => {
   const { t } = useTranslation();
   const { openModal } = useModalAction();
@@ -256,9 +259,10 @@ const ActionButtons = ({
           className="text-base transition duration-200 hover:text-heading"
           title={t('common:text-edit')}
         >
-          <EditIcon width={16} />
+          <EditIcon width={16}/>
         </Link>
       )}
+      
       {detailsUrl && (
         <Link
           href={detailsUrl}

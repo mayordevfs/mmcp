@@ -89,5 +89,13 @@
   "table-item-platform-commission": "Comisión de plataforma",
   "table-item-merchant-commission": "Comisión del comerciante",
   "table-item-aggregator-commission": "Comisión del agregador",
-  "table-item-service-fee": "Tarifa de servicio"
+  "table-item-service-fee": "Tarifa de servicio",
+
+  "table-item-transaction-time": "Hora de la transacción",
+  "table-item-card-no": "Número de tarjeta",
+  "table-item-response-code": "Código de respuesta",
+  "table-item-reconcile-status": "Estado de conciliación",
+  "table-item-trans-ref-no": "N.º de referencia",
+  "table-item-file-type": "Tipo de archivo",
+  "table-item-file-name": "Nombre del archivo"
 }

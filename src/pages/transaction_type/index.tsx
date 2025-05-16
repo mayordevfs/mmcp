@@ -1,45 +1,45 @@
 import { useState } from 'react';
 import Card from '@/components/common/card';
 import Layout from '@/components/layouts/admin';
-import MerchantList from '@/components/merchant/merchant-list';
-import Search from '@/components/common/search';
 import LinkButton from '@/components/ui/link-button';
 import ErrorMessage from '@/components/ui/error-message';
 import Loader from '@/components/ui/loader/loader';
-import { useShippingClassesQuery } from '@/data/merchant';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Routes } from '@/config/routes';
 import { SortOrder } from '@/types';
-import { adminOnly } from '@/utils/auth-utils';
-import { useRouter } from 'next/router';
 import cn from 'classnames';
 import { ArrowDown } from '@/components/icons/arrow-down';
 import { ArrowUp } from '@/components/icons/arrow-up';
-import MerchantTypeFilter from '@/components/merchant/category-type-filter';
-import axiosInstance from '@/utils/fetch-function';
-import { useQuery } from 'react-query';
 import TransactionTypeFilter from '@/components/transaction_type/category-type-filter.tsx';
 import TransactionTypeList from '@/components/transaction_type/transaction-type-list';
 
+import { useQuery } from 'react-query';
+import axiosInstance from '@/utils/fetch-function';
+import { useTransactionTypeStore } from '@/contexts/editContext/transactionTypeContext';
+
 export default function TransactionTypePage() {
   const { t } = useTranslation();
-
-  const [searchTerm, setSearch] = useState('');
+  
+  // Local component state for UI and API parameters
   const [orderBy, setOrder] = useState('created_at');
   const [sortedBy, setColumn] = useState<SortOrder>(SortOrder.Desc);
-  const [page, setPage] = useState(1);
   const [visible, setVisible] = useState(false);
-  const [entityCode, setEntityCode] = useState<string>('ETZ');
-  const [customerType, setCustomerType] = useState<string>('');
-  const [branchCode, setBranchCode] = useState<string>('');
+  const [page, setPage] = useState(1);
+  const [tranCode, setTranCode] = useState('');
+  const [applyFilter, setApplyFilter] = useState(false);
+
+  // Get the setter function from our store
+  const { setTransactionTypes } = useTransactionTypeStore();
+  
+  // Keep the API call in the component
   const {
     data,
     isLoading: loading,
     isFetching,
     error,
   } = useQuery(
-    ['transType', page],
+    ['transType', page, applyFilter],
     () =>
       axiosInstance.request({
         method: 'GET',
@@ -47,15 +47,43 @@ export default function TransactionTypePage() {
         params: {
           pageNumber: page,
           pageSize: 10,
-          name: searchTerm,
-          entityCode,
-          customerType,
-          branchCode
+          entityCode:"ETZ",
+          tranCode
         },
       }),
-    {}
+    {
+      onSuccess: (response) => {
+        // When data is successfully fetched, update our store with JUST the transaction data array
+        if (response?.data?.data) {
+          setTransactionTypes(response.data.data);
+        }
+      }
+    }
   );
-  const newPaginatorInfo = {
+
+  const handleSubmit = () => {
+    setApplyFilter(!applyFilter);
+    setPage(1);
+  };
+
+  const toggleVisible = () => {
+    setVisible((v) => !v);
+  };
+
+  if (loading) return <Loader text={t('common:text-loading')} />;
+  if (error) return <ErrorMessage message={t('common:error-something-wrong')} />;
+
+  function handlePagination(current: number) {
+    setPage(current);
+  }
+
+  const handleTranCodeFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPage(1);
+    setTranCode(e.target.value);
+  };
+  
+  // Create paginatorInfo object from API response for the component's use
+  const paginatorInfo = {
     currentPage: page,
     firstPageUrl: '',
     from: 1,
@@ -70,38 +98,7 @@ export default function TransactionTypePage() {
     total: data?.data?.totalCount,
     hasMorePages: data?.data?.totalPages > page,
   };
- console.log(data);
- 
-  const toggleVisible = () => {
-    setVisible((v) => !v);
-  };
-
-  if (loading) return <Loader text={t('common:text-loading')} />;
-  if (error) return <ErrorMessage message={t('common:error-something-wrong')} />;
-
-  function handleSearch({ searchText }: { searchText: string }) {
-    setSearch(searchText);
-  }
-
-  function handlePagination(current: number) {
-    setPage(current);
-  }
-
-  const handleEntityCodeFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPage(1);
-    setEntityCode(e.target.value);
-  };
-
-  const handleCustomerTypeFilter = (selectedOption: any) => {
-    setPage(1);
-    setCustomerType(selectedOption?.value || null);
-  };
-
-   const handleBranchCodeFilter = (selectedOption: any) => {
-    setPage(1);
-    setBranchCode(selectedOption?.value || null);
-  };
-
+  
   return (
     <>
       <Card className="mb-8 flex flex-col">
@@ -112,9 +109,7 @@ export default function TransactionTypePage() {
             </h1>
           </div>
 
-          <div className="flex w-full flex-col flex-1 items-center space-y-4 ms-auto md:flex-row md:space-y-0 xl:w-1/2">
-            <Search onSearch={handleSearch} className='w-full flex-1'/>
-
+          <div className="flex w-full flex-col items-center space-y-4 ms-auto md:flex-row md:space-y-0 xl:w-1/2 justify-end">
             <LinkButton
               href={`${Routes.create_transaction_type}`}
               className="h-12 w-full md:w-auto md:ms-6"
@@ -147,9 +142,9 @@ export default function TransactionTypePage() {
         >
           <div className="mt-5 flex w-full flex-col border-t border-gray-200 pt-5 md:mt-8 md:flex-row md:items-center md:pt-8">
             <TransactionTypeFilter
-              onBranchCodeFilter={handleBranchCodeFilter}
-              onCustomerTypeFilter={handleCustomerTypeFilter}
-              onEntityCodeFilter={handleEntityCodeFilter}
+              onTranCodeFilter={handleTranCodeFilter}
+              handleSubmit={handleSubmit}
+              tranCode={tranCode}
             />
           </div>
         </div>
@@ -159,17 +154,13 @@ export default function TransactionTypePage() {
         isFetching={isFetching}
         onOrder={setOrder}
         onSort={setColumn}
-        transType={data?.data?.data ?? []}
-        paginatorInfo={newPaginatorInfo}
+        transType={data?.data?.data || []}
+        paginatorInfo={paginatorInfo}
         onPagination={handlePagination}
       />
     </>
   );
 }
-
-// MerchantsPage.authenticate = {
-//   permissions: adminOnly,
-// };
 
 TransactionTypePage.Layout = Layout;
 

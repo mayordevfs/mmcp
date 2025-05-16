@@ -89,5 +89,13 @@
   "table-item-platform-commission": "平台佣金",
   "table-item-merchant-commission": "商户佣金",
   "table-item-aggregator-commission": "聚合商佣金",
-  "table-item-service-fee": "服务费"
+  "table-item-service-fee": "服务费",
+
+  "table-item-transaction-time": "交易时间",
+  "table-item-card-no": "卡号",
+  "table-item-response-code": "响应代码",
+  "table-item-reconcile-status": "对账状态",
+  "table-item-trans-ref-no": "交易参考号",
+  "table-item-file-type": "文件类型",
+  "table-item-file-name": "文件名称"
 }

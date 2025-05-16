@@ -88,6 +88,11 @@ export const siteSettings = {
         icon: 'TransactionIcon',
       },
       {
+        href: Routes.reconciled_transactions,
+        label: 'Reconciled Transactions',
+        icon: 'ReconciliationIcon',
+      },
+      {
         href: Routes.report.list,
         label: 'sidebar-nav-item-reports',
         icon: 'ReportsIcon',

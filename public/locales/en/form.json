@@ -485,5 +485,9 @@
 
   "input-label-entity-code":"Entity Code",
   "input-label-customer-type":"Customer Type",
-  "input-label-branch-code":"Branch Code"
+  "input-label-branch-code":"Branch Code",
+
+  "input-label-tran-code":"Transaction Code",
+  "input-label-rrn":"RRN"
+  
 }
