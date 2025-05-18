@@ -20,14 +20,14 @@ export type IProps = {
   isFetching?: boolean;
 };
 
-const TransactionList = ({
-  merchants,
+const TerminalHealthList = ({
+  result,
   onSort,
   onOrder,
   paginatorInfo,
   onPagination,
   isFetching,
-}: IProps) => {
+}: any) => {
   const { t } = useTranslation();
   const { alignLeft } = useIsRTL();
 
@@ -57,36 +57,36 @@ const TransactionList = ({
   const columns = [
     {
       title: t('table:table-item-serial-no'),
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: 'serialNo',
+      key: 'serialNo',
       align: 'center',
       width: 50,
     },
     {
       title: t('table:table-item-terminal-id'),
-      dataIndex: 'tranRefNo',
-      key: 'transactionRef',
+      dataIndex: 'terminalId',
+      key: 'terminalId',
       align: alignLeft,
       width: 180,
     },
     {
       title: t('table:table-item-log-date'),
-      dataIndex: 'createdDate',
-      key: 'postedDate',
+      dataIndex: 'logDate',
+      key: 'logDate',
       align: alignLeft,
       width: 180,
     },
     {
-      title: t('table:table-item-transaction-type'),
-      dataIndex: 'tranType',
-      key: 'tranType',
+      title: t('table:table-item-merchant-location'),
+      dataIndex: 'merchantLocation',
+      key: 'merchantLocation',
       align: alignLeft,
       width: 150,
     },
     {
       title: t('table:table-item-geolocation'),
-      dataIndex: 'amount',
-      key: 'amount',
+      dataIndex: 'geolocation',
+      key: 'geolocation',
       align: alignLeft,
       width: 80,
       render: (amount: number) =>
@@ -95,64 +95,64 @@ const TransactionList = ({
 
     {
       title: t('table:table-item-battery-status'),
-      dataIndex: 'terminalId',
-      key: 'terminalID',
+      dataIndex: 'batteryStatus',
+      key: 'batteryStatus',
       align: alignLeft,
       width: 80,
     },
     {
       title: t('table:table-item-network-data'),
-      dataIndex: 'rrn',
-      key: 'rrn',
+      dataIndex: 'networkData',
+      key: 'networkData',
       align: 'center',
       width: 80,
     },
     {
-      title: t('table:table-item-sim-status'),
-      dataIndex: 'stan',
-      key: 'stan',
+      title: t('table:table-item-sim'),
+      dataIndex: 'sim',
+      key: 'sim',
       align: 'center',
       width: 80,
     },
         {
-      title: t('table:table-item-other-data'),
-      dataIndex: 'name',
-      key: 'walletID',
+      title: t('table:table-item-charge-state'),
+      dataIndex: 'chargeState',
+      key: 'chargeState',
       align: alignLeft,
       width: 80,
     },
     {
       title: t('table:table-item-printer-status'),
-      dataIndex: 'createdBy',
-      key: 'postedBy',
+      dataIndex: 'printerStatus',
+      key: 'printerStatus',
       align: alignLeft,
       width: 80,
     },
-    {
-      title: t('table:table-item-status'),
-      dataIndex: 'status',
-      key: 'status',
-      align: 'center',
-      width: 80,
-      render: (status: string) => (
-        <Badge text={status} color={getStatusColor(status)} />
-      ),
-    },
-    {
-      title: t('table:table-item-actions'),
-      dataIndex: 'tranRefNo',
-      key: 'actions',
-      align: 'center',
-      width: 50,
-      render: (transactionRef: string) => (
-        <ActionButtons
-          id={transactionRef}
-          // editUrl={`${Routes.merchant.list}/edit/${transactionRef}`}
-          detailsUrl={`${Routes.transaction.list}/${transactionRef}`}
-          // addTerminalUrl={`${Routes.merchant.list}/${id}/add-terminal`}
-        />
-      ),
-    },
+    // {
+    //   title: t('table:table-item-status'),
+    //   dataIndex: 'status',
+    //   key: 'status',
+    //   align: 'center',
+    //   width: 80,
+    //   render: (status: string) => (
+    //     <Badge text={status} color={getStatusColor(status)} />
+    //   ),
+    // },
+    // {
+    //   title: t('table:table-item-actions'),
+    //   dataIndex: 'tranRefNo',
+    //   key: 'actions',
+    //   align: 'center',
+    //   width: 50,
+    //   render: (transactionRef: string) => (
+    //     <ActionButtons
+    //       id={transactionRef}
+    //       // editUrl={`${Routes.merchant.list}/edit/${transactionRef}`}
+    //       detailsUrl={`${Routes.transaction.list}/${transactionRef}`}
+    //       // addTerminalUrl={`${Routes.merchant.list}/${id}/add-terminal`}
+    //     />
+    //   ),
+    // },
   ];
   if (isFetching) {
     return <Loader text={t('common:text-loading')} />;
@@ -165,7 +165,7 @@ const TransactionList = ({
           //@ts-ignore
           columns={columns}
           emptyText={t('table:empty-table-data')}
-          data={merchants}
+          data={result}
           rowKey="id"
           scroll={{ x: 900 }}
         />
@@ -184,4 +184,4 @@ const TransactionList = ({
   );
 };
 
-export default TransactionList;
+export default TerminalHealthList;

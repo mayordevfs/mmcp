@@ -74,8 +74,10 @@
   "table-item-battery-status": "מצב סוללה",
   "table-item-printer-status": "מצב מדפסת",
   "table-item-network-data": "נתוני רשת",
-  "table-item-sim-status": "מצב כרטיס SIM",
+  "table-item-sim": "מצב כרטיס SIM",
   "table-item-other-data": "נתונים נוספים",
+  "table-item-charge-state": "מצב חיוב",
+  "table-item-merchant-location": "מיקום סוחר",
 
    "table-item-transaction-name": "שם עסקה",
   "table-item-transaction-id": "מזהה עסקה",

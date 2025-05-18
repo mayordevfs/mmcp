@@ -1,4 +1,3 @@
-import Select from '@/components/ui/select/select';
 import React from 'react';
 import { useTranslation } from 'next-i18next';
 import Label from '@/components/ui/label';
@@ -8,7 +7,7 @@ import { ActionMeta } from 'react-select';
 import Input from '@/components/ui/input';
 import { DatePicker } from '@/components/ui/date-picker';
 import Button from '../ui/button';
-import { TranFilterType } from '@/pages/transactions';
+
 import { TerminalFilterType } from '@/pages/terminal_monitoring';
 
 type Props = {
@@ -43,11 +42,11 @@ export default function CategoryTypeFilter({
   return (
     <div
       className={cn(
-        'grid w-full grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4',
+        'space-y-3',
         className
       )}
     >
-      <div className="w-full">
+      {/* <div className="w-full">
         <Label>{t('common:status')}</Label>
         <Select
           options={statusOptions}
@@ -56,8 +55,9 @@ export default function CategoryTypeFilter({
           onChange={handleSelectChange}
           name="status"
         />
-      </div>
-
+      </div> */}
+      <div className='grid w-full grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+        
       <div className="w-full">
         <Label>{t('common:start-date')}</Label>
         <DatePicker
@@ -88,9 +88,10 @@ export default function CategoryTypeFilter({
           className="w-full"
         />
       </div>
+      </div>
 
      
-      <Button onClick={handleSubmit}>Search</Button>
+      <Button onClick={handleSubmit}>Filter</Button>
     </div>
   );
 }

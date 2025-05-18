@@ -353,6 +353,10 @@
   "input-label-branch-code": "رمز الفرع",
 
   "input-label-tran-code": "رمز المعاملة",
-  "input-label-rrn": "رقم المرجع (RRN)"
+  "input-label-rrn": "رقم المرجع (RRN)",
+
+  "input-label-upload": "تحميل",
+  "input-label-type-of-file": "نوع الملف",
+  "input-label-upload-file": "تحميل ملف"
 
 }

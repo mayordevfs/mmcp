@@ -353,5 +353,9 @@
   "input-label-branch-code": "קוד סניף",
 
   "input-label-tran-code": "קוד עסקה",
-  "input-label-rrn": "מספר אסמכתא (RRN)"
+  "input-label-rrn": "מספר אסמכתא (RRN)",
+
+  "input-label-upload": "העלה",
+  "input-label-type-of-file": "סוג קובץ",
+  "input-label-upload-file": "העלה קובץ"
 }

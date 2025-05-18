@@ -353,5 +353,9 @@
   "input-label-branch-code": "Filialcode",
 
   "input-label-tran-code": "Transaktionscode",
-  "input-label-rrn": "Referenznummer (RRN)"
+  "input-label-rrn": "Referenznummer (RRN)",
+
+  "input-label-upload": "Hochladen",
+  "input-label-type-of-file": "Dateityp",
+  "input-label-upload-file": "Datei hochladen"
 }

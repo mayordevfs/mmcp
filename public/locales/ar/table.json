@@ -74,9 +74,11 @@
   "table-item-battery-status": "حالة البطارية",
   "table-item-printer-status": "حالة الطابعة",
   "table-item-network-data": "بيانات الشبكة",
-  "table-item-sim-status": "حالة الشريحة",
+  "table-item-sim": "حالة الشريحة",
   "table-item-other-data": "بيانات أخرى",
-
+  "table-item-charge-state": "حالة الرسوم",
+  "table-item-merchant-location": "موقع التاجر",
+  
   "table-item-transaction-name": "اسم المعاملة",
   "table-item-transaction-id": "معرّف المعاملة",
   "table-item-min-limit": "الحد الأدنى",

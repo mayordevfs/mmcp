@@ -21,13 +21,13 @@ export type IProps = {
 };
 
 const TransactionList = ({
-  merchants,
+  result,
   onSort,
   onOrder,
   paginatorInfo,
   onPagination,
   isFetching,
-}: IProps) => {
+}: any) => {
   const { t } = useTranslation();
   const { alignLeft } = useIsRTL();
 
@@ -57,60 +57,60 @@ const TransactionList = ({
   const columns = [
     {
       title: t('table:table-item-serial-no'),
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: 'serialNo',
+      key: 'serialNo',
       align: 'center',
       width: 50,
     },
     {
       title: t('table:table-item-transaction-time'),
-      dataIndex: 'tranRefNo',
-      key: 'transactionRef',
+      dataIndex: 'tranDate',
+      key: 'tranDate',
       align: alignLeft,
       width: 180,
     },
     {
       title: t('table:table-item-rrn'),
-      dataIndex: 'createdDate',
-      key: 'postedDate',
+      dataIndex: 'rrn',
+      key: 'rrn',
       align: alignLeft,
       width: 180,
     },
     {
       title: t('table:table-item-stan'),
-      dataIndex: 'tranType',
-      key: 'tranType',
+      dataIndex: 'stan',
+      key: 'stan',
       align: alignLeft,
       width: 150,
     },
     {
       title: t('table:table-item-terminal-id'),
-      dataIndex: 'amount',
-      key: 'amount',
+      dataIndex: 'terminalId',
+      key: 'terminalId',
       align: alignLeft,
       width: 80,
-      render: (amount: number) =>
-        formatPrice({ amount, currencyCode: 'NGN', locale: 'en-NG' }),
     },
 
     {
       title: t('table:table-item-card-no'),
-      dataIndex: 'terminalId',
-      key: 'terminalID',
+      dataIndex: 'cardNo',
+      key: 'cardNo',
       align: alignLeft,
       width: 80,
     },
     {
       title: t('table:table-item-amount'),
-      dataIndex: 'rrn',
-      key: 'rrn',
+      dataIndex: 'amount',
+      key: 'amount',
       align: 'center',
       width: 80,
+      render: (amount: number) =>
+        formatPrice({ amount, currencyCode: 'NGN', locale: 'en-NG' }),
     },
     {
       title: t('table:table-item-response-code'),
-      dataIndex: 'stan',
-      key: 'stan',
+      dataIndex: 'responseCode',
+      key: 'responseCode',
       align: 'center',
       width: 80,
     },
@@ -125,52 +125,52 @@ const TransactionList = ({
         <Badge text={status} color={getStatusColor(status)} />
       ),
     },
-    {
-      title: t('table:table-item-reconcile-status'),
-      dataIndex: 'status',
-      key: 'status',
-      align: 'center',
-      width: 80,
-      render: (status: string) => (
-        <Badge text={status} color={getStatusColor(status)} />
-      ),
-    },
+    // {
+    //   title: t('table:table-item-reconcile-status'),
+    //   dataIndex: 'status',
+    //   key: 'status',
+    //   align: 'center',
+    //   width: 80,
+    //   render: (status: string) => (
+    //     <Badge text={status} color={getStatusColor(status)} />
+    //   ),
+    // },
     {
       title: t('table:table-item-trans-ref-no'),
-      dataIndex: 'stan',
-      key: 'stan',
+      dataIndex: 'transRefNo',
+      key: 'transRefNo',
       align: 'center',
       width: 80,
     },
     {
       title: t('table:table-item-file-type'),
-      dataIndex: 'stan',
-      key: 'stan',
+      dataIndex: 'fileType',
+      key: 'fileType',
       align: 'center',
       width: 80,
     },
     {
       title: t('table:table-item-file-name'),
-      dataIndex: 'stan',
-      key: 'stan',
+      dataIndex: 'fileName',
+      key: 'fileName',
       align: 'center',
       width: 80,
     },
-    {
-      title: t('table:table-item-actions'),
-      dataIndex: 'tranRefNo',
-      key: 'actions',
-      align: 'center',
-      width: 50,
-      render: (transactionRef: string) => (
-        <ActionButtons
-          id={transactionRef}
-          // editUrl={`${Routes.merchant.list}/edit/${transactionRef}`}
-          detailsUrl={`${Routes.transaction.list}/${transactionRef}`}
-          // addTerminalUrl={`${Routes.merchant.list}/${id}/add-terminal`}
-        />
-      ),
-    },
+    // {
+    //   title: t('table:table-item-actions'),
+    //   dataIndex: 'tranRefNo',
+    //   key: 'actions',
+    //   align: 'center',
+    //   width: 50,
+    //   render: (transactionRef: string) => (
+    //     <ActionButtons
+    //       id={transactionRef}
+    //       // editUrl={`${Routes.merchant.list}/edit/${transactionRef}`}
+    //       detailsUrl={`${Routes.transaction.list}/${transactionRef}`}
+    //       // addTerminalUrl={`${Routes.merchant.list}/${id}/add-terminal`}
+    //     />
+    //   ),
+    // },
   ];
   if (isFetching) {
     return <Loader text={t('common:text-loading')} />;
@@ -183,7 +183,7 @@ const TransactionList = ({
           //@ts-ignore
           columns={columns}
           emptyText={t('table:empty-table-data')}
-          data={merchants}
+          data={result}
           rowKey="id"
           scroll={{ x: 900 }}
         />

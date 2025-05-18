@@ -144,7 +144,7 @@ const UploadReconciledTransactionModal = ({ open, onClose, data: propData }: Upl
     <div className="m-auto w-[800px] rounded bg-light p-7 ">
       <div className="flex border-b border-dashed border-border-base py-2 sm:py-4">
         <h1 className="text-lg font-semibold text-heading">
-          {t('Upload')}
+          {t('form:input-label-upload')}
         </h1>
       </div>
       
@@ -153,7 +153,7 @@ const UploadReconciledTransactionModal = ({ open, onClose, data: propData }: Upl
           
           <div>
             <label className="mb-2 block text-sm font-semibold text-body">
-              {t('Type of File')}
+              {t('form:input-label-type-of-file')}
             </label>
             <SelectInput
               name="merchantId"
@@ -172,7 +172,7 @@ const UploadReconciledTransactionModal = ({ open, onClose, data: propData }: Upl
           </div>
           
           <div className="mb-5">
-          <Label>{t('Upload File')}</Label>
+          <Label>{t('form:input-label-upload-file')}</Label>
           <FileInput
             name="merchant.businessLogo"
             control={control}

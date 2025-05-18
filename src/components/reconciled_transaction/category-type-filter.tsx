@@ -36,9 +36,8 @@ export default function CategoryTypeFilter({
   const { t } = useTranslation();
 
   const statusOptions = [
-    { value: 'success', label: t('common:success') },
-    { value: 'failed', label: t('common:failed') },
-    { value: 'pending', label: t('common:pending') },
+    { value: 'approved', label: t('common:Approved') },
+    { value: 'declined', label: t('common:Declined') },
   ];
 
   return (

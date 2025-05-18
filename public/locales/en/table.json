@@ -125,8 +125,10 @@
   "table-item-battery-status": "Battery Status",
   "table-item-printer-status": "Printer Status",
   "table-item-network-data": "Network Data",
-  "table-item-sim-status": "Sim Status",
+  "table-item-sim": "Sim",
   "table-item-other-data": "Other Data",
+  "table-item-charge-state": "Charge State",
+  "table-item-merchant-location": "Merchant Location",
 
 
   "table-item-transaction-name": "Name",

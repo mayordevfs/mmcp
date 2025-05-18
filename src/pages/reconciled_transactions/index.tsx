@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Card from '@/components/common/card';
 import Layout from '@/components/layouts/admin';
 
@@ -21,6 +21,7 @@ import Button from '@/components/ui/button';
 import StickerCard from '@/components/widgets/sticker-card';
 import TransactionList from '@/components/reconciled_transaction/transaction-list';
 import UploadReconciledTransactionModal from './link';
+import ReconciledTransactionsCards from '@/components/reconciled_transaction/reconciledTransactionsCard';
 export interface ReconciledTransactionFilterType {
   status: string;
   startDate: Date | null;
@@ -60,12 +61,17 @@ export default function ReconcileTransactionsPage() {
       [name]: selectedOption?.value ?? '',
     }));
   };
+
+  console.log(termFilter);
+  
   const handleDateChange = (date: Date | null, name: string) => {
     setTermFilter((prev) => ({
       ...prev,
       [name]: date,
     }));
   };
+
+  
   const [applyFilter, setApplyFilter] = useState(false);
   const handleSubmit: () => void = () => {
     setApplyFilter((prev) => !prev);
@@ -85,32 +91,30 @@ export default function ReconcileTransactionsPage() {
 
   const today = formatDate(new Date());
   const firstDayOfYear = getFirstDayOfYear();
-
+  console.log(firstDayOfYear);
+ 
   const { error, data, isLoading, isFetching } = useQuery(
-    ['transactions', page, applyFilter],
+    ['settlementTrans',applyFilter],
     () =>
       axiosInstance.request({
         method: 'GET',
-        url: 'transactionmanager/tranmasterlis',
+        url: 'settletrans/list',
         params: {
           startDate: termFilter?.startDate
             ? formatDate(termFilter?.startDate)
-            : firstDayOfYear,
+            : "01-01-2020",
           endDate: termFilter?.endDate
             ? formatDate(termFilter?.endDate)
             : today,
-          pageNumber: page,
-          pageSize: 10,
-          searchFilter: searchTerm,
-          rrn: termFilter.rrn || undefined,
-          status: termFilter.status || undefined,
+          status:termFilter?.status||"",
+          // pageNumber:page,
+          // pageSize:10
         },
       }),
     {
       keepPreviousData: true,
     }
-  );
-
+  );  
   const newPaginatorInfo = {
     currentPage: page,
     firstPageUrl: '',
@@ -127,6 +131,8 @@ export default function ReconcileTransactionsPage() {
     hasMorePages: data?.data?.totalPages > page,
   };
 
+  console.log(data);
+  
   const toggleVisible = () => {
     setVisible((v) => !v);
   };
@@ -150,12 +156,7 @@ export default function ReconcileTransactionsPage() {
 
   return (
     <>
-    <div className='flex flex-col gap-y-3  md:flex-row md:gap-x-3 w-full justify-between mb-8'>
-      <StickerCard/>
-      <StickerCard/>
-      <StickerCard/>
-      <StickerCard/>
-    </div>
+     <ReconciledTransactionsCards/>
       <Card className="mb-8 flex flex-col">
         <div className="flex w-full flex-col items-center md:flex-row">
           <div className="mb-4 md:mb-0 md:w-1/4">
@@ -167,7 +168,7 @@ export default function ReconcileTransactionsPage() {
             <Button
               onClick={() => setisUploadModal(true)}
               className=""
-            > <span>{t('Upload')}</span></Button>
+            > <span>{t('form:input-label-upload')}</span></Button>
              
             <button
               className="flex items-center whitespace-nowrap text-base font-semibold text-accent md:ms-5"
@@ -203,7 +204,7 @@ export default function ReconcileTransactionsPage() {
 
       <TransactionList
         isFetching={isFetching}
-        merchants={data?.data?.transactions ?? []}
+        result={data?.data?.transactions ?? []}
         onOrder={setOrder}
         onSort={setColumn}
         paginatorInfo={newPaginatorInfo}

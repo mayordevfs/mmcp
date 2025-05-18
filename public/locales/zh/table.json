@@ -74,8 +74,10 @@
   "table-item-battery-status": "电池状态",
   "table-item-printer-status": "打印机状态",
   "table-item-network-data": "网络数据",
-  "table-item-sim-status": "SIM 卡状态",
+  "table-item-sim": "SIM 卡状态",
   "table-item-other-data": "其他数据",
+  "table-item-charge-state": "收费状态",
+  "table-item-merchant-location": "商户位置",
 
    "table-item-transaction-name": "交易名称",
   "table-item-transaction-id": "交易编号",

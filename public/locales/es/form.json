@@ -353,5 +353,9 @@
   "input-label-branch-code": "Código de sucursal",
 
   "input-label-tran-code": "Código de transacción",
-  "input-label-rrn": "Número de referencia (RRN)"
+  "input-label-rrn": "Número de referencia (RRN)",
+
+   "input-label-upload": "Subir",
+  "input-label-type-of-file": "Tipo de archivo",
+  "input-label-upload-file": "Subir archivo"
 }

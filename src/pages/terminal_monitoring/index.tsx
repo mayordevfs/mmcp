@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Card from '@/components/common/card';
 import Layout from '@/components/layouts/admin';
 
@@ -17,24 +17,22 @@ import axiosInstance from '@/utils/fetch-function';
 import { useQuery } from 'react-query';
 import { ActionMeta } from 'react-select';
 import CategoryTypeFilter from '@/components/terminal_monitoring/category-type-filter';
-import TransactionList from '@/components/terminal_monitoring/transaction-list';
+import TerminalHealthList from '@/components/terminal_monitoring/terminal-health-list';
+
 export interface TerminalFilterType {
-  status: string;
+  // status: string;
   startDate: Date | null;
   endDate: Date | null;
   terminalId: string;
 }
 export default function TransactionsPage() {
   const { t } = useTranslation();
-
-  const [searchTerm, setSearchTerm] = useState('');
   const [orderBy, setOrder] = useState('created_at');
   const [sortedBy, setColumn] = useState<SortOrder>(SortOrder.Desc);
   const [page, setPage] = useState(1);
   const [visible, setVisible] = useState(false);
 
   const [termFilter, setTermFilter] = useState({
-    status: '',
     startDate: null,
     endDate: null,
     terminalId: '',
@@ -71,7 +69,7 @@ export default function TransactionsPage() {
     const year = new Date().getFullYear();
     return `01-01-${year}`;
   };
-
+  
   const formatDate = (date: Date) => {
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -81,13 +79,12 @@ export default function TransactionsPage() {
 
   const today = formatDate(new Date());
   const firstDayOfYear = getFirstDayOfYear();
-
   const { error, data, isLoading, isFetching } = useQuery(
-    ['transactions', page, applyFilter],
+    ['terminalmonitoring', applyFilter],
     () =>
       axiosInstance.request({
         method: 'GET',
-        url: 'transactionmanager/tranmasterlis',
+        url: 'terminal-health/list',
         params: {
           startDate: termFilter?.startDate
             ? formatDate(termFilter?.startDate)
@@ -95,17 +92,19 @@ export default function TransactionsPage() {
           endDate: termFilter?.endDate
             ? formatDate(termFilter?.endDate)
             : today,
-          pageNumber: page,
-          pageSize: 10,
-          searchFilter: searchTerm,
-          terminalId: termFilter.terminalId || undefined,
-          status: termFilter.status || undefined,
+          // pageNumber: page,
+          // pageSize: 10,
+          terminalId: termFilter.terminalId||undefined,
+          // status: termFilter.status || undefined,
         },
       }),
     {
       keepPreviousData: true,
     }
   );
+
+  console.log(data);
+  
 
   const newPaginatorInfo = {
     currentPage: page,
@@ -127,10 +126,6 @@ export default function TransactionsPage() {
     setVisible((v) => !v);
   };
 
-  function handleSearch({ searchText }: { searchText: string }) {
-    setSearchTerm(searchText);
-    setPage(1);
-  }
 
   function handlePagination(current: number) {
     setPage(current);
@@ -147,16 +142,14 @@ export default function TransactionsPage() {
   return (
     <>
       <Card className="mb-8 flex flex-col">
-        <div className="flex w-full flex-col items-center md:flex-row">
+        <div className="flex w-full flex-col items-center md:flex-row md:justify-between">
           <div className="mb-4 md:mb-0 md:w-1/4">
             <h1 className="text-lg font-semibold text-heading">
               {t('form:input-label-terminal-monitoring')}
             </h1>
           </div>
 
-          <div className="flex w-full flex-col items-center ms-auto md:w-3/4">
-            <Search onSearch={handleSearch} />
-          </div>
+          
 
           <button
             className="mt-5 flex items-center whitespace-nowrap text-base font-semibold text-accent md:mt-0 md:ms-5"
@@ -189,9 +182,9 @@ export default function TransactionsPage() {
         </div>
       </Card>
 
-      <TransactionList
+      <TerminalHealthList
         isFetching={isFetching}
-        merchants={data?.data?.transactions ?? []}
+        result={data?.data?.data ?? []}
         onOrder={setOrder}
         onSort={setColumn}
         paginatorInfo={newPaginatorInfo}

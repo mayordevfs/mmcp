@@ -488,6 +488,9 @@
   "input-label-branch-code":"Branch Code",
 
   "input-label-tran-code":"Transaction Code",
-  "input-label-rrn":"RRN"
+  "input-label-rrn":"RRN",
   
+  "input-label-upload":"Upload",
+  "input-label-type-of-file":"Type of File",
+  "input-label-upload-file":"Upload File"
 }

@@ -354,5 +354,9 @@
   "input-label-branch-code": "分行代码",
 
   "input-label-tran-code": "交易代码",
-  "input-label-rrn": "参考号 (RRN)"
+  "input-label-rrn": "参考号 (RRN)",
+
+  "input-label-upload": "上传",
+  "input-label-type-of-file": "文件类型",
+  "input-label-upload-file": "上传文件"
 }

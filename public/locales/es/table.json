@@ -74,8 +74,10 @@
   "table-item-battery-status": "Estado de la batería",
   "table-item-printer-status": "Estado de la impresora",
   "table-item-network-data": "Datos de red",
-  "table-item-sim-status": "Estado de la SIM",
+  "table-item-sim": "Estado de la SIM",
   "table-item-other-data": "Otros datos",
+  "table-item-charge-state": "Estado de cargo",
+  "table-item-merchant-location": "Ubicación del comerciante",
 
    "table-item-transaction-name": "Nombre de la transacción",
   "table-item-transaction-id": "ID de transacción",
