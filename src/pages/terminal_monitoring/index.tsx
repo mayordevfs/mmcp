@@ -29,7 +29,7 @@ export default function TransactionsPage() {
   const { t } = useTranslation();
   const [orderBy, setOrder] = useState('created_at');
   const [sortedBy, setColumn] = useState<SortOrder>(SortOrder.Desc);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [visible, setVisible] = useState(false);
 
   const [termFilter, setTermFilter] = useState({
@@ -92,8 +92,8 @@ export default function TransactionsPage() {
           endDate: termFilter?.endDate
             ? formatDate(termFilter?.endDate)
             : today,
-          // pageNumber: page,
-          // pageSize: 10,
+          pageNumber: page,
+          pageSize: 20,
           terminalId: termFilter.terminalId||undefined,
           // status: termFilter.status || undefined,
         },
@@ -109,15 +109,15 @@ export default function TransactionsPage() {
   const newPaginatorInfo = {
     currentPage: page,
     firstPageUrl: '',
-    from: 1,
+    from: 0,
     lastPage: data?.data?.totalPages,
     lastPageUrl: '',
     links: [],
     nextPageUrl: null,
     path: '',
-    perPage: 10,
+    perPage: 20,
     prevPageUrl: null,
-    to: 10,
+    to: 20,
     total: data?.data?.totalCount,
     hasMorePages: data?.data?.totalPages > page,
   };

@@ -34,7 +34,7 @@ export default function ReconcileTransactionsPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [orderBy, setOrder] = useState('created_at');
   const [sortedBy, setColumn] = useState<SortOrder>(SortOrder.Desc);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [visible, setVisible] = useState(false);
   const [isUploadModal,setisUploadModal] = useState(false)
 
@@ -75,7 +75,7 @@ export default function ReconcileTransactionsPage() {
   const [applyFilter, setApplyFilter] = useState(false);
   const handleSubmit: () => void = () => {
     setApplyFilter((prev) => !prev);
-    setPage(1);
+    setPage(0);
   };
   const getFirstDayOfYear = () => {
     const year = new Date().getFullYear();
@@ -107,8 +107,9 @@ export default function ReconcileTransactionsPage() {
             ? formatDate(termFilter?.endDate)
             : today,
           status:termFilter?.status||"",
-          // pageNumber:page,
-          // pageSize:10
+          pageNumber:page,
+          pageSize:20,
+          rrn:termFilter?.rrn||undefined
         },
       }),
     {
@@ -118,15 +119,15 @@ export default function ReconcileTransactionsPage() {
   const newPaginatorInfo = {
     currentPage: page,
     firstPageUrl: '',
-    from: 1,
+    from: 0,
     lastPage: data?.data?.totalPages,
     lastPageUrl: '',
     links: [],
     nextPageUrl: null,
     path: '',
-    perPage: 10,
+    perPage: 20,
     prevPageUrl: null,
-    to: 10,
+    to: 20,
     total: data?.data?.totalCount,
     hasMorePages: data?.data?.totalPages > page,
   };
