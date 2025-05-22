@@ -160,7 +160,7 @@ export default function ReconcileTransactionsPage() {
      <ReconciledTransactionsCards/>
       <Card className="mb-8 flex flex-col">
         <div className="flex w-full flex-col items-center md:flex-row">
-          <div className="mb-4 md:mb-0 md:w-1/4">
+          <div className="mb-4 md:mb-0 md:w-1/2">
             <h1 className="text-lg font-semibold text-heading">
               {t('Reconciled Transactions')}
             </h1>

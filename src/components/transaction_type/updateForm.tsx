@@ -66,7 +66,8 @@ export default function UpdateTransactionTypeForm({ id }: { id: string | string[
     defaultValues,
   });
 
-
+  console.log(getValues().merchCategory,getValues().tranType);
+  
   
   useEffect(() => {
     if (transactionTypes && id) {
