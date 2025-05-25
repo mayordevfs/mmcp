@@ -93,6 +93,11 @@ export const siteSettings = {
         icon: 'ReconciliationIcon',
       },
       {
+        href: Routes.pos,
+        label: 'POS',
+        icon: 'ReconciliationIcon',
+      },
+      {
         href: Routes.report.list,
         label: 'sidebar-nav-item-reports',
         icon: 'ReportsIcon',
@@ -182,6 +187,11 @@ export const siteSettings = {
         label: 'sidebar-nav-item-settings',
         icon: 'SettingsIcon',
       },
+      {
+        href: Routes.money_transfer,
+        label: 'Money Transfer',
+        icon: 'SettingsIcon',
+      },
     ],
     shop: [
       {
@@ -251,6 +261,18 @@ export const siteSettings = {
         permissions: adminAndOwnerOnly,
       },
     ],
+    pos:[
+      {
+        href:Routes.pos,
+        icon:"QuestionIcon",
+        label:"Point of Sales"
+      },
+      {
+        href:Routes.pos_orders,
+        icon:"OrdersIcon",
+        label:"Orders"
+      },
+    ]
   },
   product: {
     placeholder: '/product-placeholder.svg',

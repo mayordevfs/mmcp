@@ -1557,3 +1557,89 @@ export interface ITransactionDetails {
   collectionTeller: null;
   customerRefNo: null;
 }
+
+
+export interface PosProductProps{
+  barCode?:string,
+  category?:string,
+  ccy?:string,
+  code?:string,
+  color?:string,
+  description?:string,
+  expiryDate?:string|null,
+  id:number,
+  itemSize?:number|null,
+  model?:null,
+  name?:string,
+  oldPrice?:number,
+  picture?:string,
+  pictureList?:string[],
+  qtyInStore?:number,
+  salePrice?:number,
+  topCategory?:string,
+  unit?:string
+}
+
+// Currency option type
+export interface Currency {
+  code: string;
+  name: string;
+}
+
+// Main form data interface
+export interface MoneyTransferFormData {
+  // Sender Information
+  name: string;
+  phoneNumber: string;
+  email: string;
+  
+  // Transfer Details
+  sendCurrency: Currency;
+  amountToSend: number;
+  receiveCurrency: Currency;
+  amountToReceive: number;
+  
+  // Recipient Bank Details
+  bank: string; // This should probably be a Bank interface too
+  accountNumber: string;
+  accountHolderName: string; // Fixed the missing name attribute
+}
+
+// Optional: Bank interface if you want to structure bank data
+export interface Bank {
+  code: string;
+  name: string;
+}
+
+// Enhanced form data interface with Bank type
+export interface EnhancedMoneyTransferFormData {
+  // Sender Information
+  name: string;
+  phoneNumber: string;
+  email: string;
+  
+  // Transfer Details
+  sendCurrency: Currency;
+  amountToSend: number;
+  receiveCurrency: Currency;
+  amountToReceive: number;
+  
+  // Recipient Bank Details
+  bank: string;
+  accountNumber: string;
+  accountHolderName: string;
+}
+
+// // Form validation schema (if using with react-hook-form resolver)
+// export interface FormErrors {
+//   name?: string;
+//   phoneNumber?: string;
+//   email?: string;
+//   sendCurrency?: string;
+//   amountToSend?: string;
+//   receiveCurrency?: string;
+//   amountToReceive?: string;
+//   bank?: string;
+//   accountNumber?: string;
+//   accountHolderName?: string;
+// }

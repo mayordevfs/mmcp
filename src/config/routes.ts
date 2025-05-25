@@ -20,6 +20,10 @@ export const Routes = {
   transaction_type:"/transaction_type",
   create_transaction_type:'/transaction_type/create',
   reconciled_transactions:"/reconciled_transactions",
+  pos:"/pos",
+  pos_orders:'/pos/orders',
+  money_transfer:'/money_transfer',
+  send_money:'/money_transfer/send_money',
   link: '/admin/rest/src/pages/terminals/link.tsx',
   user: {
     ...routesFactory('/users'),
