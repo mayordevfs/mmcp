@@ -5,30 +5,18 @@ import { MappedPaginatorInfo, Merchant, SortOrder } from '@/types';
 import { useTranslation } from 'next-i18next';
 import { useIsRTL } from '@/utils/locals';
 import { useState } from 'react';
-import Pagination from '@/components/ui/pagination';
-
-import { formatPrice } from '@/utils/use-price';
 
 import { getStatusColor } from '@/utils/data-mappers';
 import Badge from '@/components/ui/badge/badge';
 import Loader from '@/components/ui/loader/loader';
-
-export type IProps = {
-  merchants: Merchant[] | undefined;
-  onSort: (current: any) => void;
-  onOrder: (current: string) => void;
-  onPagination: (current: number) => void;
-  paginatorInfo: MappedPaginatorInfo | null;
-  isFetching?: boolean;
-};
+import { formatPrice } from '@/utils/use-price';
+import Pagination from '@/components/ui/pagination';
 
 const PosOrderList = ({
-  result,
-  onSort,
-  onOrder,
-  paginatorInfo,
-  onPagination,
-  isFetching,
+ data,
+ isFetching,
+ onPagination,
+ paginatorInfo
 }: any) => {
   const { t } = useTranslation();
   const { alignLeft } = useIsRTL();
@@ -41,62 +29,60 @@ const PosOrderList = ({
     column: null,
   });
 
-  const onHeaderClick = (column: string | null) => ({
-    onClick: () => {
-      onSort((currentSortDirection: SortOrder) =>
-        currentSortDirection === SortOrder.Desc ? SortOrder.Asc : SortOrder.Desc
-      );
-      onOrder(column!);
-
-      setSortingObj({
-        sort:
-          sortingObj.sort === SortOrder.Desc ? SortOrder.Asc : SortOrder.Desc,
-        column: column,
-      });
-    },
-  });
-
   const columns = [
     {
-      title: t('Order'),
+      title: t('S/N'),
       dataIndex: 'serialNo',
       key: 'serialNo',
       align: 'center',
       width: 50,
+      render: (text: any, record: any, index: number) => {
+        // Calculate serial number based on current page and page size
+        const { currentPage = 1, perPage = 20 } = paginatorInfo || {};
+        return (currentPage - 1) * perPage + index + 1;
+      },
     },
     {
-      title: t('Customer'),
-      dataIndex: 'tranDate',
-      key: 'tranDate',
+      title: t('Order No'),
+      dataIndex: 'orderNo',
+      key: 'orderNo',
       align: alignLeft,
       width: 180,
     },
     {
-      title: t('Date'),
-      dataIndex: 'rrn',
-      key: 'rrn',
+      title: t('Customer Name'),
+      dataIndex: 'customerName',
+      key: 'customerName',
       align: alignLeft,
       width: 180,
     },
     {
-      title: t('Payment'),
-      dataIndex: 'stan',
-      key: 'stan',
+      title: t('Payment Method'),
+      dataIndex: 'paymentMethod',
+      key: 'paymentMethod',
       align: alignLeft,
       width: 150,
     },
     {
-      title: t('Price'),
-      dataIndex: 'terminalId',
-      key: 'terminalId',
+      title: t('Amount Paid'),
+      dataIndex: 'amount',
+      key: 'amount',
       align: alignLeft,
       width: 80,
+      render: (amount: number) => (
+        <span>
+          {formatPrice({
+            amount:amount,
+            currencyCode:"NGN",
+            locale:'ng'
+          })}
+        </span>
+      )
     },
-
     {
-      title: t('Stock'),
-      dataIndex: 'cardNo',
-      key: 'cardNo',
+      title: t('Date'),
+      dataIndex: 'dateCreated',
+      key: 'dateCreated',
       align: alignLeft,
       width: 80,
     },  
@@ -110,33 +96,8 @@ const PosOrderList = ({
         <Badge text={status} color={getStatusColor(status)} />
       ),
     },
-    // {
-    //   title: t('table:table-item-reconcile-status'),
-    //   dataIndex: 'status',
-    //   key: 'status',
-    //   align: 'center',
-    //   width: 80,
-    //   render: (status: string) => (
-    //     <Badge text={status} color={getStatusColor(status)} />
-    //   ),
-    // },
-    
-    // {
-    //   title: t('table:table-item-actions'),
-    //   dataIndex: 'tranRefNo',
-    //   key: 'actions',
-    //   align: 'center',
-    //   width: 50,
-    //   render: (transactionRef: string) => (
-    //     <ActionButtons
-    //       id={transactionRef}
-    //       // editUrl={`${Routes.merchant.list}/edit/${transactionRef}`}
-    //       detailsUrl={`${Routes.transaction.list}/${transactionRef}`}
-    //       // addTerminalUrl={`${Routes.merchant.list}/${id}/add-terminal`}
-    //     />
-    //   ),
-    // },
   ];
+
   if (isFetching) {
     return <Loader text={t('common:text-loading')} />;
   }
@@ -148,7 +109,7 @@ const PosOrderList = ({
           //@ts-ignore
           columns={columns}
           emptyText={t('table:empty-table-data')}
-          data={result}
+          data={data}
           rowKey="id"
           scroll={{ x: 900 }}
         />

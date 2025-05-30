@@ -85,7 +85,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ open, onClose, data }) =>
         <div className="p-4 bg-gray-50">
           <div className="flex justify-center items-center bg-[#f7f7f7] rounded-lg p-4">
             <Image
-              src={"/logo.svg"}
+              src={data?.picture}
               alt={data?.name || "Menu item"}
               width={200}
               height={200}

@@ -192,6 +192,7 @@ export const siteSettings = {
         label: 'Money Transfer',
         icon: 'SettingsIcon',
       },
+
     ],
     shop: [
       {
@@ -272,6 +273,11 @@ export const siteSettings = {
         icon:"OrdersIcon",
         label:"Orders"
       },
+      {
+        href:Routes.pos_create_product,
+        icon:"ProductsIcon",
+        label:"Create Product"
+      }
     ]
   },
   product: {

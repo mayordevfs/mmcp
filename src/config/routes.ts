@@ -22,6 +22,7 @@ export const Routes = {
   reconciled_transactions:"/reconciled_transactions",
   pos:"/pos",
   pos_orders:'/pos/orders',
+  pos_create_product: '/pos/create_product',
   money_transfer:'/money_transfer',
   send_money:'/money_transfer/send_money',
   link: '/admin/rest/src/pages/terminals/link.tsx',

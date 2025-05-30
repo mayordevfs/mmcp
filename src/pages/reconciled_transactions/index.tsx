@@ -94,7 +94,7 @@ export default function ReconcileTransactionsPage() {
   console.log(firstDayOfYear);
  
   const { error, data, isLoading, isFetching } = useQuery(
-    ['settlementTrans',applyFilter],
+    ['settlementTrans',applyFilter,page],
     () =>
       axiosInstance.request({
         method: 'GET',

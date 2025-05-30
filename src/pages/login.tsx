@@ -21,6 +21,7 @@ export default function LoginPage() {
   }
   const { t } = useTranslation('common');
 
+  
   return (
     <AuthPageLayout>
       <h3 className="mb-6 mt-4 text-center text-base italic text-body">

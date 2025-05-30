@@ -9,7 +9,9 @@ export interface MenuItem {
   salePrice: number;
   picture?: any; // This could be more specific based on your image import type
   category?: string;
-  description?:string
+  description?:string;
+  unit?:string;
+  code?:string
 //   bg?: string;
 //   color?: string;
 }

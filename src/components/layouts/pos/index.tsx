@@ -20,14 +20,14 @@ const PosLayout = ({children}:{children:ReactNode}) => {
       );
   return (
     <div
-    className='flex h-screen flex-col bg-gray-100 transition-colors duration-150'
+    className='flex min-h-screen flex-col bg-gray-100 transition-colors duration-150'
     dir={dir}
     >
        <Navbar/>
         <MobileNavigation>
             <SidebarItemMap/>
         </MobileNavigation>
-        <div className='w-full flex justify-center h-[calc(100vh-72px)]'>
+        <div className='w-full flex justify-center min-h-screen'>
             {children}
         </div>
     </div>

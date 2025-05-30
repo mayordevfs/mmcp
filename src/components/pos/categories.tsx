@@ -31,7 +31,7 @@ if (error) return <ErrorMessage message={t('Something went wrong!')}/>
 console.log(data);
 
   return (
-    <div className={`w-full overflow-x-auto grid  grid-cols-3 gap-y-3 gap-x-5 ${data?.categories.length<6?`lg:grid-cols-[${data?.categories?.length}]`:`lg:grid-cols-6`}`}>
+    <div className={`w-full overflow-x-auto grid  grid-cols-6 gap-y-3 gap-x-5 ${data?.categories.length<6?`lg:grid-cols-[${data?.categories?.length}]`:`lg:grid-cols-6`}`}>
         
         {data?.categories?.map((item:any,index:number)=>(
             <div key={index} className='p-2 flex h-[100px] flex-col justify-center transition-all duration-200 ease-in-out gap-y-3 rounded-lg cursor-pointer bg-white'>

@@ -11,7 +11,7 @@ export default function PosPage() {
   const [showMobileCart, setShowMobileCart] = useState(false);
 
   return (
-    <div className='w-[95%] lg:flex p-3 h-full relative lg:space-x-5'>
+    <div className='w-[95%] lg:flex p-3 h-[calc(100vh-72px)] relative lg:space-x-5'>
       <main className='lg:flex-1 w-full h-full overflow-y-auto'>
         <Categories/>
         <div className='bg-white rounded-full mt-3 p-3'>

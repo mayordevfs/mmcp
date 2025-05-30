@@ -7,6 +7,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import UpdateTransactionTypeForm from '@/components/transaction_type/updateForm';
 import { useTransactionTypeStore } from '@/contexts/editContext/transactionTypeContext';
 import { useEffect, useState } from 'react';
+import { adminOnly } from '@/utils/auth-utils';
 
 // Import the TransactionType interface or define it inline if needed
 interface TransactionType {
@@ -88,6 +89,9 @@ export default function UpdateTransactionTypePage() {
 }
 
 UpdateTransactionTypePage.Layout = Layout;
+UpdateTransactionTypePage.authenticate = {
+  permissions: adminOnly
+}
 
 export const getServerSideProps = async ({ locale }: any) => ({
   props: {

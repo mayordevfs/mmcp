@@ -1,10 +1,15 @@
 import ExchangeRateBoard from '@/components/money_transfer/landing_page/exchangeRateBoard'
 import Button from '@/components/ui/button'
 import { Routes } from '@/config/routes'
+import { useMeQuery } from '@/data/user'
+import axiosInstance from '@/utils/fetch-function'
 import Link from 'next/link'
 import React from 'react'
 
 const MoneyTransferLanding  = () => {
+  // const {data} = useMeQuery()
+  
+  
   return (
     <div>
         <div className="p-4 flex justify-between items-center">
