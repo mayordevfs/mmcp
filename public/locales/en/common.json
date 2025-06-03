@@ -364,5 +364,16 @@
   "text-invoice-no": "Invoice No",
   "text-date": "Date",
   "error-file-too-large": "File too large",
-  "error-invalid-file-type": "Your uploaded file type isn't supported"
+  "error-invalid-file-type": "Your uploaded file type isn't supported",
+
+  "text-menu-details":"Menu Details",
+  "text-add-to-cart":"Add to Cart",
+  "text-add-customer":"Add Customer",
+  "text-cart-summary":"Cart Summary",
+  "text-no-item-in-cart":"No item in cart",
+  "text-subtotal":"Subtotal",
+  "text-please-wait":"Please wait",
+
+  "text-orders":"Orders"
+  
 }

@@ -323,5 +323,15 @@
   "text-translated-title": "Bearbeiten",
   "text-quantity": "Menge",
   "text-invoice-no": "Rechnungs-Nr",
-  "text-date": "Datum"
+  "text-date": "Datum",
+
+  "text-menu-details": "Menüdetails",
+  "text-add-to-cart": "In den Warenkorb",
+  "text-add-customer": "Kunden hinzufügen",
+  "text-cart-summary": "Warenkorb Zusammenfassung",
+  "text-no-item-in-cart": "Keine Artikel im Warenkorb",
+  "text-subtotal": "Zwischensumme",
+  "text-please-wait": "Bitte warten",
+
+  "text-orders": "Bestellungen"
 }

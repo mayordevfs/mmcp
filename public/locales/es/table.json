@@ -99,5 +99,10 @@
   "table-item-reconcile-status": "Estado de conciliación",
   "table-item-trans-ref-no": "N.º de referencia",
   "table-item-file-type": "Tipo de archivo",
-  "table-item-file-name": "Nombre del archivo"
+  "table-item-file-name": "Nombre del archivo",
+
+   "table-item-order-no": "N.º de pedido",
+  "table-item-customer-id": "ID del cliente",
+  "table-item-amount-paid": "Monto pagado",
+  "table-item-order-status": "Estado del pedido"
 }

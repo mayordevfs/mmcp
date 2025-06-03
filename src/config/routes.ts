@@ -23,6 +23,7 @@ export const Routes = {
   pos:"/pos",
   pos_orders:'/pos/orders',
   pos_create_product: '/pos/create_product',
+  pos_create_category:'/pos/create_category',
   money_transfer:'/money_transfer',
   send_money:'/money_transfer/send_money',
   link: '/admin/rest/src/pages/terminals/link.tsx',

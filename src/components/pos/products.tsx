@@ -41,6 +41,7 @@ const Products = () => {
                 params: {
                     name: "",
                     entityCode: "ETZ",
+                    // entityId:"101",
                     category: "",
                     tag: '',
                     pageNumber: page,
@@ -109,7 +110,7 @@ const Products = () => {
 
                         <div className="w-full flex-1 h-full rounded-lg overflow-hidden relative aspect-[4/3] border-b">
                             <Image
-                                src={item?.picture} 
+                                src={item?.picture||"/logo.svg"} 
                                 alt={"Menu item"}
                                 height={150}
                                 width={150}

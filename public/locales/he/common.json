@@ -323,5 +323,15 @@
   "text-translated-title": "לַעֲרוֹך",
   "text-quantity": "כַּמוּת",
   "text-invoice-no": "מס' חשבונית",
-  "text-date": "תַאֲרִיך"
+  "text-date": "תַאֲרִיך",
+
+   "text-menu-details": "פרטי תפריט",
+  "text-add-to-cart": "הוסף לעגלה",
+  "text-add-customer": "הוסף לקוח",
+  "text-cart-summary": "סיכום עגלה",
+  "text-no-item-in-cart": "אין פריטים בעגלה",
+  "text-subtotal": "סיכום ביניים",
+  "text-please-wait": "אנא המתן",
+
+  "text-orders": "הזמנות"
 }

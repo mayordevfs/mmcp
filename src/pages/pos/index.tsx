@@ -6,8 +6,10 @@ import Input from '@/components/ui/input';
 import Products from '@/components/pos/products';
 import Cart from '@/components/pos/Cart';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 
 export default function PosPage() {
+  const {t} = useTranslation()
   const [showMobileCart, setShowMobileCart] = useState(false);
 
   return (
@@ -15,7 +17,7 @@ export default function PosPage() {
       <main className='lg:flex-1 w-full h-full overflow-y-auto'>
         <Categories/>
         <div className='bg-white rounded-full mt-3 p-3'>
-          <input className="focus:border-none outline-none w-full" placeholder='search..'/>
+          <input className="focus:border-none outline-none w-full" placeholder={t("form:input-label-search")}/>
         </div>
         <Products/>
       </main>

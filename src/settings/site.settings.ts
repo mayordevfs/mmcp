@@ -277,6 +277,11 @@ export const siteSettings = {
         href:Routes.pos_create_product,
         icon:"ProductsIcon",
         label:"Create Product"
+      },
+      {
+        href:Routes.pos_create_category,
+        icon:"CategoriesIcon",
+        label:"Create Category"
       }
     ]
   },

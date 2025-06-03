@@ -5,6 +5,7 @@ import SenderInformation from '@/components/money_transfer/send/sender_informati
 import TransferDetails from '@/components/money_transfer/send/transfer-details'
 import Button from '@/components/ui/button'
 import { EnhancedMoneyTransferFormData } from '@/types'
+import { adminOnly } from '@/utils/auth-utils'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -126,4 +127,7 @@ const SendMoney = () => {
   )
 }
 
+// SendMoney.authenticate = {
+//   permission : adminOnly
+// }
 export default SendMoney

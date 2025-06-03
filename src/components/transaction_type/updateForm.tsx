@@ -53,7 +53,7 @@ export default function UpdateTransactionTypeForm({ id }: { id: string | string[
   const merchantCategoryOptions = useGetLookup('MERCHANT_GROUP');
   const transactionTypeOptions = useGetLookup('TRAN_CODE');
   const setUpRefNo = random20DigitNumber();
-  const { transactionTypes } = useTransactionTypeStore();
+  const { transactionTypes,clearTransactionTypes } = useTransactionTypeStore();
 
   const {
     register,
@@ -139,6 +139,7 @@ export default function UpdateTransactionTypeForm({ id }: { id: string | string[
           return;
         }
         toast.success('Transaction type updated successfully');
+        clearTransactionTypes()
         router.back();
       },
       onError: (error: any) => {

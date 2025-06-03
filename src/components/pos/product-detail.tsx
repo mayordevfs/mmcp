@@ -3,6 +3,8 @@ import Modal from '../ui/modal/modal';
 import Image from 'next/image';
 import { formatPrice } from '@/utils/use-price';
 import { useCart } from '@/stores/cart';
+import { useTranslation } from 'next-i18next';
+import { Minus, Plus, X } from 'lucide-react';
 
 interface ProductData {
   id?: number;
@@ -20,6 +22,7 @@ interface ProductDetailProps {
 }
 
 const ProductDetail: React.FC<ProductDetailProps> = ({ open, onClose, data }) => {
+  const {t} = useTranslation()
   const [quantity, setQuantity] = useState(1);
   const increaseQuantity = () => setQuantity(prev => prev + 1);
   const decreaseQuantity = () => setQuantity(prev => prev > 1 ? prev - 1 : 1);
@@ -70,14 +73,14 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ open, onClose, data }) =>
         {/* Header */}
         <div className="p-4 flex items-center border-b">
           <div className="flex-1 text-center">
-            <h2 className="font-semibold text-lg">Menu Details</h2>
+            <h2 className="font-semibold text-lg">{t('common:text-menu-details')}</h2>
           </div>
           <button 
             onClick={onClose}
             className="h-8 w-8 flex justify-center items-center rounded-full bg-red-50 hover:bg-red-100 transition-colors"
             aria-label="Close modal"
           >
-            <span className="text-[#f43f5e]">✕</span>
+            <span className="text-[#f43f5e]"><X size={16}/></span>
           </button>
         </div>
 
@@ -127,7 +130,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ open, onClose, data }) =>
               className="h-8 w-8 rounded-full bg-white shadow-sm flex items-center justify-center hover:bg-gray-100 transition-colors"
               aria-label="Decrease quantity"
             >
-              <span className="text-gray-600">−</span>
+              <span className="text-gray-600"><Minus/></span>
             </button>
             <span className="font-medium px-4">{quantity}</span>
             <button 
@@ -135,7 +138,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ open, onClose, data }) =>
               className="h-8 w-8 rounded-full bg-white shadow-sm flex items-center justify-center hover:bg-gray-100 transition-colors"
               aria-label="Increase quantity"
             >
-              <span className="text-gray-600">+</span>
+              <span className="text-gray-600"><Plus/></span>
             </button>
           </div>
         </div>
@@ -146,7 +149,7 @@ const ProductDetail: React.FC<ProductDetailProps> = ({ open, onClose, data }) =>
           disabled={!data?.salePrice}
           onClick={handleAddToCart}
         >
-          Add to Cart - {getFormattedPrice(totalPrice)}
+          {t("common:text-add-to-cart")} - {getFormattedPrice(totalPrice)}
         </button>
       </div>
   );

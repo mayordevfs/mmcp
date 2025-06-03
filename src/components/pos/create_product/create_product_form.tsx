@@ -8,30 +8,38 @@ import Label from '@/components/ui/label';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import TextArea from '@/components/ui/text-area';
-import { FormEvent, useState, useRef } from 'react';
+import { FormEvent, useState, useRef, useEffect } from 'react';
 import { useMutation } from 'react-query';
 import axiosInstance from '@/utils/fetch-function';
 import { toast } from 'react-toastify';
 import { create } from 'lodash';
+import { uploadClient } from '@/data/client/upload';
+import { useProductCategoryQuery } from '@/data/pos/category';
+import useUser from '@/stores/userStore';
+
 
 const defaultValues = {
   productName: '',
-  productType: '',
   productPrice: '',
   costPrice:'',
   productCategory:'',
   stockQuantity:0,
-  productDescription:''
+  productDescription:'',
+  barCode:'',
+  unitQuantity:'1',
+  brand:""
 };
 
 type ProductFormValues = {
   productName: string,
-  productType: string,
   productPrice: string,
   costPrice:string,
   productCategory:string,
   stockQuantity:number,
-  productDescription:string
+  productDescription:string,
+  barCode:string,
+  unitQuantity:string,
+  brand:string
 };
 
 type IProps = {
@@ -41,10 +49,36 @@ type IProps = {
 export default function CreateProductForm({ initialValues }: IProps) {
   const router = useRouter();
   const { t } = useTranslation();
+  const {user} = useUser()
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedFile, setSelectedFile] = useState<FileList | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [fileError, setFileError] = useState<string>('');
+  const [fileUrl,setFileUrl] = useState('')
+  const fileArray = Array.from(selectedFile as FileList||[])
+  const {data:category} = useProductCategoryQuery(1)
+  const categories = category?.map((item) => ({
+    label: item.name,
+    value: item.code,
+  })) || [];
+  console.log(selectedFile);
+  useEffect(()=>{
+    if (!selectedFile?.length) return
+    uploadClient.upload(fileArray)
+    .then((res:any)=>{
+      console.log(res);
+      const filename = res?.data?.refNo.split('/').pop()
+      console.log(filename);
+      
+      setFileUrl(`/${filename}`)
+      toast.success("Image uploaded successfully")
+    })
+    .catch((err)=>{
+      console.log(err);
+      
+    })
+  },[selectedFile])
+ 
   
   const {
     register,
@@ -62,7 +96,9 @@ export default function CreateProductForm({ initialValues }: IProps) {
             method:"POST",
             url:"stock-management/save-update",
             data:data,
-            
+            // params:{
+            //   entity_id:"101"
+            // }
         }),
         {
             onSuccess: (data) => {
@@ -71,6 +107,7 @@ export default function CreateProductForm({ initialValues }: IProps) {
                     //   return;
                     // }
                     toast.success('Product saved successfully');
+                    router.push('/pos')
                   },
             onError: (error: any) => {
         console.log(error);
@@ -91,7 +128,7 @@ export default function CreateProductForm({ initialValues }: IProps) {
         
     )
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
+    const file = event.target.files;
     setFileError('');
     
     if (!file) {
@@ -102,7 +139,7 @@ export default function CreateProductForm({ initialValues }: IProps) {
 
     // Validate file type
     const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-    if (!allowedTypes.includes(file.type)) {
+    if (!allowedTypes.includes(file[0].type)) {
       setFileError('Only JPG, PNG, and WebP files are allowed');
       setSelectedFile(null);
       setPreviewUrl(null);
@@ -114,7 +151,7 @@ export default function CreateProductForm({ initialValues }: IProps) {
 
     // Validate file size (5MB max)
     const maxSize = 5 * 1024 * 1024; // 5MB
-    if (file.size > maxSize) {
+    if (file[0].size > maxSize) {
       setFileError('File size must be less than 5MB');
       setSelectedFile(null);
       setPreviewUrl(null);
@@ -131,10 +168,10 @@ export default function CreateProductForm({ initialValues }: IProps) {
     reader.onloadend = () => {
       setPreviewUrl(reader.result as string);
     };
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(file[0]);
   };
 
-  const onSubmit = async (values: ProductFormValues) => {
+  const onSubmit = async (values: any) => {
     console.log("I am submitting");
     console.log('Form values:', values);
     console.log('Selected file:', selectedFile);
@@ -150,18 +187,18 @@ export default function CreateProductForm({ initialValues }: IProps) {
         productName:values?.productName,
         productPrice:values?.productPrice,
         costPrice:values?.costPrice,
-        productCategory:values?.productCategory,
+        productCategory:values?.productCategory?.label,
         stockQuantity:values?.stockQuantity,
         productDescription:values?.productDescription,
-        imageUrl: selectedFile.name,
-        productCode:"prod_1",
-        unitQuantity:"1",
-        productId:"0",
+        imageURL: fileUrl? fileUrl:'',
+        productCode:"",
+        unitQuantity:values?.unitQuantity,
+        productId:null,
         base64Image:'',
         storeId:'2001',
-        barCode:'123',
-        brand:'00',
-        ccy:"NGN"
+        barCode:values?.barcode||'',
+        brand:values?.brand?.value||"",
+        ccy:user?.ccy
     }
 
     createProduct(payload);
@@ -178,6 +215,17 @@ export default function CreateProductForm({ initialValues }: IProps) {
         
         <Card className="w-full sm:w-8/12 md:w-2/3">
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+            <div>
+              <Label>{t('Product Category')}</Label>
+              <SelectInput
+              label={t('Product Category')}
+              {...register('productCategory', { required: 'This field is required' })}
+              control={control}
+              options={categories}
+              error={t(errors.productCategory?.message!)}
+              id="product_category"
+            />
+            </div>
             {/* Product Name */}
             <Input
               label={t('form:input-label-product-name')}
@@ -188,7 +236,7 @@ export default function CreateProductForm({ initialValues }: IProps) {
 
             {/* Product Price */}
             <Input
-              label={t('Product Price')}
+              label={t('Sale Price')}
               {...register('productPrice', { required: 'Product price is required' })}
               variant="outline"
               error={t(errors.productPrice?.message!)}
@@ -200,19 +248,45 @@ export default function CreateProductForm({ initialValues }: IProps) {
               variant="outline"
             />
             
-            <Input
-              label={t('Product Category')}
-              {...register('productCategory')}
-              variant="outline"
-              placeholder={t('e.g. Electronics, Clothing,Food e.t.c')}
-              type="text"
-            />            
+            <div>
+              <Label>{t('Brand')}</Label>
+              <SelectInput
+              label={t('Brand')}
+              {...register('brand')}
+              control={control}
+              options={categories}
+              error={t(errors.productCategory?.message!)}
+              id="product_category"
+            />
+            </div>
+
+            {/* <select name="productCategory" id="product_category" className='h-fit'>
+              <option value="" disabled selected>{t('Select Product Category')}</option>
+              {categories.map((category) => (
+                <option key={category.value} value={category.value}>
+                  {category.label}
+                </option>
+              ))}
+            </select> */}
             
             <Input
               label={t('Stock Quantity')}
               {...register('stockQuantity')}
               variant="outline"
               type="number"
+            />
+
+            <Input
+              label={t('Unit Quantity')}
+              {...register('unitQuantity', { required: 'This field is required' })}
+              variant="outline"
+              type="text"
+              />
+            <Input
+              label={t('Barcode')}
+              {...register('barCode')}
+              variant="outline"
+              type="text"
             />
           </div>
         </Card>
@@ -266,9 +340,9 @@ export default function CreateProductForm({ initialValues }: IProps) {
             {/* File Info */}
             {selectedFile && !fileError && (
               <div className="text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">
-                <p><strong>Selected:</strong> {selectedFile.name}</p>
-                <p><strong>Size:</strong> {(selectedFile.size / 1024 / 1024).toFixed(2)} MB</p>
-                <p><strong>Type:</strong> {selectedFile.type}</p>
+                <p><strong>Selected:</strong> {selectedFile[0].name}</p>
+                <p><strong>Size:</strong> {(selectedFile[0].size / 1024 / 1024).toFixed(2)} MB</p>
+                <p><strong>Type:</strong> {selectedFile[0].type}</p>
               </div>
             )}
             
@@ -299,7 +373,7 @@ export default function CreateProductForm({ initialValues }: IProps) {
           {t('form:button-label-back')}
         </Button> */}
 
-        <Button type="submit">
+        <Button type="submit" loading={isLoading}>
           {t('form:button-label-save-product')}
         </Button>
       </div>

@@ -151,5 +151,12 @@
   "table-item-reconcile-status":"Reconcile Status",
   "table-item-trans-ref-no":"Trans Ref No",
   "table-item-file-type":"File Type",
-  "table-item-file-name":"File Name"
+  "table-item-file-name":"File Name",
+
+  "table-item-order-no":"Order No",
+  "table-item-customer-id":"Customer Id",
+  "table-item-amount-paid":"Amount Paid",
+  "table-item-order-status":"Order Status"
+
+  
 }

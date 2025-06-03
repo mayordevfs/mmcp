@@ -212,7 +212,7 @@ const TransactionTypeList = ({
         <ActionButtons
           id={tranTypeId}
           editUrl={`${Routes.transaction_type}/edit/${tranTypeId}`}
-
+          
           // detailsUrl={`${Routes.transaction}/${tranTypeId}`}
           // addTerminalUrl={`${Routes.merchant.list}/${id}/add-terminal`}
         />

@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
 import Layout from '@/components/layouts/pos';
-import OrderStatusNav from '@/components/pos/orders/order-header';
 import SearchFilterBar from '@/components/pos/orders/order-filter';
 import PosOrderList from '@/components/pos/orders/order-list';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { adminOnly } from '@/utils/auth-utils';
 import { useQuery } from 'react-query';
 import axiosInstance from '@/utils/fetch-function';
-import useUser from '@/hooks/useUser';
+
 import ErrorMessage from '@/components/ui/error-message';
+import { useTranslation } from 'next-i18next';
 
 const PosOrders = () => {
-  const user = useUser()
+  const {t} = useTranslation()
   const [showFilters, setShowFilters] = useState(false)
   const [page,setPage] = useState(1)
   const [filter,setFilter] = useState({
@@ -102,7 +102,7 @@ const PosOrders = () => {
   return (
     <div className='w-[95%] space-y-3'>
         {/* <OrderStatusNav/> */}
-        <h1 className='text-lg md:text-xl lg:text-2xl font-bold mt-2'>Orders</h1>
+        <h1 className='text-lg md:text-xl lg:text-2xl font-bold mt-2'>{t("common:text-orders")}</h1>
         <div className='h-[calc(100vh-160px)] mt-1 bg-white rounded-t-md overflow-y-auto'>
             {/* Filter Toggle Button */}
             <div className='p-3 border-b'>

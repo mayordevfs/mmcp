@@ -18,6 +18,8 @@ type Props = {
   deleteModalView?: string | any;
   editUrl?: string;
   detailsUrl?: string;
+  detailsModal?:string | any
+  orderItems?:any
   isUserActive?: boolean;
   userStatus?: boolean;
   isShopActive?: boolean;
@@ -40,6 +42,8 @@ const ActionButtons = ({
   deleteModalView,
   editUrl,
   detailsUrl,
+  detailsModal,
+  orderItems,
   userStatus = false,
   isUserActive = false,
   isShopActive,
@@ -131,6 +135,12 @@ const ActionButtons = ({
     openModal('BILLER_EDIT', { 
       billerCode: billerCode
     });
+  }
+
+  function handleDetailsModal(){
+    openModal('POS_ORDER_VIEW',{
+      orderItems:orderItems
+    })
   }
 
   return (
@@ -272,6 +282,15 @@ const ActionButtons = ({
         >
           <Eye width={24} />
         </Link>
+      )}
+      {detailsModal && (
+        <button 
+          className="ml-2 text-base transition duration-200 hover:text-heading"
+          title={t('common:text-view')}
+          onClick={handleDetailsModal}
+        >
+          <Eye width={24} />
+        </button>
       )}
     </div>
   );

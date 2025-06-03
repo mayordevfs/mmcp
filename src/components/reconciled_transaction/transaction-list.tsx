@@ -96,7 +96,7 @@ const TransactionList = ({
       dataIndex: 'cardNo',
       key: 'cardNo',
       align: alignLeft,
-      width: 80,
+      width: 180,
     },
     {
       title: t('table:table-item-amount'),

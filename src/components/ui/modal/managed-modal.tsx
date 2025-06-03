@@ -105,6 +105,8 @@ const ProductVariation = dynamic(
 );
 const AbuseReport = dynamic(() => import('@/components/reviews/abuse-report'));
 
+const OrderItem = dynamic(()=>import('@/components/pos/orders/order-item'))
+
 function renderModal(view: MODAL_VIEWS | undefined, data: any) {
   switch (view) {
     case 'DELETE_PRODUCT':
@@ -177,6 +179,8 @@ function renderModal(view: MODAL_VIEWS | undefined, data: any) {
       return <ReviewImageModal />;
     case 'ABUSE_REPORT':
       return <AbuseReport data={data} />;
+    case 'POS_ORDER_VIEW':
+      return <OrderItem/>;
     default:
       return null;
   }

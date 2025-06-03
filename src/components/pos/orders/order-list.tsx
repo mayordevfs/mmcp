@@ -11,6 +11,7 @@ import Badge from '@/components/ui/badge/badge';
 import Loader from '@/components/ui/loader/loader';
 import { formatPrice } from '@/utils/use-price';
 import Pagination from '@/components/ui/pagination';
+import { useModalState } from '@/components/ui/modal/modal.context';
 
 const PosOrderList = ({
  data,
@@ -20,7 +21,7 @@ const PosOrderList = ({
 }: any) => {
   const { t } = useTranslation();
   const { alignLeft } = useIsRTL();
-
+  const {isOpen} = useModalState()
   const [sortingObj, setSortingObj] = useState<{
     sort: SortOrder;
     column: string | null;
@@ -31,7 +32,7 @@ const PosOrderList = ({
 
   const columns = [
     {
-      title: t('S/N'),
+      title: t('table:table-item-serial-no'),
       dataIndex: 'serialNo',
       key: 'serialNo',
       align: 'center',
@@ -43,28 +44,35 @@ const PosOrderList = ({
       },
     },
     {
-      title: t('Order No'),
+      title: t('table:table-item-order-no'),
       dataIndex: 'orderNo',
       key: 'orderNo',
       align: alignLeft,
       width: 180,
     },
     {
-      title: t('Customer Name'),
+      title: t('table:table-item-customer-name'),
       dataIndex: 'customerName',
       key: 'customerName',
       align: alignLeft,
       width: 180,
     },
+    // {
+    //   title: t('table:table-item-customer-id'),
+    //   dataIndex: 'customerId',
+    //   key: 'customerId',
+    //   align: alignLeft,
+    //   width: 180,
+    // },
     {
-      title: t('Payment Method'),
+      title: t('table:table-item-payment-method'),
       dataIndex: 'paymentMethod',
       key: 'paymentMethod',
       align: alignLeft,
       width: 150,
     },
     {
-      title: t('Amount Paid'),
+      title: t('table:table-item-amount-paid'),
       dataIndex: 'amount',
       key: 'amount',
       align: alignLeft,
@@ -80,14 +88,14 @@ const PosOrderList = ({
       )
     },
     {
-      title: t('Date'),
+      title: t('table:table-item-date'),
       dataIndex: 'dateCreated',
       key: 'dateCreated',
       align: alignLeft,
-      width: 80,
+      width: 180,
     },  
     {
-      title: t('Order Status'),
+      title: t('table:table-item-order-status'),
       dataIndex: 'status',
       key: 'status',
       align: 'center',
@@ -96,7 +104,24 @@ const PosOrderList = ({
         <Badge text={status} color={getStatusColor(status)} />
       ),
     },
+     {
+      title: t('table:table-item-actions'),
+      dataIndex: 'id',
+      key: 'id',
+      align: 'center',
+      width: 50,
+      render: (id:any,order:any) => (
+        <ActionButtons
+        id={id}
+        detailsModal='POS_ORDER_VIEW'
+        orderItems={order?.orderItemInfos}
+        />
+      ),
+    },
   ];
+
+  console.log(isOpen);
+  
 
   if (isFetching) {
     return <Loader text={t('common:text-loading')} />;

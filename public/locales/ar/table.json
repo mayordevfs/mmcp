@@ -99,5 +99,10 @@
   "table-item-reconcile-status": "حالة التسوية",
   "table-item-trans-ref-no": "رقم المرجع",
   "table-item-file-type": "نوع الملف",
-  "table-item-file-name": "اسم الملف"
+  "table-item-file-name": "اسم الملف",
+
+  "table-item-order-no": "رقم الطلب",
+  "table-item-customer-id": "معرّف العميل",
+  "table-item-amount-paid": "المبلغ المدفوع",
+  "table-item-order-status": "حالة الطلب"
 }

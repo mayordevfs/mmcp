@@ -99,5 +99,10 @@
   "table-item-reconcile-status": "סטטוס התאמה",
   "table-item-trans-ref-no": "מספר אסמכתא",
   "table-item-file-type": "סוג קובץ",
-  "table-item-file-name": "שם קובץ"
+  "table-item-file-name": "שם קובץ",
+
+   "table-item-order-no": "מספר הזמנה",
+  "table-item-customer-id": "מזהה לקוח",
+  "table-item-amount-paid": "סכום ששולם",
+  "table-item-order-status": "סטטוס הזמנה"
 }

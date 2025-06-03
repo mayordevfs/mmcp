@@ -96,5 +96,10 @@
   "table-item-reconcile-status": "Abgleichstatus",
   "table-item-trans-ref-no": "Transaktionsreferenznummer",
   "table-item-file-type": "Dateityp",
-  "table-item-file-name": "Dateiname"
+  "table-item-file-name": "Dateiname",
+
+   "table-item-order-no": "Bestellnummer",
+  "table-item-customer-id": "Kundennummer",
+  "table-item-amount-paid": "Bezahlter Betrag",
+  "table-item-order-status": "Bestellstatus"
 }

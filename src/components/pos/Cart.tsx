@@ -7,8 +7,10 @@ import AddCustomerModal from './add-customer-modal'
 import { useMutation } from 'react-query'
 import axiosInstance from '@/utils/fetch-function'
 import { toast } from 'react-toastify'
-import { X } from 'lucide-react'
-import useUser from '@/hooks/useUser'
+import { Minus, Plus, X } from 'lucide-react'
+
+import { useTranslation } from 'next-i18next'
+import useUser from '@/stores/userStore'
 
 interface CustomerInfoProps{
     contactName: string;
@@ -16,10 +18,13 @@ interface CustomerInfoProps{
     contactPhone: string;
 }
 const Cart = () => {
+    const {t} = useTranslation()
     const {cart,decrement,increment,getCartTotal,removeItem,clearCart} = useCart()
     const [isModal,setIsModal] = useState(false)
-    const user = useUser()
+    // const user = useUser()
+    const {user} = useUser()
     const [customerData,setCustomerData] =useState<CustomerInfoProps|null>(null)
+   console.log(user);
    
     // Update the handleCustomerSubmit function to:
 const handleCustomerSubmit = (data: CustomerInfoProps) => {
@@ -131,21 +136,21 @@ const handleCustomerSubmit = (data: CustomerInfoProps) => {
   return (
     <div className='container space-y-3 flex flex-col h-full'>
         {customerData?<div className='flex items-center justify-between p-3 mb-2 shadow-md'>
-            <span className='text-[14px] text-center font-medium'>Customer: {customerData?.contactName}</span>
+            <span className='text-[14px] text-center font-medium'>{t("common:text-customer")}: {customerData?.contactName}</span>
             <button className='w-4 h-4 flex items-center justify-center rounded-full bg-red-600 text-white' onClick={()=>setCustomerData(null)}><X size={14}/></button>
         </div>:<button className='flex items-center justify-between p-3 mb-2 shadow-md' onClick={()=>setIsModal(true)}>
-            <span>Add customer</span>
-            <span className='w-4 h-4 flex items-center justify-center rounded-full bg-blue-700 text-white'>+</span>
+            <span>{t("common:text-add-customer")}</span>
+            <span className='w-4 h-4 flex items-center justify-center rounded-full bg-blue-700 text-white'><Plus/></span>
         </button>}
         {/* header */}
         <div className='p-3 flex justify-center bg-[#f7f7f7] items-center border-b shadow-md'>
-            <h2>Cart Summary</h2>
+            <h2>{t("common:text-cart-summary")}</h2>
         </div>
         {/* cart items */}
         <div className='flex-1 h-full overflow-y-auto space-y-3 w-full text-[14px]'>
         {
             cart?.length<1?<div className='w-full h-full flex items-center justify-center'>
-                <p>No item in cart</p>
+                <p>{t("common:text-no-item-in-cart")}</p>
             </div>:cart?.map((item,index)=>(
                 <div key={index} className={`flex ${index===cart.length-1&&"border-none"} border-b border-dashed p-3 gap-x-3`}>
                     <div className='w-[40px] h-[40px] flex items-center justify-center bg-[#f7f7f7] rounded-md'>
@@ -166,7 +171,7 @@ const handleCustomerSubmit = (data: CustomerInfoProps) => {
                                 className="h-5 w-5 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-100"
                                 onClick={()=>removeItem(item?.id)}
                                 >
-                                <span className='text-[13px]'>X</span>
+                                <span className='text-[13px]'><X size={14}/></span>
                                 </button>
                         </div>
                         <div className='flex justify-between items-center w-full'>
@@ -181,7 +186,7 @@ const handleCustomerSubmit = (data: CustomerInfoProps) => {
                                     decrement(item)
                                 }}
                                 >
-                                <span className='text-[13px]'>-</span>
+                                <span className='text-[13px]'><Minus size={14}/></span>
                                 </button>
                                 <span className="font-medium text-[12px]">{item?.quantity}</span>
                                 <button 
@@ -189,7 +194,7 @@ const handleCustomerSubmit = (data: CustomerInfoProps) => {
                                 className="h-5 w-5 rounded-full bg-white shadow-sm flex items-center justify-center hover:bg-gray-100"
                                 onClick={()=>increment(item)}
                                 >
-                                <span className='text-[13px]'>+</span>
+                                <span className='text-[13px]'><Plus size={14}/></span>
                                 </button>
                             </div>
                         </div>
@@ -203,7 +208,7 @@ const handleCustomerSubmit = (data: CustomerInfoProps) => {
         cart?.length>0&& <div className='flex-[0.7] relative border-t border-double flex flex-col'>
             <div className='flex-1 p-3 text-[14px] space-y-1'>
             <div className='flex items-center'>
-                <p className='flex-1'>Subtotal</p>
+                <p className='flex-1'>{t("common:text-subtotal")}</p>
                 <div className='flex-[0.4] flex justify-end items-center'>
                     <span>{formatPrice({
                                 amount:getCartTotal(),
@@ -214,7 +219,7 @@ const handleCustomerSubmit = (data: CustomerInfoProps) => {
             </div>
         </div>
         <div className='flex items-center text-[14px] flex-[0.2] border-t border-dashed p-3'>
-                <p className='flex-1 font-bold text-[16px]'>Total</p>
+                <p className='flex-1 font-bold text-[16px]'>{t("common:text-total")}</p>
                 <div className='flex-[0.4] flex justify-end items-center'>
                     {/* <span className='font-semibold'>₦</span> */}
                     <span>{formatPrice({
@@ -224,7 +229,7 @@ const handleCustomerSubmit = (data: CustomerInfoProps) => {
                             })}</span>
                 </div>
             </div>
-        <button className='bg-blue-700 text-white font-semibold text-center flex-[0.7] w-full h-full' onClick={submitOrder}>{isLoading?"Please wait":"Place Order"}</button>
+        <button className='bg-blue-700 text-white font-semibold text-center flex-[0.7] w-full h-full' onClick={submitOrder}>{isLoading?t("common:text-please-wait"):t("common:text-place-order")}</button>
        </div>
       }
       <AddCustomerModal
