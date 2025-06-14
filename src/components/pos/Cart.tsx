@@ -21,7 +21,6 @@ const Cart = () => {
     const {t} = useTranslation()
     const {cart,decrement,increment,getCartTotal,removeItem,clearCart} = useCart()
     const [isModal,setIsModal] = useState(false)
-    // const user = useUser()
     const {user} = useUser()
     const [customerData,setCustomerData] =useState<CustomerInfoProps|null>(null)
    console.log(user);
@@ -45,16 +44,16 @@ const handleCustomerSubmit = (data: CustomerInfoProps) => {
             data:data,
             params:{
                 storeId: "2001",
-                entityId:"101",
+                entityId:"ETZ",
                 username:user?.username
             }
         }),
         {
             onSuccess: (data) => {
-                    // if (data?.data?.code !== '000') {
-                    //   toast.error(data?.data?.desc);
-                    //   return;
-                    // }
+                    if (data?.data?.code !== '000') {
+                      toast.error(data?.data?.desc);
+                      return;
+                    }
                     toast.success('Order saved successfully');
                     clearCart()
                     setCustomerData(null);
@@ -77,8 +76,6 @@ const handleCustomerSubmit = (data: CustomerInfoProps) => {
         },
         
     )
-
-
 
     const submitOrder =async ()=>{
         if(!customerData){
@@ -134,67 +131,66 @@ const handleCustomerSubmit = (data: CustomerInfoProps) => {
     
     
   return (
-    <div className='container space-y-3 flex flex-col h-full'>
-        {customerData?<div className='flex items-center justify-between p-3 mb-2 shadow-md'>
-            <span className='text-[14px] text-center font-medium'>{t("common:text-customer")}: {customerData?.contactName}</span>
-            <button className='w-4 h-4 flex items-center justify-center rounded-full bg-red-600 text-white' onClick={()=>setCustomerData(null)}><X size={14}/></button>
-        </div>:<button className='flex items-center justify-between p-3 mb-2 shadow-md' onClick={()=>setIsModal(true)}>
-            <span>{t("common:text-add-customer")}</span>
-            <span className='w-4 h-4 flex items-center justify-center rounded-full bg-blue-700 text-white'><Plus/></span>
+    <div className='container space-y-2 flex flex-col h-full'>
+        {customerData?<div className='flex items-center justify-between p-2 mb-1 shadow-md'>
+            <span className='text-[12px] text-center font-medium'>{t("common:text-customer")}: {customerData?.contactName}</span>
+            <button className='w-4 h-4 flex items-center justify-center rounded-full bg-red-600 text-white' onClick={()=>setCustomerData(null)}><X size={12}/></button>
+        </div>:<button className='flex items-center justify-between p-2 mb-1 shadow-md' onClick={()=>setIsModal(true)}>
+            <span className='text-[12px]'>{t("common:text-add-customer")}</span>
+            <span className='w-4 h-4 flex items-center justify-center rounded-full bg-blue-700 text-white'><Plus size={12}/></span>
         </button>}
-        {/* header */}
-        <div className='p-3 flex justify-center bg-[#f7f7f7] items-center border-b shadow-md'>
-            <h2>{t("common:text-cart-summary")}</h2>
-        </div>
-        {/* cart items */}
-        <div className='flex-1 h-full overflow-y-auto space-y-3 w-full text-[14px]'>
+
+        {/* cart items - Made more compact */}
+        <div className='flex-1 h-full overflow-y-auto space-y-1 w-full text-[12px]'>
         {
             cart?.length<1?<div className='w-full h-full flex items-center justify-center'>
-                <p>{t("common:text-no-item-in-cart")}</p>
+                <p className='text-[13px]'>{t("common:text-no-item-in-cart")}</p>
             </div>:cart?.map((item,index)=>(
-                <div key={index} className={`flex ${index===cart.length-1&&"border-none"} border-b border-dashed p-3 gap-x-3`}>
-                    <div className='w-[40px] h-[40px] flex items-center justify-center bg-[#f7f7f7] rounded-md'>
-                        <Image src={item?.picture} alt={'Cart image'} height={56} width={56} className='h-[70%] w-[70%] object-contain '/>
+                <div key={index} className={`flex ${index===cart.length-1&&"border-none"} border-b border-dashed py-2 px-2 gap-x-2 items-center`}>
+                    {/* Smaller image container */}
+                    <div className='w-[32px] h-[32px] flex items-center justify-center bg-[#f7f7f7] rounded-md flex-shrink-0'>
+                        <Image src={item?.picture} alt={'Cart image'} height={40} width={40} className='h-[80%] w-[80%] object-contain'/>
                     </div>
-                    <div className='flex-1 space-y-3'>
-                        <div className='flex justify-between'>
-                            <div>
-                            <p className='text-[12px]'>{item?.name?.length!>40?`${item?.name?.slice(0,40)}...`:item?.name}</p>
-                            <p className='text-[12px] text-[#9f9f9f] font-bold'>{formatPrice({
-                                amount:item?.subTotal,
-                                currencyCode:'NGN',
-                                locale:'ng'
-                            })}</p>
-                        </div>
-                        <button 
-
-                                className="h-5 w-5 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-100"
-                                onClick={()=>removeItem(item?.id)}
-                                >
-                                <span className='text-[13px]'><X size={14}/></span>
-                                </button>
-                        </div>
-                        <div className='flex justify-between items-center w-full'>
-                            <div className='icon-container'>
-                                <EditIcon  color='#9f9f9f'/>
+                    
+                    <div className='flex-1 min-w-0'>
+                        {/* Product name and price in one row */}
+                        <div className='flex justify-between items-start mb-1'>
+                            <div className='flex-1 min-w-0 pr-2'>
+                                <p className='text-[11px] font-medium line-clamp-1 leading-tight'>{item?.name?.length!>35?`${item?.name?.slice(0,35)}...`:item?.name}</p>
+                                <p className='text-[10px] text-[#9f9f9f] font-semibold'>{formatPrice({
+                                    amount:item?.subTotal,
+                                    currencyCode:'NGN',
+                                    locale:'ng'
+                                })}</p>
                             </div>
-                            <div className="bg-gray-50 rounded-full flex justify-between gap-x-1.5 items-center p-1">
+                            <button 
+                                className="h-4 w-4 rounded-full bg-white shadow-lg flex items-center justify-center hover:bg-gray-100 flex-shrink-0"
+                                onClick={()=>removeItem(item?.id)}
+                            >
+                                <X size={10}/>
+                            </button>
+                        </div>
+                        
+                        {/* Controls row */}
+                        <div className='flex justify-between items-center'>
+                            <div className='icon-container flex-shrink-0'>
+                                <EditIcon color='#9f9f9f' className="w-3 h-3"/>
+                            </div>
+                            <div className="bg-gray-50 rounded-full flex justify-between gap-x-1 items-center p-0.5">
                                 <button 
-                                
-                                className="h-5 w-5 rounded-full bg-white shadow-sm flex items-center justify-center hover:bg-gray-100"
-                                onClick={()=>{
-                                    decrement(item)
-                                }}
+                                    className="h-4 w-4 rounded-full bg-white shadow-sm flex items-center justify-center hover:bg-gray-100"
+                                    onClick={()=>{
+                                        decrement(item)
+                                    }}
                                 >
-                                <span className='text-[13px]'><Minus size={14}/></span>
+                                    <Minus size={10}/>
                                 </button>
-                                <span className="font-medium text-[12px]">{item?.quantity}</span>
+                                <span className="font-medium text-[10px] px-1">{item?.quantity}</span>
                                 <button 
-
-                                className="h-5 w-5 rounded-full bg-white shadow-sm flex items-center justify-center hover:bg-gray-100"
-                                onClick={()=>increment(item)}
+                                    className="h-4 w-4 rounded-full bg-white shadow-sm flex items-center justify-center hover:bg-gray-100"
+                                    onClick={()=>increment(item)}
                                 >
-                                <span className='text-[13px]'><Plus size={14}/></span>
+                                    <Plus size={10}/>
                                 </button>
                             </div>
                         </div>
@@ -203,33 +199,35 @@ const handleCustomerSubmit = (data: CustomerInfoProps) => {
             ))
         }
        </div>
-       {/* cart summary */}
+       
+       {/* cart summary - Made more compact */}
       {
-        cart?.length>0&& <div className='flex-[0.7] relative border-t border-double flex flex-col'>
-            <div className='flex-1 p-3 text-[14px] space-y-1'>
-            <div className='flex items-center'>
-                <p className='flex-1'>{t("common:text-subtotal")}</p>
-                <div className='flex-[0.4] flex justify-end items-center'>
-                    <span>{formatPrice({
-                                amount:getCartTotal(),
-                                currencyCode:'',
-                                locale:''
-                            })}</span>
+        cart?.length>0&& <div className='flex-[0.6] relative border-t border-double flex flex-col'>
+            <div className='flex-1 p-2 text-[12px] space-y-1'>
+                <div className='flex items-center'>
+                    <p className='flex-1'>{t("common:text-subtotal")}</p>
+                    <div className='flex-[0.4] flex justify-end items-center'>
+                        <span className='text-[12px]'>{formatPrice({
+                                    amount:getCartTotal(),
+                                    currencyCode:'',
+                                    locale:''
+                     })}</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div className='flex items-center text-[14px] flex-[0.2] border-t border-dashed p-3'>
-                <p className='flex-1 font-bold text-[16px]'>{t("common:text-total")}</p>
-                <div className='flex-[0.4] flex justify-end items-center'>
-                    {/* <span className='font-semibold'>₦</span> */}
-                    <span>{formatPrice({
-                                amount:getCartTotal(),
-                                currencyCode:'',
-                                locale:''
-                            })}</span>
+            <div className='flex items-center text-[12px] flex-[0.3] border-t border-dashed p-2'>
+                    <p className='flex-1 font-bold text-[14px]'>{t("common:text-total")}</p>
+                    <div className='flex-[0.4] flex justify-end items-center'>
+                        <span className='text-[14px] font-semibold'>{formatPrice({
+                                    amount:getCartTotal(),
+                                    currencyCode:'',
+                                    locale:''
+                        })}</span>
+                    </div>
                 </div>
-            </div>
-        <button className='bg-blue-700 text-white font-semibold text-center flex-[0.7] w-full h-full' onClick={submitOrder}>{isLoading?t("common:text-please-wait"):t("common:text-place-order")}</button>
+            <button className='bg-blue-700 text-white font-semibold text-center flex-[0.5] w-full h-full text-[13px]' onClick={submitOrder}>
+                {isLoading?t("common:text-please-wait"):t("common:text-place-order")}
+            </button>
        </div>
       }
       <AddCustomerModal

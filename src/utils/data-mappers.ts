@@ -12,7 +12,7 @@ export const mapPaginatorData = (
   };
 };
 export const getStatusColor = (status: string) => {
-  const statusLower = status.toLowerCase();
+  const statusLower = status?.toLowerCase();
   if (
     statusLower === 'active' ||
     statusLower === 'approved' ||

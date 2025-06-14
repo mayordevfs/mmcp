@@ -19,7 +19,9 @@ import { useState } from 'react';
 import type { NextPageWithLayout } from '@/types';
 import { useRouter } from 'next/router';
 import PrivateRoute from '@/utils/private-route';
+
 import { Config } from '@/config';
+import PrivateRouteMoneyTransfer from '@/utils/private-route-transfer';
 
 const Noop: React.FC = ({ children }) => <>{children}</>;
 
@@ -32,17 +34,45 @@ const AppSettings: React.FC = (props) => {
   // @ts-ignore
   return <SettingsProvider initialValue={settings?.options} {...props} />;
 };
+
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
+
 const CustomApp = ({ Component, pageProps }: AppPropsWithLayout) => {
   const Layout = (Component as any).Layout || Noop;
   const authProps = (Component as any).authenticate;
+  const authPropsTransfer = (Component as any).authenticateTransfer; // Implemented newly
   const [queryClient] = useState(() => new QueryClient());
   const getLayout = Component.getLayout ?? ((page) => page);
 
   const { locale } = useRouter();
   const dir = Config.getDirection(locale);
+
+  // Create the component content that will be wrapped by auth routes
+  const renderComponentContent = () => (
+    <Layout {...pageProps}>
+      <Component {...pageProps} />
+    </Layout>
+  );
+
+  // Apply PrivateRoute wrapper if authProps is true
+  const withPrivateRoute = authProps ? (
+    <PrivateRoute authProps={authProps}>
+      {renderComponentContent()}
+    </PrivateRoute>
+  ) : (
+    renderComponentContent()
+  );
+
+  // Apply PrivateRouteMoneyTransfer wrapper if authPropsTransfer is true
+  const withMoneyTransferRoute = authPropsTransfer ? (
+    <PrivateRouteMoneyTransfer authPropsTransfer={authPropsTransfer}>
+      {withPrivateRoute}
+    </PrivateRouteMoneyTransfer>
+  ) : (
+    withPrivateRoute
+  );
 
   return (
     <div dir={dir}>
@@ -54,17 +84,7 @@ const CustomApp = ({ Component, pageProps }: AppPropsWithLayout) => {
                 <>
                   <CartProvider>
                     <DefaultSeo />
-                    {authProps ? (
-                      <PrivateRoute authProps={authProps}>
-                        <Layout {...pageProps}>
-                          <Component {...pageProps} />
-                        </Layout>
-                      </PrivateRoute>
-                    ) : (
-                      <Layout {...pageProps}>
-                        <Component {...pageProps} />
-                      </Layout>
-                    )}
+                    {withMoneyTransferRoute}
                     <ToastContainer autoClose={2000} theme="colored" />
                     <ManagedModal />
                   </CartProvider>

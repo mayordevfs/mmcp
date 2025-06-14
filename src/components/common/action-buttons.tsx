@@ -10,6 +10,7 @@ import { useModalAction } from '@/components/ui/modal/modal.context';
 import { CloseFillIcon } from '@/components/icons/close-fill';
 import { AdminIcon } from '@/components/icons/admin-icon';
 import { ReactNode } from 'react';
+import { QrCode } from 'lucide-react';
 
 type Props = {
   id: string;
@@ -19,7 +20,9 @@ type Props = {
   editUrl?: string;
   detailsUrl?: string;
   detailsModal?:string | any
+  qrCodeModal?:string | any
   orderItems?:any
+  user?: any
   isUserActive?: boolean;
   userStatus?: boolean;
   isShopActive?: boolean;
@@ -43,7 +46,9 @@ const ActionButtons = ({
   editUrl,
   detailsUrl,
   detailsModal,
+  qrCodeModal,
   orderItems,
+  user,
   userStatus = false,
   isUserActive = false,
   isShopActive,
@@ -140,6 +145,12 @@ const ActionButtons = ({
   function handleDetailsModal(){
     openModal('POS_ORDER_VIEW',{
       orderItems:orderItems
+    })
+  }
+
+  function handleQrCodeModal(){
+    openModal('QR_CODE_MODAL',{
+      user:user
     })
   }
 
@@ -290,6 +301,15 @@ const ActionButtons = ({
           onClick={handleDetailsModal}
         >
           <Eye width={24} />
+        </button>
+      )}
+      {qrCodeModal && (
+        <button 
+          className="ml-2 text-base transition duration-200 hover:text-heading"
+          title={t('common:text-view')}
+          onClick={handleQrCodeModal}
+        >
+          <QrCode width={24} />
         </button>
       )}
     </div>

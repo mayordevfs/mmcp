@@ -27,6 +27,7 @@ export const Routes = {
   money_transfer:'/money_transfer',
   send_money:'/money_transfer/send_money',
   link: '/admin/rest/src/pages/terminals/link.tsx',
+  transfer_master_list:'/transfers',
   user: {
     ...routesFactory('/users'),
   },

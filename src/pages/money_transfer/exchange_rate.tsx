@@ -16,11 +16,11 @@ const ExchangeRate  = () => {
         <h1 className="text-2xl font-bold">Exchange Rate Dashboard</h1>
         <div className="flex gap-2">
           <Link href={Routes?.send_money}>
-            <Button variant="custom" className='border hover:bg-gray-100'>Money Transfer</Button>
+            <Button variant="custom" className='border bg-blue-600 hover:bg-blue-400 text-white'>Money Transfer</Button>
           </Link>
-          <Link href="/pos">
-            <Button>Go to Store</Button>
-          </Link>
+          {/* <Link href="/pos">
+            <Button className=''>Go to Store</Button>
+          </Link> */}
         </div>
       </div>
       <ExchangeRateBoard/>

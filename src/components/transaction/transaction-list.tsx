@@ -61,6 +61,9 @@ const TransactionList = ({
       key: 'id',
       align: 'center',
       width: 50,
+      render: (id:string)=>(
+        <span className='whitespace-nowrap'>{id}</span>
+      )
     },
     {
       title: t('table:table-item-transaction-ref'),
@@ -68,6 +71,9 @@ const TransactionList = ({
       key: 'transactionRef',
       align: alignLeft,
       width: 180,
+      render: (tranRefNo:string)=>(
+        <span className='whitespace-nowrap'>{tranRefNo}</span>
+      )
     },
     {
       title: t('table:table-item-posted-date'),
@@ -75,6 +81,9 @@ const TransactionList = ({
       key: 'postedDate',
       align: alignLeft,
       width: 180,
+      render: (createdDate:string)=>(
+        <span className='whitespace-nowrap'>{createdDate}</span>
+      )
     },
     {
       title: t('table:table-item-transaction-type'),
@@ -82,6 +91,9 @@ const TransactionList = ({
       key: 'tranType',
       align: alignLeft,
       width: 150,
+      render: (tranType:string)=>(
+        <span className='whitespace-nowrap'>{tranType}</span>
+      )
     },
     {
       title: t('table:table-item-amount'),
@@ -89,8 +101,12 @@ const TransactionList = ({
       key: 'amount',
       align: alignLeft,
       width: 80,
-      render: (amount: number) =>
-        formatPrice({ amount, currencyCode: 'NGN', locale: 'en-NG' }),
+      render: (amount: number) =>(
+        <span className='whitespace-nowrap'>{formatPrice({ amount, currencyCode: 'NGN', locale: 'en-NG' })}</span>
+      )
+        
+      
+        
     },
 
     {
@@ -99,6 +115,9 @@ const TransactionList = ({
       key: 'terminalID',
       align: alignLeft,
       width: 80,
+      render: (terminalId:string)=>(
+        <span className='whitespace-nowrap'>{terminalId}</span>
+      )
     },
     // {
     //   title: t('table:table-item-rrn'),
@@ -127,6 +146,9 @@ const TransactionList = ({
       key: 'postedBy',
       align: alignLeft,
       width: 80,
+      render: (createdBy:string)=>(
+        <span className='whitespace-nowrap'>{createdBy}</span>
+      )
     },
     {
       title: t('table:table-item-status'),
@@ -135,7 +157,7 @@ const TransactionList = ({
       align: 'center',
       width: 80,
       render: (status: string) => (
-        <Badge text={status} color={getStatusColor(status)} />
+        <Badge className='whitespace-nowrap' text={status} color={getStatusColor(status)} />
       ),
     },
     {

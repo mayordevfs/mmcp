@@ -1,0 +1,97 @@
+import Select from '@/components/ui/select/select';
+import React from 'react';
+import { useTranslation } from 'next-i18next';
+import Label from '@/components/ui/label';
+import cn from 'classnames';
+
+import { ActionMeta } from 'react-select';
+import Input from '@/components/ui/input';
+import { DatePicker } from '@/components/ui/date-picker';
+import Button from '../ui/button';
+import { TranFilterType } from '@/pages/transactions';
+import { TerminalFilterType } from '@/pages/terminal_monitoring';
+import { ReconciledTransactionFilterType } from '@/pages/reconciled_transactions';
+import { TransferMasterListFilterType } from '@/pages/transfers';
+
+type Props = {
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSelectChange: (
+    selectedOption: any,
+    actionMeta: ActionMeta<unknown>
+  ) => void;
+  handleDateChange: (date: Date | null, name: string) => void;
+  handleSubmit: () => void;
+  termFilter: TransferMasterListFilterType;
+  className?: string;
+};
+
+export default function CategoryTypeFilter({
+  className,
+  handleChange,
+  handleSelectChange,
+  handleDateChange,
+  handleSubmit,
+  termFilter,
+}: Readonly<Props>) {
+  const { t } = useTranslation();
+
+  const statusOptions = [
+    { value: 'Successful', label: t('common:Successful') },
+    { value: 'Pending', label: t('common:Pending') },
+    { value: 'Failed', label: t('common:Failed') },
+  ];
+
+  return (
+   <div className='space-y-2'>
+     <div
+      className={cn(
+        'grid w-full grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4',
+        className
+      )}
+    >
+      <div className="w-full">
+        <Label>{t('common:status')}</Label>
+        <Select
+          options={statusOptions}
+          placeholder={t('common:select-status')}
+          value={termFilter.status}
+          onChange={handleSelectChange}
+          name="status"
+        />
+      </div>
+
+      <div className="w-full">
+        <Label>{t('common:start-date')}</Label>
+        <DatePicker
+          selected={termFilter.startDate}
+          onChange={(date) => handleDateChange(date, 'startDate')}
+          placeholderText={t('common:select-start-date')}
+          className="w-full"
+        />
+      </div>
+
+      <div className="w-full">
+        <Label>{t('common:end-date')}</Label>
+        <DatePicker
+          selected={termFilter.endDate}
+          onChange={(date) => handleDateChange(date, 'endDate')}
+          placeholderText={t('common:select-end-date')}
+          className="w-full"
+        />
+      </div>
+
+      <div className="w-full">
+        <Label>{t('Transaction Reference No')}</Label>
+        <Input
+          name="tranCode"
+          placeholder={t('Transaction Reference No')}
+          value={termFilter.tranRefNo}
+          onChange={handleChange}
+          className="w-full"
+        />
+      </div>
+    </div>
+    <Button onClick={handleSubmit}>Filter</Button>
+   </div>
+  );
+}

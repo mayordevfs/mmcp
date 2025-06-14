@@ -1716,3 +1716,49 @@ export interface LoggedInUser {
 //   accountNumber?: string;
 //   accountHolderName?: string;
 // }
+
+export type ProductFormValues = {
+  productName: string;
+  productPrice: string;
+  costPrice: string;
+  productCategory: string;
+  stockQuantity: number;
+  productDescription: string;
+  barCode: string;
+  unitQuantity: string;
+  brand: string;
+};
+
+export interface UserProfile_Transfer {
+  appVersion?: string | null;
+  ccy?: string;
+  chatSessionToken?: string;
+  country?: string;
+  customerId?: string;
+  customerTier?: string;
+  deviceID?: string;
+  email?: string;
+  entityCode?: string;
+  entityLogo?: string;
+  entityName?: string;
+  firstname?: string;
+  forcePwdChange?: string;
+  fullname?: string;
+  kycStatus?: string | null;
+  kycTierStatus?: string | null;
+  language?: string;
+  lastLoginDate?: string;
+  mobileNo?: string;
+  notificationMessage?: string | null;
+  onboardType?: string | null;
+  partnerLink?: string;
+  photoLinks?: string | null;
+  pinSet?: boolean;
+  referalCode?: string;
+  responseCode?: string;
+  responseMessage?: string;
+  retryNo?: number;
+  ticketID?: string;
+  userRole?: string;
+  username?: string;
+}

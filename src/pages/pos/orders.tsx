@@ -9,11 +9,13 @@ import axiosInstance from '@/utils/fetch-function';
 
 import ErrorMessage from '@/components/ui/error-message';
 import { useTranslation } from 'next-i18next';
+import useUser from '@/stores/userStore';
 
 const PosOrders = () => {
   const {t} = useTranslation()
   const [showFilters, setShowFilters] = useState(false)
   const [page,setPage] = useState(1)
+  const {user} = useUser()
   const [filter,setFilter] = useState({
     startDate:"",
     endDate:"",
@@ -62,7 +64,7 @@ const PosOrders = () => {
       method:'GET',
       params:{
         storeId:"2001",
-        entityId:"101",
+        entityId:user?.entityCode,
         startDate: filter?.startDate
             ? formatDate(filter?.startDate as any)
             : "01-01-2020",
@@ -98,6 +100,9 @@ const PosOrders = () => {
   function handlePagination(current: number) {
     setPage(current);
   }
+
+  console.log(user);
+  
   
   return (
     <div className='w-[95%] space-y-3'>

@@ -26,3 +26,4 @@ export { MerchantsIcon } from '@/components/icons/sidebar/merchants';
 export {MonitoringIcon} from "@/components/icons/sidebar/terminal-monitoring"
 export {TransactionIcon} from "@/components/icons/sidebar/transaction_type"
 export { ReconciliationIcon } from '@/components/icons/sidebar/reconciliation';
+export {MasterListIcon} from '@/components/icons/sidebar/transfer'

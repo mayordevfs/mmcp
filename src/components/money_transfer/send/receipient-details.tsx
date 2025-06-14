@@ -1,4 +1,4 @@
-import { CreditCard } from 'lucide-react'
+import { CreditCard, Loader } from 'lucide-react'
 import Input from '@/components/ui/input'
 import Label from '@/components/ui/label'
 import SelectInput from '@/components/ui/select-input'
@@ -11,12 +11,13 @@ import FileUpload from './file-upload'
 interface RecipientBankDetailsProps {
   control: Control<EnhancedMoneyTransferFormData>
   currencies: Array<{ code: string; name: string }>
-  uploadedId: File | null
-  uploadedReceipt: File | null
+  uploadedId: FileList|null
+  uploadedReceipt: FileList|null
   onIdUpload: (event: React.ChangeEvent<HTMLInputElement>) => void
   onReceiptUpload: (event: React.ChangeEvent<HTMLInputElement>) => void
   onRemoveId: () => void
   onRemoveReceipt: () => void
+  isUploading:boolean
 }
 
 const RecipientBankDetails: React.FC<RecipientBankDetailsProps> = ({
@@ -27,7 +28,8 @@ const RecipientBankDetails: React.FC<RecipientBankDetailsProps> = ({
   onIdUpload,
   onReceiptUpload,
   onRemoveId,
-  onRemoveReceipt
+  onRemoveReceipt,
+  isUploading
 }) => {
   return (
     <div className="space-y-4">
@@ -79,14 +81,16 @@ const RecipientBankDetails: React.FC<RecipientBankDetailsProps> = ({
       </div>
 
       {/* Document Upload Section */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+      {
+        isUploading? <Loader size={20} color='blue' className='animate-spin'/>
+        :
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
         <FileUpload
           id="idUpload"
           label="Upload ID"
           uploadedFile={uploadedId}
           onFileChange={onIdUpload}
           onRemoveFile={onRemoveId}
-          required
         />
         <FileUpload
           id="receiptUpload"
@@ -94,9 +98,9 @@ const RecipientBankDetails: React.FC<RecipientBankDetailsProps> = ({
           uploadedFile={uploadedReceipt}
           onFileChange={onReceiptUpload}
           onRemoveFile={onRemoveReceipt}
-          required
         />
       </div>
+      }
     </div>
   )
 }

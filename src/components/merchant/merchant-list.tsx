@@ -61,6 +61,9 @@ const MerchantList = ({
       key: 'merchantId',
       align: 'center',
       width: 240,
+      render:(merchantId:string)=>(
+        <span className='whitespace-nowrap'>{merchantId}</span>
+      )
     },
     {
       title: (
@@ -77,6 +80,9 @@ const MerchantList = ({
       dataIndex: 'businessName',
       key: 'businessName',
       align: alignLeft,
+      render:(businessName:string)=>(
+        <span className='whitespace-nowrap'>{businessName}</span>
+      ),
       width: 140,
       onHeaderCell: () => onHeaderClick('businessName'),
     },
@@ -86,6 +92,9 @@ const MerchantList = ({
       key: 'email',
       align: alignLeft,
       width: 200,
+      render:(email:string)=>(
+        <span className='whitespace-nowrap'>{email}</span>
+      )
     },
     {
       title: t('table:table-item-type-of-business'),
@@ -93,6 +102,9 @@ const MerchantList = ({
       key: 'businessType',
       align: 'center',
       width: 120,
+      render:(businessType:string)=>(
+        <span className='whitespace-nowrap'>{businessType}</span>
+      )
     },
     {
       title: t('table:table-item-terminal-id'),
@@ -100,6 +112,9 @@ const MerchantList = ({
       key: 'terminalId',
       align: 'center',
       width: 80,
+      render:(terminalId:string)=>(
+        <span className='whitespace-nowrap'>{terminalId}</span>
+      )
     },
     // {
     //   title: t('table:table-item-show-logo'),

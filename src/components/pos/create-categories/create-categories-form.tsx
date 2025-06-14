@@ -13,6 +13,7 @@ import { useMutation } from 'react-query';
 import axiosInstance from '@/utils/fetch-function';
 import { toast } from 'react-toastify';
 import { uploadClient } from '@/data/client/upload';
+import { useFileUpload } from '../sharedHooks/useFileupload';
 
 const defaultValues = {
   name: '',
@@ -41,13 +42,7 @@ type IProps = {
 export default function CreateCategoryForm({ initialValues }: IProps) {
   const router = useRouter();
   const { t } = useTranslation();
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [selectedFile, setSelectedFile] = useState<FileList | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [fileError, setFileError] = useState<string>('');
-  const [fileUrl, setFileUrl] = useState('');
-  const fileArray = Array.from(selectedFile as FileList || []);
-
+  const {fileError,fileInputRef,fileUrl,handleFileChange,previewUrl,selectedFile} = useFileUpload()
   // Sector options - you can customize these based on your business needs
   const sectorOptions = [
     { label: 'Electronics', value: 'electronics' },
@@ -69,19 +64,7 @@ export default function CreateCategoryForm({ initialValues }: IProps) {
     { label: 'Tertiary', value: 'tertiary' }
   ];
 
-  useEffect(() => {
-    if (!selectedFile?.length) return;
-    uploadClient.upload(fileArray)
-      .then((res: any) => {
-        console.log(res);
-        const filename = res?.data?.refNo
-        console.log(filename);
-        setFileUrl(`${filename}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [selectedFile]);
+  
 
   const {
     register,
@@ -101,8 +84,13 @@ export default function CreateCategoryForm({ initialValues }: IProps) {
     }),
     {
       onSuccess: (data) => {
-        toast.success('Category created successfully');
-        router.push('/pos')
+        if(data?.data?.code!=="000"){
+          toast.error("error saving category")
+        }
+        else{
+          toast.success('Category created successfully');
+          router.push('/pos')
+        }
       },
       onError: (error: any) => {
         console.log(error);
@@ -122,49 +110,7 @@ export default function CreateCategoryForm({ initialValues }: IProps) {
     }
   );
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files;
-    setFileError('');
 
-    if (!file) {
-      setSelectedFile(null);
-      setPreviewUrl(null);
-      return;
-    }
-
-    // Validate file type
-    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/svg+xml'];
-    if (!allowedTypes.includes(file[0].type)) {
-      setFileError('Only JPG, PNG, WebP, and SVG files are allowed');
-      setSelectedFile(null);
-      setPreviewUrl(null);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
-      return;
-    }
-
-    // Validate file size (5MB max)
-    const maxSize = 5 * 1024 * 1024; // 5MB
-    if (file[0].size > maxSize) {
-      setFileError('File size must be less than 5MB');
-      setSelectedFile(null);
-      setPreviewUrl(null);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
-      return;
-    }
-
-    setSelectedFile(file);
-
-    // Create preview
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setPreviewUrl(reader.result as string);
-    };
-    reader.readAsDataURL(file[0]);
-  };
 
   const onSubmit = async (values: any) => {
     console.log("Submitting category form");
@@ -172,10 +118,6 @@ export default function CreateCategoryForm({ initialValues }: IProps) {
     console.log('Selected file:', selectedFile);
 
     // Check if file is required but not selected
-    if (!selectedFile) {
-      setFileError('Category logo is required');
-      return;
-    }
 
     const payload = {
       id: 0,
@@ -234,6 +176,7 @@ export default function CreateCategoryForm({ initialValues }: IProps) {
 
             {/* Top Category */}
             <div>
+              <Label>Top Category</Label>
               <SelectInput
                 label={t('Top Category')}
                 {...register('topCategory')}
@@ -246,6 +189,7 @@ export default function CreateCategoryForm({ initialValues }: IProps) {
 
             {/* Sector */}
             <div>
+              <Label>Sector</Label>
               <SelectInput
                 label={t('Sector')}
                 {...register('sector')}

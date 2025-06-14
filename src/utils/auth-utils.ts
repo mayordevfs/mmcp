@@ -54,6 +54,8 @@ export function hasAccess(
   return false;
 }
 export function isAuthenticated(_cookies: any) {
+  console.log(_cookies[TOKEN]);
+      console.log(_cookies[PERMISSIONS]);
   return (
     !!_cookies[TOKEN] &&
     Array.isArray(_cookies[PERMISSIONS]) &&

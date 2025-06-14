@@ -2,9 +2,13 @@ export const LIMIT = 10;
 export const SUPER_ADMIN = 'super_admin';
 export const STORE_OWNER = 'store_owner';
 export const STAFF = 'staff';
+export const CUSTOMER = 'CUSTOMER'
 export const TOKEN = 'token';
+export const TOKEN_MONEY_TRANSFER = 'token_money_transfer'
 export const PERMISSIONS = 'permissions';
+export const PERMISSIONS_MONEY_TRANSFER = 'permissions_money_transfer'
 export const AUTH_CRED = 'AUTH_CRED';
+export const AUTH_CRED_TRANSFER = 'AUTH_CRED_TRANSFER'
 export const CART_KEY = 'pick-cart';
 export const CHECKOUT = 'pickbazar-checkout';
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types

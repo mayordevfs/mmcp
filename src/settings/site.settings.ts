@@ -192,6 +192,11 @@ export const siteSettings = {
         label: 'Money Transfer',
         icon: 'SettingsIcon',
       },
+      {
+        href: Routes.transfer_master_list,
+        label: 'Transfer Master List',
+        icon: 'MasterListIcon',
+      },
 
     ],
     shop: [

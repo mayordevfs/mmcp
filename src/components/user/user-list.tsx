@@ -6,6 +6,7 @@ import { useIsRTL } from '@/utils/locals';
 import { useState } from 'react';
 import TitleWithSort from '@/components/ui/title-with-sort';
 import Badge from '../ui/badge/badge';
+import ActionButtons from '../common/action-buttons';
 
 type IProps = {
   customers: User[] | undefined;
@@ -14,6 +15,7 @@ type IProps = {
   onSort: (current: any) => void;
   onOrder: (current: string) => void;
 };
+
 const CustomerList = ({
   customers,
   paginatorInfo,
@@ -55,7 +57,7 @@ const CustomerList = ({
       key: 'serialNo',
       align: 'center',
       width: 80,
-      render: (_: any, __: any, index: number) => <span>{index + 1}</span>,
+      render: (_: any, __: any, index: number) => <span className="whitespace-nowrap">{index + 1}</span>,
     },
     {
       title: (
@@ -82,7 +84,8 @@ const CustomerList = ({
       dataIndex: 'name',
       key: 'fullName',
       align: alignLeft,
-      render: (_: any, record: User) => <span>{`${record?.fullname} `}</span>,
+      width:500,
+      render: (_: any, record: User) => <span className="whitespace-nowrap">{`${record?.fullname} `}</span>,
     },
     {
       title: (
@@ -98,21 +101,25 @@ const CustomerList = ({
       dataIndex: 'email',
       key: 'email',
       align: alignLeft,
+      width:500,
       onHeaderCell: () => onHeaderClick('email'),
+      render: (email: string) => (
+        <span className="whitespace-nowrap">{email}</span>
+      ),
     },
     {
       title: t('table:table-item-mobile-no'),
       dataIndex: 'mobileNo',
       key: 'mobileNo',
       align: 'center',
-      render: (mobileNo: any) => <span className="capitalize">{mobileNo}</span>,
+      render: (mobileNo: any) => <span className="whitespace-nowrap capitalize">{mobileNo}</span>,
     },
     {
       title: t('table:table-item-user-role'),
       dataIndex: 'userRole',
       key: 'userRole',
       align: 'center',
-      render: (userRole: any) => <span className="capitalize">{userRole}</span>,
+      render: (userRole: any) => <span className="whitespace-nowrap capitalize">{userRole}</span>,
     },
     {
       title: t('table:table-item-status'),
@@ -131,30 +138,23 @@ const CustomerList = ({
       dataIndex: 'branchCode',
       key: 'branchCode',
       align: 'center',
-      render: (branchCode: any) => branchCode,
+      render: (branchCode: any) => <span className="whitespace-nowrap">{branchCode}</span>,
     },
-    // {
-    //   title: t('table:table-item-actions'),
-    //   dataIndex: 'id',
-    //   key: 'actions',
-    //   align: 'right',
-    //   render: function Render(id: string, { status }: any) {
-    //     const { data } = useMeQuery();
-    //     return (
-    //       <>
-    //         {data?.id != id && (
-    //           <ActionButtons
-    //             id={id}
-    //             userStatus={true}
-    //             isUserActive={status?.toLowerCase() === 'active'}
-    //             showAddWalletPoints={true}
-    //             showMakeAdminButton={true}
-    //           />
-    //         )}
-    //       </>
-    //     );
-    //   },
-    // },
+
+    {
+      title: t('table:table-item-actions'),
+      dataIndex: 'id',
+      key: 'id',
+      align: 'center',
+      width: 50,
+      render: (id:any,user:any) => (
+        <ActionButtons
+        id={id}
+        qrCodeModal={`QR_CODE_MODAL`}
+        user={user}
+        />
+      ),
+    }
   ];
 
   return (

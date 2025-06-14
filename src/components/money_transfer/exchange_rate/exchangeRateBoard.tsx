@@ -4,29 +4,21 @@ import React from 'react';
 // import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { TrendingUp, TrendingDown } from "lucide-react";
 import ExchangeRatesTable from './table';
+import { useQuery } from 'react-query';
+import axiosInstanceNoAuth from '@/utils/fetch-function-no-auth';
+import ErrorMessage from '@/components/ui/error-message';
+import { useExchangeRates } from '@/data/money_transfer/exchangeRates';
 
 const ExchangeRateBoard = () => {
   
+  const {data,isError,isLoading} = useExchangeRates()
 
-  const formatRate = (rate: number, currency: string) => {
-    if (currency === 'JPY' || currency === 'INR') {
-      return rate.toFixed(2);
-    }
-    return rate.toFixed(4);
-  };
-
-  const formatChange = (change: number, currency: string) => {
-    const formattedChange = currency === 'JPY' || currency === 'INR' ? 
-      Math.abs(change).toFixed(2) : 
-      Math.abs(change).toFixed(4);
-    return `${change >= 0 ? '+' : '-'}${formattedChange}`;
-  };
-
+  if(isError) return <ErrorMessage message='Something went wrong!!'/>
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-r from-blue-50 to-indigo-50 py-12 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent mb-4">
             Live Exchange Rates
           </h1>
           <p className="text-lg text-gray-600">
@@ -37,7 +29,9 @@ const ExchangeRateBoard = () => {
           </p>
         </div>
 
-        <ExchangeRatesTable/>
+        <ExchangeRatesTable
+         data={data?.data?.rateList}
+        />
 
         <div className="mt-8 text-center">
           <p className="text-sm text-gray-500">

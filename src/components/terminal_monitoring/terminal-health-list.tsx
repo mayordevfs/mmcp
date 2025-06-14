@@ -61,6 +61,7 @@ const TerminalHealthList = ({
       key: 'serialNo',
       align: 'center',
       width: 50,
+      render: (_: any, __: any, index: number) => <span className="whitespace-nowrap">{index + 1}</span>,
     },
     {
       title: t('table:table-item-terminal-id'),
@@ -68,6 +69,9 @@ const TerminalHealthList = ({
       key: 'terminalId',
       align: alignLeft,
       width: 180,
+      render:(terminalId:string)=>(
+        <span className='whitespace-nowrap'>{terminalId}</span>
+      )
     },
     {
       title: t('table:table-item-log-date'),
@@ -75,6 +79,9 @@ const TerminalHealthList = ({
       key: 'logDate',
       align: alignLeft,
       width: 180,
+      render:(logDate:string)=>(
+        <span className='whitespace-nowrap'>{logDate}</span>
+      )
     },
     {
       title: t('table:table-item-merchant-location'),
@@ -82,6 +89,9 @@ const TerminalHealthList = ({
       key: 'merchantLocation',
       align: alignLeft,
       width: 150,
+      render:(merchantLocation:string)=>(
+        <span className='whitespace-nowrap'>{merchantLocation}</span>
+      )
     },
     {
       title: t('table:table-item-geolocation'),
@@ -89,8 +99,9 @@ const TerminalHealthList = ({
       key: 'geolocation',
       align: alignLeft,
       width: 80,
-      render: (amount: number) =>
-        formatPrice({ amount, currencyCode: 'NGN', locale: 'en-NG' }),
+      render: (geolocation:string) =>(
+        <span className='whitespace-nowrap'>{geolocation}</span>
+      )
     },
 
     {
@@ -99,6 +110,9 @@ const TerminalHealthList = ({
       key: 'batteryStatus',
       align: alignLeft,
       width: 80,
+      render: (batteryStatus:string) =>(
+        <span className='whitespace-nowrap'>{batteryStatus}</span>
+      )
     },
     {
       title: t('table:table-item-network-data'),
@@ -106,6 +120,9 @@ const TerminalHealthList = ({
       key: 'networkData',
       align: 'center',
       width: 80,
+      render: (networkData:string) =>(
+        <span className='whitespace-nowrap'>{networkData}</span>
+      )
     },
     {
       title: t('table:table-item-sim'),
@@ -113,6 +130,9 @@ const TerminalHealthList = ({
       key: 'sim',
       align: 'center',
       width: 80,
+      render: (sim:string) =>(
+        <span className='whitespace-nowrap'>{sim}</span>
+      )
     },
         {
       title: t('table:table-item-charge-state'),
@@ -120,6 +140,9 @@ const TerminalHealthList = ({
       key: 'chargeState',
       align: alignLeft,
       width: 80,
+      render: (chargeState:string) =>(
+        <span className='whitespace-nowrap'>{chargeState}</span>
+      )
     },
     {
       title: t('table:table-item-printer-status'),
@@ -127,6 +150,9 @@ const TerminalHealthList = ({
       key: 'printerStatus',
       align: alignLeft,
       width: 80,
+      render: (printerStatus:string) =>(
+        <span className='whitespace-nowrap'>{printerStatus}</span>
+      )
     },
     // {
     //   title: t('table:table-item-status'),

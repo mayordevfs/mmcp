@@ -10,6 +10,7 @@ import Badge from '../ui/badge/badge';
 import { formatPrice } from '@/utils/use-price';
 import Loader from '../ui/loader/loader';
 import { getStatusColor } from '@/utils/data-mappers';
+import { render } from '@headlessui/react/dist/utils/render';
 
 export type IProps = {
   merchants: Merchant[] | undefined;
@@ -61,6 +62,7 @@ const TransactionList = ({
       key: 'serialNo',
       align: 'center',
       width: 50,
+      render: (_: any, __: any, index: number) => <span className="whitespace-nowrap">{index + 1}</span>,
     },
     {
       title: t('table:table-item-transaction-time'),
@@ -68,6 +70,9 @@ const TransactionList = ({
       key: 'tranDate',
       align: alignLeft,
       width: 180,
+      render:(tranDate:string)=>(
+        <span className='whitespace-nowrap'>{tranDate}</span>
+      )
     },
     {
       title: t('table:table-item-rrn'),
@@ -75,6 +80,9 @@ const TransactionList = ({
       key: 'rrn',
       align: alignLeft,
       width: 180,
+      render:(rrn:string)=>(
+        <span className='whitespace-nowrap'>{rrn}</span>
+      )
     },
     {
       title: t('table:table-item-stan'),
@@ -82,6 +90,9 @@ const TransactionList = ({
       key: 'stan',
       align: alignLeft,
       width: 150,
+      render:(stan:string)=>(
+        <span className='whitespace-nowrap'>{stan}</span>
+      )
     },
     {
       title: t('table:table-item-terminal-id'),
@@ -89,6 +100,9 @@ const TransactionList = ({
       key: 'terminalId',
       align: alignLeft,
       width: 80,
+      render:(terminalId:string)=>(
+        <span className='whitespace-nowrap'>{terminalId}</span>
+      )
     },
 
     {
@@ -97,6 +111,9 @@ const TransactionList = ({
       key: 'cardNo',
       align: alignLeft,
       width: 180,
+      render:(cardNo:string)=>(
+        <span className='whitespace-nowrap'>{cardNo}</span>
+      )
     },
     {
       title: t('table:table-item-amount'),
@@ -104,16 +121,18 @@ const TransactionList = ({
       key: 'amount',
       align: 'center',
       width: 80,
-      render: (amount: number) =>
-        formatPrice({ amount, currencyCode: 'NGN', locale: 'en-NG' }),
+      render: (amount: number) =>{
+        formatPrice({ amount, currencyCode: 'NGN', locale: 'en-NG' })
+      }
+        ,
     },
-    {
-      title: t('table:table-item-response-code'),
-      dataIndex: 'responseCode',
-      key: 'responseCode',
-      align: 'center',
-      width: 80,
-    },
+    // {
+    //   title: t('table:table-item-response-code'),
+    //   dataIndex: 'responseCode',
+    //   key: 'responseCode',
+    //   align: 'center',
+    //   width: 80,
+    // },
       
     {
       title: t('table:table-item-status'),
@@ -135,27 +154,27 @@ const TransactionList = ({
     //     <Badge text={status} color={getStatusColor(status)} />
     //   ),
     // },
-    {
-      title: t('table:table-item-trans-ref-no'),
-      dataIndex: 'transRefNo',
-      key: 'transRefNo',
-      align: 'center',
-      width: 80,
-    },
-    {
-      title: t('table:table-item-file-type'),
-      dataIndex: 'fileType',
-      key: 'fileType',
-      align: 'center',
-      width: 80,
-    },
-    {
-      title: t('table:table-item-file-name'),
-      dataIndex: 'fileName',
-      key: 'fileName',
-      align: 'center',
-      width: 80,
-    },
+    // {
+    //   title: t('table:table-item-trans-ref-no'),
+    //   dataIndex: 'transRefNo',
+    //   key: 'transRefNo',
+    //   align: 'center',
+    //   width: 80,
+    // },
+    // {
+    //   title: t('table:table-item-file-type'),
+    //   dataIndex: 'fileType',
+    //   key: 'fileType',
+    //   align: 'center',
+    //   width: 80,
+    // },
+    // {
+    //   title: t('table:table-item-file-name'),
+    //   dataIndex: 'fileName',
+    //   key: 'fileName',
+    //   align: 'center',
+    //   width: 80,
+    // },
     // {
     //   title: t('table:table-item-actions'),
     //   dataIndex: 'tranRefNo',

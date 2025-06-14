@@ -1,6 +1,7 @@
 import Modal from '@/components/ui/modal/modal';
 import dynamic from 'next/dynamic';
 import { MODAL_VIEWS, useModalAction, useModalState } from './modal.context';
+import GenerateUserQr from '@/components/user/qr-code-gen';
 const TagDeleteView = dynamic(() => import('@/components/tag/tag-delete-view'));
 const TaxDeleteView = dynamic(() => import('@/components/tax/tax-delete-view'));
 const BanCustomerView = dynamic(
@@ -107,6 +108,10 @@ const AbuseReport = dynamic(() => import('@/components/reviews/abuse-report'));
 
 const OrderItem = dynamic(()=>import('@/components/pos/orders/order-item'))
 
+const UserItem = dynamic(()=>import('@/components/user/qr-code-gen'))
+
+const LinkTerminalToMerchant = dynamic(()=>import('@/components/merchant/link-terminal'))
+
 function renderModal(view: MODAL_VIEWS | undefined, data: any) {
   switch (view) {
     case 'DELETE_PRODUCT':
@@ -181,6 +186,11 @@ function renderModal(view: MODAL_VIEWS | undefined, data: any) {
       return <AbuseReport data={data} />;
     case 'POS_ORDER_VIEW':
       return <OrderItem/>;
+    
+    case 'QR_CODE_MODAL':
+      return <UserItem/>
+    case 'LINK_TERMINAL_MODAL':
+      return <LinkTerminalToMerchant/>
     default:
       return null;
   }

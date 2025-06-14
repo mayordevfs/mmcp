@@ -5,7 +5,7 @@ import 'rc-table/assets/index.css';
 import { exchangeRates } from './dummies';
 import { useIsRTL } from '@/utils/locals';
 
-const ExchangeRatesTable = () => {
+const ExchangeRatesTable = ({data}:{data:any}) => {
       const { alignLeft } = useIsRTL();
   const formatRate = (rate:any) => {
     if (rate >= 100) {
@@ -17,6 +17,8 @@ const ExchangeRatesTable = () => {
     }
   };
 
+  console.log(data);
+  
   const formatChange = (change:any) => {
     const sign = change > 0 ? '+' : '';
     if (Math.abs(change) >= 1) {
@@ -26,27 +28,27 @@ const ExchangeRatesTable = () => {
     }
   };
 
-  const getTrendIcon = (trend:any) => {
-    switch (trend) {
-      case 'up':
-        return <TrendingUp className="w-4 h-4 text-green-500" />;
-      case 'down':
-        return <TrendingDown className="w-4 h-4 text-red-500" />;
-      default:
-        return <Minus className="w-4 h-4 text-gray-400" />;
-    }
-  };
+  // const getTrendIcon = (trend:any) => {
+  //   switch (trend) {
+  //     case 'up':
+  //       return <TrendingUp className="w-4 h-4 text-green-500" />;
+  //     case 'down':
+  //       return <TrendingDown className="w-4 h-4 text-red-500" />;
+  //     default:
+  //       return <Minus className="w-4 h-4 text-gray-400" />;
+  //   }
+  // };
 
-  const getTrendColor = (trend:any) => {
-    switch (trend) {
-      case 'up':
-        return 'text-green-600';
-      case 'down':
-        return 'text-red-600';
-      default:
-        return 'text-gray-600';
-    }
-  };
+  // const getTrendColor = (trend:any) => {
+  //   switch (trend) {
+  //     case 'up':
+  //       return 'text-green-600';
+  //     case 'down':
+  //       return 'text-red-600';
+  //     default:
+  //       return 'text-gray-600';
+  //   }
+  // };
 
   const columns:any = [
     {
@@ -57,14 +59,15 @@ const ExchangeRatesTable = () => {
       width: 200,
       render: (text:string, record:any) => (
         <div className="flex items-center gap-3">
-          <img 
+          {/* <img 
             src={record.flag} 
             alt={`${record.currency} flag`}
             className="w-8 h-6 rounded object-cover shadow-sm"
-          />
+          /> */}
+          <span className='text-gray-900 font-bold text-[12px]'>{record?.symbol}</span>
           <div>
-            <div className="font-semibold text-gray-900 text-sm">{record.currency}</div>
-            <div className="text-xs text-gray-500">{record.name}</div>
+            <div className="font-semibold text-gray-900 text-sm">{record.ccy1}</div>
+            {/* <div className="text-xs text-gray-500">{record.name}</div> */}
           </div>
         </div>
       ),
@@ -93,27 +96,27 @@ const ExchangeRatesTable = () => {
         </span>
       ),
     },
-    {
-      title: 'Change',
-      dataIndex: 'change',
-      key: 'change',
-      width: 120,
-      align: 'right',
-      render: (change:any, record:any) => (
-        <div className="flex items-center justify-end gap-2">
-          {getTrendIcon(record.trend)}
-          <span className={`font-mono text-sm font-medium ${getTrendColor(record.trend)}`}>
-            {formatChange(change)}
-          </span>
-        </div>
-      ),
-    },
+    // {
+    //   title: 'Change',
+    //   dataIndex: 'change',
+    //   key: 'change',
+    //   width: 120,
+    //   align: 'right',
+    //   render: (change:any, record:any) => (
+    //     <div className="flex items-center justify-end gap-2">
+    //       {getTrendIcon(record.trend)}
+    //       <span className={`font-mono text-sm font-medium ${getTrendColor(record.trend)}`}>
+    //         {formatChange(change)}
+    //       </span>
+    //     </div>
+    //   ),
+    // },
   ];
 
   return (
     <div className="max-w-4xl mx-auto p-6 bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
       <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-        <div className="px-6 py-4 bg-gradient-to-r from-blue-600 to-indigo-600">
+        <div className="px-6 py-4 bg-gradient-to-r from-blue-600 to-blue-400">
           <h2 className="text-2xl font-bold text-white">Exchange Rates</h2>
           <p className="text-blue-100 mt-1">Live currency exchange rates</p>
         </div>
@@ -121,7 +124,7 @@ const ExchangeRatesTable = () => {
         <div className="overflow-hidden">
           <Table
             columns={columns}
-            data={exchangeRates}
+            data={data}
             rowKey="currency"
             className="exchange-rates-table"
             tableLayout="fixed"

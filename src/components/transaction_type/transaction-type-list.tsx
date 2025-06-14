@@ -67,8 +67,11 @@ const TransactionTypeList = ({
       title: t('table:table-item-transaction-name'),
       dataIndex: 'tranName',
       key: 'tranName',
-      align: 'center',
+      align: 'left',
       width: 340,
+      render:(tranName:string)=>(
+        <span className='whitespace-nowrap'>{tranName}</span>
+      )
     },
     {
       title: t('table:table-item-transaction-id'),

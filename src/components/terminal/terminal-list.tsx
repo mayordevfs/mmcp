@@ -47,6 +47,9 @@ const TerminalList = ({ terminals, onSort, onOrder }: IProps) => {
       key: 'serialNumber',
       align: 'center',
       width: 80,
+      render:(serialNumber:string)=>{
+        return <span className='whitespace-nowrap'>{serialNumber}</span>
+      }
     },
     {
       title: t('table:table-item-terminal-id'),
@@ -113,6 +116,9 @@ const TerminalList = ({ terminals, onSort, onOrder }: IProps) => {
       key: 'address',
       align: 'center',
       width: 80,
+      render:(address:string)=>{
+        return <span className='whitespace-nowrap'>{address}</span>
+      }
     },
     // {
     //   title: t('table:table-item-terminal-name'),
@@ -148,7 +154,7 @@ const TerminalList = ({ terminals, onSort, onOrder }: IProps) => {
       align: 'center',
       width: 80,
       render: (status: string) => (
-        <span className="capitalize">{status?.toLowerCase()}</span>
+        <span className="capitalize whitespace-nowrap">{status?.toLowerCase()}</span>
       ),
     },
     {
