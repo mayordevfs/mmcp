@@ -477,5 +477,20 @@
   "input-label-platform-commission":"Platform Commission",
   "input-label-merchant-commission":"Merchant Commission",
   "input-label-aggregator-commission":"Aggregator Commission",
-  "input-label-service-fee":"Service Fee"
+  "input-label-service-fee":"Service Fee",
+  "input-label-daily-frequency":"Daily Frequency",
+
+
+  "form-title-update-transaction-type":"Update Transaction Type",
+
+  "input-label-entity-code":"Entity Code",
+  "input-label-customer-type":"Customer Type",
+  "input-label-branch-code":"Branch Code",
+
+  "input-label-tran-code":"Transaction Code",
+  "input-label-rrn":"RRN",
+  
+  "input-label-upload":"Upload",
+  "input-label-type-of-file":"Type of File",
+  "input-label-upload-file":"Upload File"
 }

@@ -343,5 +343,20 @@
   "input-label-platform-commission": "平台佣金",
   "input-label-merchant-commission": "商户佣金",
   "input-label-aggregator-commission": "聚合商佣金",
-  "input-label-service-fee": "服务费"
+  "input-label-service-fee": "服务费",
+  "input-label-daily-frequency": "每日频率",
+
+
+  "form-title-update-transaction-type": "更新交易类型",
+
+  "input-label-entity-code": "实体代码",
+  "input-label-customer-type": "客户类型",
+  "input-label-branch-code": "分行代码",
+
+  "input-label-tran-code": "交易代码",
+  "input-label-rrn": "参考号 (RRN)",
+
+  "input-label-upload": "上传",
+  "input-label-type-of-file": "文件类型",
+  "input-label-upload-file": "上传文件"
 }

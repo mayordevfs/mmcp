@@ -335,5 +335,15 @@
   "text-translated-title": "Editar",
   "text-quantity": "Cantidad",
   "text-invoice-no": "Factura no",
-  "text-date": "Fecha"
+  "text-date": "Fecha",
+
+   "text-menu-details": "Detalles del menú",
+  "text-add-to-cart": "Agregar al carrito",
+  "text-add-customer": "Agregar cliente",
+  "text-cart-summary": "Resumen del carrito",
+  "text-no-item-in-cart": "No hay artículos en el carrito",
+  "text-subtotal": "Subtotal",
+  "text-please-wait": "Por favor espera",
+
+  "text-orders": "Pedidos"
 }

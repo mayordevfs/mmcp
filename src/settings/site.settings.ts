@@ -88,6 +88,16 @@ export const siteSettings = {
         icon: 'TransactionIcon',
       },
       {
+        href: Routes.reconciled_transactions,
+        label: 'Reconciled Transactions',
+        icon: 'ReconciliationIcon',
+      },
+      {
+        href: Routes.pos,
+        label: 'POS',
+        icon: 'ReconciliationIcon',
+      },
+      {
         href: Routes.report.list,
         label: 'sidebar-nav-item-reports',
         icon: 'ReportsIcon',
@@ -177,6 +187,17 @@ export const siteSettings = {
         label: 'sidebar-nav-item-settings',
         icon: 'SettingsIcon',
       },
+      {
+        href: Routes.money_transfer,
+        label: 'Money Transfer',
+        icon: 'SettingsIcon',
+      },
+      {
+        href: Routes.transfer_master_list,
+        label: 'Transfer Master List',
+        icon: 'MasterListIcon',
+      },
+
     ],
     shop: [
       {
@@ -246,6 +267,28 @@ export const siteSettings = {
         permissions: adminAndOwnerOnly,
       },
     ],
+    pos:[
+      {
+        href:Routes.pos,
+        icon:"QuestionIcon",
+        label:"Point of Sales"
+      },
+      {
+        href:Routes.pos_orders,
+        icon:"OrdersIcon",
+        label:"Orders"
+      },
+      {
+        href:Routes.pos_create_product,
+        icon:"ProductsIcon",
+        label:"Create Product"
+      },
+      {
+        href:Routes.pos_create_category,
+        icon:"CategoriesIcon",
+        label:"Create Category"
+      }
+    ]
   },
   product: {
     placeholder: '/product-placeholder.svg',

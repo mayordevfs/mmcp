@@ -343,5 +343,20 @@
   "input-label-platform-commission": "عمولة المنصة",
   "input-label-merchant-commission": "عمولة التاجر",
   "input-label-aggregator-commission": "عمولة المجمع",
-  "input-label-service-fee": "رسوم الخدمة"
+  "input-label-service-fee": "رسوم الخدمة",
+  "input-label-daily-frequency": "التكرار اليومي",
+
+  "form-title-update-transaction-type": "تحديث نوع المعاملة",
+
+  "input-label-entity-code": "رمز الكيان",
+  "input-label-customer-type": "نوع العميل",
+  "input-label-branch-code": "رمز الفرع",
+
+  "input-label-tran-code": "رمز المعاملة",
+  "input-label-rrn": "رقم المرجع (RRN)",
+
+  "input-label-upload": "تحميل",
+  "input-label-type-of-file": "نوع الملف",
+  "input-label-upload-file": "تحميل ملف"
+
 }

@@ -1557,3 +1557,208 @@ export interface ITransactionDetails {
   collectionTeller: null;
   customerRefNo: null;
 }
+
+
+export interface PosProductProps{
+  barCode?:string,
+  category?:string,
+  ccy?:string,
+  code?:string,
+  color?:string,
+  description?:string,
+  expiryDate?:string|null,
+  id:number,
+  itemSize?:number|null,
+  model?:null,
+  name?:string,
+  oldPrice?:number,
+  picture?:string,
+  pictureList?:string[],
+  qtyInStore?:number,
+  salePrice?:number,
+  topCategory?:string,
+  unit?:string
+}
+
+// Currency option type
+export interface Currency {
+  code: string;
+  name: string;
+}
+
+// Main form data interface
+export interface MoneyTransferFormData {
+  // Sender Information
+  name: string;
+  phoneNumber: string;
+  email: string;
+  
+  // Transfer Details
+  sendCurrency: Currency;
+  amountToSend: number;
+  receiveCurrency: Currency;
+  amountToReceive: number;
+  
+  // Recipient Bank Details
+  bank: string; // This should probably be a Bank interface too
+  accountNumber: string;
+  accountHolderName: string; // Fixed the missing name attribute
+}
+
+// Optional: Bank interface if you want to structure bank data
+export interface Bank {
+  code: string;
+  name: string;
+}
+
+// Enhanced form data interface with Bank type
+export interface EnhancedMoneyTransferFormData {
+  // Sender Information
+  name: string;
+  phoneNumber: string;
+  email: string;
+  
+  // Transfer Details
+  sendCurrency: Currency;
+  amountToSend: number;
+  receiveCurrency: Currency;
+  amountToReceive: number;
+  
+  // Recipient Bank Details
+  bank: string;
+  accountNumber: string;
+  accountHolderName: string;
+}
+
+export interface ProductCategoriesProps{
+  code?:string,
+  name?:string,
+  id?:number,
+  logo?:string,
+  description?:null,
+  qty?:number|null,
+  sector?:null,
+  tags?:null,
+  topCategory?:string,
+}
+
+export interface LoggedInUser {
+  accountType?: string | null;
+  address?: string;
+  appMenuList?: any | null;
+  appSettingsDto?: any | null;
+  appVersion?: string | null;
+  branchID?: string;
+  branchName?: string;
+  businessName?: string;
+  ccy?: string;
+  country?: string;
+  creditWallet?: boolean;
+  customerTier?: string | null;
+  deviceID?: string;
+  email?: string;
+  entityCode?: string;
+  entityLogo?: string;
+  entityName?: string;
+  entityStyle?: string | null;
+  entityType?: string;
+  expiryDate?: string | null;
+  externalAccount?: any | null;
+  firstname?: string | null;
+  forcePwdChange?: string;
+  fullname?: string;
+  hardTokenOtpValid?: boolean | null;
+  language?: string | null;
+  lastLoginDate?: string;
+  medium?: string | null;
+  menuInfoList?: any | null;
+  merchantCode?: string;
+  merchantGroupCode?: string;
+  messageActionDto?: any | null;
+  metaData?: any | null;
+  mobileNo?: string;
+  paymentMethodAllowed?: any | null;
+  photoLinks?: any | null;
+  pwd?: string;
+  referalCode?: string;
+  refreshToken?: string | null;
+  responseCode?: string;
+  responseMessage?: string;
+  retryNo?: number;
+  softTokenQrCodeLink?: string | null;
+  storeCode?: string | null;
+  supervisor?: string;
+  supervisorPassword?: string | null;
+  terminalId?: string;
+  ticketID?: string;
+  twoFactorLimit?: number;
+  twoFactorType?: string;
+  userID?: string;
+  userPermissionList?: any | null;
+  userRole?: string;
+  userRoles?: any | null;
+  username?: string;
+  walletAcc?: string;
+  walletBalance?: number;
+  walletType?: number;
+}
+
+// // Form validation schema (if using with react-hook-form resolver)
+// export interface FormErrors {
+//   name?: string;
+//   phoneNumber?: string;
+//   email?: string;
+//   sendCurrency?: string;
+//   amountToSend?: string;
+//   receiveCurrency?: string;
+//   amountToReceive?: string;
+//   bank?: string;
+//   accountNumber?: string;
+//   accountHolderName?: string;
+// }
+
+export type ProductFormValues = {
+  productName: string;
+  productPrice: string;
+  costPrice: string;
+  productCategory: string;
+  stockQuantity: number;
+  productDescription: string;
+  barCode: string;
+  unitQuantity: string;
+  brand: string;
+};
+
+export interface UserProfile_Transfer {
+  appVersion?: string | null;
+  ccy?: string;
+  chatSessionToken?: string;
+  country?: string;
+  customerId?: string;
+  customerTier?: string;
+  deviceID?: string;
+  email?: string;
+  entityCode?: string;
+  entityLogo?: string;
+  entityName?: string;
+  firstname?: string;
+  forcePwdChange?: string;
+  fullname?: string;
+  kycStatus?: string | null;
+  kycTierStatus?: string | null;
+  language?: string;
+  lastLoginDate?: string;
+  mobileNo?: string;
+  notificationMessage?: string | null;
+  onboardType?: string | null;
+  partnerLink?: string;
+  photoLinks?: string | null;
+  pinSet?: boolean;
+  referalCode?: string;
+  responseCode?: string;
+  responseMessage?: string;
+  retryNo?: number;
+  ticketID?: string;
+  userRole?: string;
+  username?: string;
+}

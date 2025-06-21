@@ -345,5 +345,15 @@
   "text-translated-title": "编辑",
   "text-quantity": "数量",
   "text-invoice-no": "发票号码",
-  "text-date": "日期"
+  "text-date": "日期",
+
+  "text-menu-details": "菜单详情",
+  "text-add-to-cart": "添加到购物车",
+  "text-add-customer": "添加客户",
+  "text-cart-summary": "购物车摘要",
+  "text-no-item-in-cart": "购物车中没有商品",
+  "text-subtotal": "小计",
+  "text-please-wait": "请稍候",
+
+  "text-orders": "订单"
 }

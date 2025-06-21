@@ -343,5 +343,19 @@
   "input-label-platform-commission": "Plattformprovision",
   "input-label-merchant-commission": "Händlerprovision",
   "input-label-aggregator-commission": "Aggregatorprovision",
-  "input-label-service-fee": "Servicegebühr"
+  "input-label-service-fee": "Servicegebühr",
+  "input-label-daily-frequency": "Tägliche Häufigkeit",
+
+  "form-title-update-transaction-type": "Transaktionstyp aktualisieren",
+
+  "input-label-entity-code": "Entitätscode",
+  "input-label-customer-type": "Kundentyp",
+  "input-label-branch-code": "Filialcode",
+
+  "input-label-tran-code": "Transaktionscode",
+  "input-label-rrn": "Referenznummer (RRN)",
+
+  "input-label-upload": "Hochladen",
+  "input-label-type-of-file": "Dateityp",
+  "input-label-upload-file": "Datei hochladen"
 }

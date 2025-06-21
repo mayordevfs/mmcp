@@ -9,6 +9,7 @@ const axiosInstance = axios.create({
 async function getSessionToken() {
   const token = window.localStorage.getItem('token');
   if (token) {
+    
     return token;
   }
 }

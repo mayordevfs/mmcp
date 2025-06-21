@@ -54,6 +54,8 @@ export default function TerminalsPage() {
     {}
   );
 
+  console.log(data);
+  
   const toggleVisible = () => {
     setVisible((v) => !v);
   };

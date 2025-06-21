@@ -74,6 +74,35 @@
   "table-item-battery-status": "电池状态",
   "table-item-printer-status": "打印机状态",
   "table-item-network-data": "网络数据",
-  "table-item-sim-status": "SIM 卡状态",
-  "table-item-other-data": "其他数据"
+  "table-item-sim": "SIM 卡状态",
+  "table-item-other-data": "其他数据",
+  "table-item-charge-state": "收费状态",
+  "table-item-merchant-location": "商户位置",
+
+   "table-item-transaction-name": "交易名称",
+  "table-item-transaction-id": "交易编号",
+  "table-item-min-limit": "最小限额",
+  "table-item-max-limit": "最大限额",
+  "table-item-daily-limit": "每日限额",
+  "table-item-charge-type": "收费类型",
+  "table-item-charge": "收费",
+  "table-item-cap-limit": "收费上限",
+  "table-item-network-commission": "网络佣金",
+  "table-item-platform-commission": "平台佣金",
+  "table-item-merchant-commission": "商户佣金",
+  "table-item-aggregator-commission": "聚合商佣金",
+  "table-item-service-fee": "服务费",
+
+  "table-item-transaction-time": "交易时间",
+  "table-item-card-no": "卡号",
+  "table-item-response-code": "响应代码",
+  "table-item-reconcile-status": "对账状态",
+  "table-item-trans-ref-no": "交易参考号",
+  "table-item-file-type": "文件类型",
+  "table-item-file-name": "文件名称",
+
+   "table-item-order-no": "订单号",
+  "table-item-customer-id": "客户编号",
+  "table-item-amount-paid": "已付金额",
+  "table-item-order-status": "订单状态"
 }

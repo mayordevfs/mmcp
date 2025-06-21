@@ -324,5 +324,15 @@
   "text-translated-title": "يحرر",
   "text-quantity": "كمية",
   "text-invoice-no": "رقم الفاتورة",
-  "text-date": "تاريخ"
+  "text-date": "تاريخ",
+
+   "text-menu-details": "تفاصيل القائمة",
+  "text-add-to-cart": "أضف إلى السلة",
+  "text-add-customer": "إضافة عميل",
+  "text-cart-summary": "ملخص السلة",
+  "text-no-item-in-cart": "لا توجد عناصر في السلة",
+  "text-subtotal": "المجموع الفرعي",
+  "text-please-wait": "يرجى الانتظار",
+
+  "text-orders": "الطلبات"
 }

@@ -71,6 +71,35 @@
   "table-item-battery-status": "Batteriestatus",
   "table-item-printer-status": "Druckerstatus",
   "table-item-network-data": "Netzwerkdaten",
-  "table-item-sim-status": "SIM-Status",
-  "table-item-other-data": "Weitere Daten"
+  "table-item-sim": "SIM-Status",
+  "table-item-other-data": "Weitere Daten",
+  "table-item-charge-state": "Ladezustand",
+  "table-item-merchant-location": "Händlerstandort",
+
+  "table-item-transaction-name": "Transaktionsname",
+  "table-item-transaction-id": "Transaktions-ID",
+  "table-item-min-limit": "Mindestlimit",
+  "table-item-max-limit": "Höchstlimit",
+  "table-item-daily-limit": "Tageslimit",
+  "table-item-charge-type": "Gebührenart",
+  "table-item-charge": "Gebühr",
+  "table-item-cap-limit": "Gebührenobergrenze",
+  "table-item-network-commission": "Netzwerkprovision",
+  "table-item-platform-commission": "Plattformprovision",
+  "table-item-merchant-commission": "Händlerprovision",
+  "table-item-aggregator-commission": "Aggregatorprovision",
+  "table-item-service-fee": "Servicegebühr",
+
+  "table-item-transaction-time": "Transaktionszeit",
+  "table-item-card-no": "Kartennummer",
+  "table-item-response-code": "Antwortcode",
+  "table-item-reconcile-status": "Abgleichstatus",
+  "table-item-trans-ref-no": "Transaktionsreferenznummer",
+  "table-item-file-type": "Dateityp",
+  "table-item-file-name": "Dateiname",
+
+   "table-item-order-no": "Bestellnummer",
+  "table-item-customer-id": "Kundennummer",
+  "table-item-amount-paid": "Bezahlter Betrag",
+  "table-item-order-status": "Bestellstatus"
 }

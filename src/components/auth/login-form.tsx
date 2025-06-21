@@ -19,6 +19,7 @@ import {
 import { useMutation } from 'react-query';
 import axiosInstance from '@/utils/fetch-function';
 import { log } from 'console';
+import useUser from '@/stores/userStore';
 
 const loginFormSchema = yup.object().shape({
   email: yup.string().required('form:error-email-required'),
@@ -28,7 +29,7 @@ const loginFormSchema = yup.object().shape({
 const LoginForm = () => {
   const { t } = useTranslation();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
+  const {setUser} = useUser()
   const loginMutation = useMutation(
     ({ email, password }: { email: string; password: string }) =>
       axiosInstance.post('/usermanager/weblogin', {
@@ -42,6 +43,7 @@ const LoginForm = () => {
       onSuccess: (data) => {
         localStorage.setItem('token', data.data.ticketID);
         localStorage.setItem('user', JSON.stringify(data.data));
+        setUser(data?.data)
         if (data?.data?.ticketID) {
           if (hasAccess(allowedRoles, ['store_owner', 'super_admin'])) {
             setAuthCredentials(data?.data.ticketID, [
@@ -51,6 +53,7 @@ const LoginForm = () => {
             Router.push(Routes.dashboard);
             return;
           }
+          // TODO:put an else if statement
           setErrorMessage('form:error-enough-permission');
         } else {
           setErrorMessage('form:error-credential-wrong');

@@ -239,6 +239,11 @@
     * orange-900
     */
     --color-orange-900: 124, 45, 18;
+
+    /* primary color for money transfer app */
+
+    --color-blue-600:37,99,235;
+    
   }
 
   a {

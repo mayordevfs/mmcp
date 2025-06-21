@@ -74,6 +74,35 @@
   "table-item-battery-status": "מצב סוללה",
   "table-item-printer-status": "מצב מדפסת",
   "table-item-network-data": "נתוני רשת",
-  "table-item-sim-status": "מצב כרטיס SIM",
-  "table-item-other-data": "נתונים נוספים"
+  "table-item-sim": "מצב כרטיס SIM",
+  "table-item-other-data": "נתונים נוספים",
+  "table-item-charge-state": "מצב חיוב",
+  "table-item-merchant-location": "מיקום סוחר",
+
+   "table-item-transaction-name": "שם עסקה",
+  "table-item-transaction-id": "מזהה עסקה",
+  "table-item-min-limit": "מגבלה מינימלית",
+  "table-item-max-limit": "מגבלה מקסימלית",
+  "table-item-daily-limit": "מגבלה יומית",
+  "table-item-charge-type": "סוג חיוב",
+  "table-item-charge": "חיוב",
+  "table-item-cap-limit": "תקרת חיוב",
+  "table-item-network-commission": "עמלת רשת",
+  "table-item-platform-commission": "עמלת פלטפורמה",
+  "table-item-merchant-commission": "עמלת סוחר",
+  "table-item-aggregator-commission": "עמלת אגרגטור",
+  "table-item-service-fee": "דמי שירות",
+
+  "table-item-transaction-time": "זמן עסקה",
+  "table-item-card-no": "מספר כרטיס",
+  "table-item-response-code": "קוד תגובה",
+  "table-item-reconcile-status": "סטטוס התאמה",
+  "table-item-trans-ref-no": "מספר אסמכתא",
+  "table-item-file-type": "סוג קובץ",
+  "table-item-file-name": "שם קובץ",
+
+   "table-item-order-no": "מספר הזמנה",
+  "table-item-customer-id": "מזהה לקוח",
+  "table-item-amount-paid": "סכום ששולם",
+  "table-item-order-status": "סטטוס הזמנה"
 }

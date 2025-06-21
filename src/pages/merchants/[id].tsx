@@ -20,12 +20,15 @@ import { MerchantDto, SortOrder, TerminalDtoList } from '@/types';
 import { Table } from '@/components/ui/table';
 import { generateReportColumn } from '@/utils/locals';
 import Card from '@/components/common/card';
+import { useModalAction } from '@/components/ui/modal/modal.context';
+import Button from '@/components/ui/button';
 
 const MerchantDetails = () => {
   const { t } = useTranslation();
   const { query } = useRouter();
   const [orderBy, setOrder] = useState('created_at');
   const [sortedBy, setColumn] = useState<SortOrder>(SortOrder.Desc);
+  const {openModal} = useModalAction()
   const { data, isLoading: loading } = useQuery('merchantDetails', () =>
     axiosInstance.request({
       method: 'GET',
@@ -38,15 +41,104 @@ const MerchantDetails = () => {
   );
   const terminalDtoList: TerminalDtoList[] = data?.data?.terminalDtoList;
   const merchantDetails: MerchantDto = data?.data?.merchantDto;
-  if (loading) return <Loader text={t('common:text-loading')} />;
+  console.log(merchantDetails);
 
+  const handleLinkTerminalModal = ()=>{
+    openModal("LINK_TERMINAL_MODAL",{
+      merchant:merchantDetails
+    })
+  }
+  
+  if (loading) return <Loader text={t('common:text-loading')} />;
+  console.log(terminalDtoList);
+
+  const renderFn = (value:string)=><span className='whitespace-nowrap'>{value?value:'N/A'}</span>
+
+  const column = [
+    
+      {
+      title: t('table:table-item-serial-no'),
+      dataIndex: 'serialNo',
+      key: 'serialNo',
+      align: 'center',
+      width: 50,
+      render: (serialNo:string) => renderFn(serialNo),
+    },
+    
+    {
+      title: t('Teller Id'),
+      dataIndex: 'tellerId',
+      key: 'tellerId',
+      align: 'center',
+      width: 50,
+      render: (tellerId:string)=>(
+        renderFn(tellerId)
+      ),
+    },
+    {
+      title: t('Status'),
+      dataIndex: 'status',
+      key: 'status',
+      align: 'center',
+      width: 50,
+      render: (status:string)=>(
+        renderFn(status)
+      ),
+    },
+    {
+      title: t('Wallet Name'),
+      dataIndex: 'walletName',
+      key: 'walletName',
+      align: 'center',
+      width: 50,
+      render: (walletName:string)=>(
+        renderFn(walletName)
+      ),
+    },
+    {
+      title: t('Wallet Id'),
+      dataIndex: 'walletId',
+      key: 'walletId',
+      align: 'center',
+      width: 50,
+      render: (walletId:string)=>(
+        renderFn(walletId)
+      ),
+    },
+    {
+      title: t('Virtual Account No'),
+      dataIndex: 'virtualAccountNo',
+      key: 'virtualAccountNo',
+      align: 'center',
+      width: 50,
+      render: (virtualAccountNo:string)=>(
+        renderFn(virtualAccountNo)
+      ),
+    },
+    {
+      title: t('Terminal Id'),
+      dataIndex: 'terminalId',
+      key: 'terminalId',
+      align: 'center',
+      width: 50,
+      render: (terminalId:string)=>(
+        renderFn(terminalId)
+      ),
+    },
+  ]
+  
   return (
     <div className="">
       {/* Back button */}
-      <div className="col-span-12">
-        <LinkButton href={Routes.merchant.list} className="mb-4">
-          {t('Merchants')}
+      <div className="col-span-12 flex items-center justify-between">
+        <LinkButton href={Routes.merchant.list} className="mb-4 bg-gray-400 hover:bg-gray-50 hover:text-black">
+          {t('Back')}
         </LinkButton>
+        
+          <Button className='mb-4' onClick={handleLinkTerminalModal}>
+            {t('Link Terminal')}
+          </Button>
+        
       </div>
       <div className="grid grid-cols-[2fr,3fr] gap-3">
         {/* about Shop */}
@@ -158,7 +250,7 @@ const MerchantDetails = () => {
       <br />
       <Table
         //@ts-ignore
-        columns={generateReportColumn(terminalDtoList)}
+        columns={column}
         emptyText={t('table:empty-table-data')}
         data={terminalDtoList ?? []}
         rowKey="id"

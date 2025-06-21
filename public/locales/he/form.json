@@ -343,5 +343,19 @@
   "input-label-platform-commission": "עמלת פלטפורמה",
   "input-label-merchant-commission": "עמלת סוחר",
   "input-label-aggregator-commission": "עמלת אגרגטור",
-  "input-label-service-fee": "דמי שירות"
+  "input-label-service-fee": "דמי שירות",
+  "input-label-daily-frequency": "תדירות יומית",
+
+  "form-title-update-transaction-type": "עדכן סוג עסקה",
+
+   "input-label-entity-code": "קוד ישות",
+  "input-label-customer-type": "סוג לקוח",
+  "input-label-branch-code": "קוד סניף",
+
+  "input-label-tran-code": "קוד עסקה",
+  "input-label-rrn": "מספר אסמכתא (RRN)",
+
+  "input-label-upload": "העלה",
+  "input-label-type-of-file": "סוג קובץ",
+  "input-label-upload-file": "העלה קובץ"
 }

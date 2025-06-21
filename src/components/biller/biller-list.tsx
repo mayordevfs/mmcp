@@ -55,6 +55,9 @@ const BillerList = ({ merchants, onSort, onOrder }: IProps) => {
       key: 'billerCode',
       align: 'center',
       width: 80,
+      render: (billerCode:string)=>(
+        <span className='whitespace-nowrap'>{billerCode}</span>
+      )
     },
     {
       title: (
@@ -73,20 +76,29 @@ const BillerList = ({ merchants, onSort, onOrder }: IProps) => {
       align: alignLeft,
       width: 100,
       onHeaderCell: () => onHeaderClick('billerName'),
+      render: (billerName:string)=>(
+        <span className='whitespace-nowrap'>{billerName}</span>
+      )
     },
-    {
-      title: t('table:table-item-bank-name'),
-      dataIndex: 'bankName',
-      key: 'bankName',
-      align: 'center',
-      width: 80,
-    },
+    // {
+    //   title: t('table:table-item-bank-name'),
+    //   dataIndex: 'bankName',
+    //   key: 'bankName',
+    //   align: 'center',
+    //   width: 80,
+    //   render: (bankName:string)=>(
+    //     <span className='whitespace-nowrap'>{bankName}</span>
+    //   )
+    // },
     {
       title: t('table:table-item-biller-short-name'),
       dataIndex: 'billerShortName',
       key: 'billerShortName',
       align: 'center',
       width: 80,
+      render: (billerShortName:string)=>(
+        <span className='whitespace-nowrap'>{billerShortName}</span>
+      )
     },
     {
       title: t('table:table-item-biller-category'),
@@ -94,6 +106,9 @@ const BillerList = ({ merchants, onSort, onOrder }: IProps) => {
       key: 'billerCategory',
       align: 'center',
       width: 80,
+      render: (billerCategory:string)=>(
+        <span className='whitespace-nowrap'>{billerCategory}</span>
+      )
     },
     {
       title: t('table:table-item-status'),
@@ -102,7 +117,7 @@ const BillerList = ({ merchants, onSort, onOrder }: IProps) => {
       align: 'center',
       width: 80,
       render: (status: string) => (
-        <span className="capitalize">{status?.toLowerCase()}</span>
+        <span className="capitalize whitespace-nowrap">{status?.toLowerCase()}</span>
       ),
     },
     {

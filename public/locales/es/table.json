@@ -74,6 +74,35 @@
   "table-item-battery-status": "Estado de la batería",
   "table-item-printer-status": "Estado de la impresora",
   "table-item-network-data": "Datos de red",
-  "table-item-sim-status": "Estado de la SIM",
-  "table-item-other-data": "Otros datos"
+  "table-item-sim": "Estado de la SIM",
+  "table-item-other-data": "Otros datos",
+  "table-item-charge-state": "Estado de cargo",
+  "table-item-merchant-location": "Ubicación del comerciante",
+
+   "table-item-transaction-name": "Nombre de la transacción",
+  "table-item-transaction-id": "ID de transacción",
+  "table-item-min-limit": "Límite mínimo",
+  "table-item-max-limit": "Límite máximo",
+  "table-item-daily-limit": "Límite diario",
+  "table-item-charge-type": "Tipo de cargo",
+  "table-item-charge": "Cargo",
+  "table-item-cap-limit": "Límite máximo de cargo",
+  "table-item-network-commission": "Comisión de red",
+  "table-item-platform-commission": "Comisión de plataforma",
+  "table-item-merchant-commission": "Comisión del comerciante",
+  "table-item-aggregator-commission": "Comisión del agregador",
+  "table-item-service-fee": "Tarifa de servicio",
+
+  "table-item-transaction-time": "Hora de la transacción",
+  "table-item-card-no": "Número de tarjeta",
+  "table-item-response-code": "Código de respuesta",
+  "table-item-reconcile-status": "Estado de conciliación",
+  "table-item-trans-ref-no": "N.º de referencia",
+  "table-item-file-type": "Tipo de archivo",
+  "table-item-file-name": "Nombre del archivo",
+
+   "table-item-order-no": "N.º de pedido",
+  "table-item-customer-id": "ID del cliente",
+  "table-item-amount-paid": "Monto pagado",
+  "table-item-order-status": "Estado del pedido"
 }

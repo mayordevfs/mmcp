@@ -1,19 +1,17 @@
 import Input from '@/components/ui/input';
-import { useForm, useWatch } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import SelectInput from '@/components/ui/select-input';
 import Button from '@/components/ui/button';
 import Card from '@/components/common/card';
-
 import Label from '@/components/ui/label';
-import { Shipping, MerchantInput, TransTypeInput } from '@/types';
-
+import { TransTypeInput } from '@/types';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
-import FileInput from '@/components/ui/file-input';
 import { toast } from 'react-toastify';
 import axiosInstance from '@/utils/fetch-function';
 import { useMutation } from 'react-query';
 import useGetLookup from '@/hooks/useGetLookup';
+import { random20DigitNumber } from '@/lib/helper';
 
 const defaultValues = { 
   transName: "",
@@ -33,61 +31,42 @@ const defaultValues = {
   networkCommission: 0,
   aggregatorCommission: 0,
   serviceFee: 0,
-  charge: 1,
+  charge: 0,
   chargeType: {
     id:'',
     name:''
   },
-  minLimit:100.0,
+  minLimit:0,
   capLimit: 0.0,
 }
-
 
 const chargeType = [
   {id:"fixed", name:"FIXED"},
   {id:"percentage",name:"PERCENTAGE"}
 ]
 
-
 export default function CreateTransactionTypeForm() {
   const router = useRouter();
   const { t } = useTranslation();
-  const merchantCategoryOptions = useGetLookup("MERCHANT_GROUP")
-  const transactionTypeOptions = useGetLookup("TRAN_CODE")
-  const { register, handleSubmit, control} = useForm<TransTypeInput>({
+  const merchantCategoryOptions = useGetLookup("MERCHANT_GROUP");
+  const transactionTypeOptions = useGetLookup("TRAN_CODE");
+  const setUpRefNo = random20DigitNumber();
+  
+
+  console.log(merchantCategoryOptions)
+  console.log(transactionTypeOptions);
+  
+  const { register, handleSubmit, control } = useForm<TransTypeInput>({
     shouldUnregister: true,
     defaultValues: defaultValues,
   });
 
-  console.log(merchantCategoryOptions);
-  
-
-  const { mutate: saveMerchant, isLoading: ismerchantLoading } = useMutation(
+  const { mutate: saveTransactionType, isLoading: isTranTypeLoading } = useMutation(
     (formData: any) =>
       axiosInstance.request({
         method: 'POST',
-        url: 'merchant/onboard',
-        data: {
-          ...formData,
-          id:0,
-          entityCode:"ETZ",
-          customerType:"MERCHANT",
-          tranCode:transactionTypeOptions,
-          dailyFreq:10,
-          status:"ACTIVE",
-          bankCommission:0,
-          groupCommission:0,
-          otherCharge:0,
-          tranChannel:"MOBILE",
-          roleAllowed:"MERCHANT",
-          sharingType:"PERCENTAGE",
-          branchCode:merchantCategoryOptions,
-          tax:0,
-          setUpRefNo:"",
-          FeeTiers:[
-            {}
-          ]
-        },
+        url: 'transTypeSetup/create',
+        data: formData,
       }),
     {
       onSuccess: (data) => {
@@ -95,7 +74,7 @@ export default function CreateTransactionTypeForm() {
           toast.error(data?.data?.desc);
           return;
         }
-        toast.success('Merchant created successfully');
+        toast.success('Transaction type created successfully');
         router.back();
       },
       onError: (error: any) => {
@@ -103,56 +82,63 @@ export default function CreateTransactionTypeForm() {
 
         if (error?.response?.data) {
           if (error.response.status === 400) {
-            toast.error('Bad request');
+            toast.error('Bad request: ' + (error.response.data.message || 'Unknown error'));
           } else if (error.response.status === 422) {
-            toast.error(t('common:error-creating-user'));
+            toast.error(t('Error creating transaction type'));
           } else if (error.response.status === 500) {
-            toast.error(t('common:error-creating-user'));
+            toast.error(t('Error creating transaction type'));
           }
         } else {
-          toast.error(t('common:error-creating-user'));
+          toast.error(t('Error creating transaction type'));
         }
       },
     }
   );
 
   const onSubmit = async (values: TransTypeInput) => {
+    // Directly use the values from the form instead of setting state
+    const tranCode = values?.tranType?.id;
+    const branchCode = values?.merchCategory?.id;
+    
     const payload = {
-      tranName:values?.tranName,
-      tranType:values?.tranType?.id,
-      merchCategory:values?.merchCategory?.id,
-      chargeType:values?.chargeType?.id,
-      maxLimit:values?.maxLimit,
-      minLimit:values?.minLimit,
-      dailyLimit:values?.dailyLimit,
-      capLimit:values?.capLimit,
-      networkCommission:values?.networkCommission,
-      platformCommission:values?.platformCommission,
-      aggregatorCommission:values?.aggregatorCommission,
-      agentCommission:values?.agentCommission,
-      serviceFee:values.serviceFee,
-      charge:values.charge,
-      dailyFreq:values?.dailyFreq
+      tranName: values?.tranName,
+      chargeType: values?.chargeType?.id,
+      maxLimit: Number(values?.maxLimit),
+      minLimit: Number(values?.minLimit),
+      dailyLimit: Number(values?.dailyLimit),
+      capLimit: Number(values?.capLimit),
+      networkCommission: Number(values?.networkCommission),
+      platformCommission: Number(values?.platformCommission),
+      aggregatorCommission: Number(values?.aggregatorCommission),
+      agentCommission: Number(values?.agentCommission),
+      serviceFee: Number(values.serviceFee),
+      charge: Number(values.charge),
+      dailyFreq: Number(values?.dailyFreq),
+      // Add these fields directly to the payload
+      id: 0,
+      entityCode: "ETZ",
+      customerType: "MERCHANT",
+      tranCode: tranCode,
+      status: "ACTIVE",
+      bankCommission: 0,
+      groupCommission: 0,
+      otherCharge: 0,
+      tranChannel: "MOBILE",
+      roleAllowed: "",
+      sharingType: "",
+      branchCode: branchCode,
+      tax: 0,
+      setUpRefNo: `REF${setUpRefNo}`,
+      FeeTiers: [{}]
     };
-    saveMerchant(payload);
+    
+    saveTransactionType(payload);
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      {/* <div className="my-5 flex flex-wrap sm:my-8">
-        <Description
-          title={t('form:item-description')}
-          details={t('form:merchant-form-info-help-text')}
-          className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
-        /> */}
       <Card className="w-full">
-        {/* Personal Information */}
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          {/* <div className="mt-2 pt-5 md:col-span-2">
-            <h3 className="mb-5 text-lg font-semibold">
-              {t('Transaction Type')}
-            </h3>
-          </div> */}
-
           <div className="mb-5">
             <Label>{t('form:input-label-merchant-category')}</Label>
             <SelectInput
@@ -161,7 +147,6 @@ export default function CreateTransactionTypeForm() {
               getOptionLabel={(option: any) => option.name}
               getOptionValue={(option: any) => option.id}
               options={merchantCategoryOptions}
-
             />
           </div>
 
@@ -173,7 +158,6 @@ export default function CreateTransactionTypeForm() {
               getOptionLabel={(option: any) => option.name}
               getOptionValue={(option: any) => option.id}
               options={transactionTypeOptions}
-
             />
           </div>
 
@@ -184,7 +168,6 @@ export default function CreateTransactionTypeForm() {
             className="mb-5"
           />
 
-          
           <Input
             label={t('form:input-label-minimum-limit')}
             {...register('minLimit')}
@@ -214,7 +197,6 @@ export default function CreateTransactionTypeForm() {
               getOptionLabel={(option: any) => option.name}
               getOptionValue={(option: any) => option.id}
               options={chargeType}
-
             />
           </div>
 
@@ -274,33 +256,12 @@ export default function CreateTransactionTypeForm() {
           />
         </div>
 
-
-        {/* <div className="mb-5">
-          <Label>{t('form:input-label-business-logo')}</Label>
-          <FileInput
-            name="merchant.businessLogo"
-            control={control}
-            multiple={false}
-          />
-        </div> */}
         <div className="mb-4 text-end">
-          {/* {initialValues && (
-            <Button
-              variant="outline"
-              onClick={router.back}
-              className="me-4"
-              type="button"
-            >
-              {t('form:button-label-back')}
-            </Button>
-          )} */}
-
-          <Button loading={ismerchantLoading} disabled={ismerchantLoading}>
+          <Button loading={isTranTypeLoading} disabled={isTranTypeLoading}>
             {t('form:button-label-submit')}
           </Button>
         </div>
       </Card>
-      {/* </div> */}
     </form>
   );
 }
