@@ -1,0 +1,77 @@
+import React from 'react';
+import { IosArrowDown } from '@/components/icons/ios-arrow-down';
+import { IosArrowUp } from '@/components/icons/ios-arrow-up';
+import { useTranslation } from 'next-i18next';
+
+const dashboardCard = ({
+  titleTransKey,
+  subtitleTransKey,
+  icon,
+  iconBgStyle,
+  price,
+  indicator,
+  indicatorText,
+  note,
+  link,
+  linkText,
+}: any) => {
+  const { t } = useTranslation('widgets');
+  return (
+    <div className="flex h-full w-full flex-col rounded border-b border-gray-200 bg-white px-7 py-5">
+      <div className="mb-auto w-full items-start">
+        <div
+          className=" flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-gray-200"
+          style={iconBgStyle}
+        >
+          {icon}
+        </div>
+
+        <div className="flex w-full flex-col">
+          <span className="mt-4 flex  text-xl font-semibold text-[#0071ce] ml-4">
+            {price}
+          </span>
+          <span className="mt-4 text-base font-semibold text-black">
+            {t(titleTransKey)}
+          </span>
+          <span className="text-xs font-semibold text-body">
+            {t(subtitleTransKey)}
+          </span>
+
+        </div>
+      </div>
+
+      {indicator === 'up' && (
+        <span
+          className="mb-4 inline-block text-sm font-semibold text-body"
+          style={{ color: '#03D3B5' }}
+        >
+          <IosArrowUp width="9px" height="11px" className="inline-block" />{' '}
+          {indicatorText}
+          <span className="text-sm font-normal text-body"> {note}</span>
+        </span>
+      )}
+      {indicator === 'down' && (
+        <span
+          className="mb-4 inline-block text-sm font-semibold text-body"
+          style={{ color: '#FC6687' }}
+        >
+          <IosArrowDown width="9px" height="11px" className="inline-block" />{' '}
+          {indicatorText}
+          <span className="text-sm font-normal text-body"> {note}</span>
+        </span>
+      )}
+      {link && (
+        <a
+          className="mt-auto text-xs font-semibold text-purple-700 no-underline"
+          href={link}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {linkText}
+        </a>
+      )}
+    </div>
+  );
+};
+
+export default dashboardCard;

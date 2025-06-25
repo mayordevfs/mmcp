@@ -7,7 +7,7 @@ import { useShippingQuery } from '@/data/shipping';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-export default function UpdateMerchantPage() {
+export default function UpdateBillerPage() {
   const { query } = useRouter();
   const { t } = useTranslation();
   const {
@@ -29,7 +29,7 @@ export default function UpdateMerchantPage() {
     </>
   );
 }
-UpdateMerchantPage.Layout = Layout;
+UpdateBillerPage.Layout = Layout;
 
 export const getServerSideProps = async ({ locale }: any) => ({
   props: {

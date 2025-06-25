@@ -48,7 +48,6 @@ const yesNoOptions = [
 const AddCollectionModal = ({ open, onClose, initialValues: propInitialValues }: AddCollectionModalProps) => {
   const { t } = useTranslation();
 
-  // Use context data if available, otherwise use props
   const contextData = useModalState();
   const contextClose = useModalAction().closeModal;
   

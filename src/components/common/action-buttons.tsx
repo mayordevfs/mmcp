@@ -16,6 +16,7 @@ type Props = {
   id: string;
   editModalView?: string | any;
   editViewModal?: string | any;
+  updateView?: string | any;
   deleteModalView?: string | any;
   editUrl?: string;
   detailsUrl?: string;
@@ -42,6 +43,7 @@ const ActionButtons = ({
   billerCode,
   editModalView,
   editViewModal,
+  updateView,
   deleteModalView,
   editUrl,
   detailsUrl,
@@ -102,6 +104,13 @@ const ActionButtons = ({
     });
   }
 
+  function handleUpdateView() {
+    openModal(updateView, { 
+      id,
+      billerCode: billerCode
+    });
+  }
+
   function handleUserStatus(type: string) {
     openModal('BAN_CUSTOMER', { id, type });
   }
@@ -142,6 +151,18 @@ const ActionButtons = ({
     });
   }
 
+  function handleBillerProductEdit() {
+    openModal('BILLER_PRODUCT_EDIT', { 
+      billerCode: billerCode
+    });
+  }
+
+  function handleBillerCollectionEdit() {
+    openModal('BILLER_COLLECTION_EDIT', { 
+      billerCode: billerCode
+    });
+  }
+
   function handleDetailsModal(){
     openModal('POS_ORDER_VIEW',{
       orderItems:orderItems
@@ -175,6 +196,22 @@ const ActionButtons = ({
       {showBillerModal && (
         <button
           onClick={handleBillerEdit}
+          className="text-accent transition duration-200 hover:text-accent-hover focus:outline-none"
+        >
+          {t('form:button-text-save-biller')}
+        </button>
+      )}
+      {showBillerModal && (
+        <button
+          onClick={handleBillerProductEdit}
+          className="text-accent transition duration-200 hover:text-accent-hover focus:outline-none"
+        >
+          {t('form:button-text-save-biller')}
+        </button>
+      )}
+      {showBillerModal && (
+        <button
+          onClick={handleBillerCollectionEdit}
           className="text-accent transition duration-200 hover:text-accent-hover focus:outline-none"
         >
           {t('form:button-text-save-biller')}
@@ -233,6 +270,15 @@ const ActionButtons = ({
           title={t('common:text-edit')}
         >
           <Eye width={24} />
+        </button>
+      )}
+      {updateView && (
+        <button
+          onClick={handleUpdateView}
+          className="text-body transition duration-200 hover:text-heading focus:outline-none"
+          title={t('common:text-edit')}
+        >
+          <EditIcon width={24} />
         </button>
       )}
       {approveButton &&

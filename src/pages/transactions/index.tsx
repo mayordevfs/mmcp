@@ -15,6 +15,7 @@ import { ArrowUp } from '@/components/icons/arrow-up';
 import axiosInstance from '@/utils/fetch-function';
 import { useQuery } from 'react-query';
 import { ActionMeta } from 'react-select';
+import { transactionTypesAtom } from '@/stores/transaction_type_store';
 export interface TranFilterType {
   transactionType: string;
   status: string;
@@ -34,7 +35,7 @@ export default function TransactionsPage() {
   const [visible, setVisible] = useState(false);
 
   const [transFilter, setTransFilter] = useState({
-    transactionType: '',
+    transactionType: "",
     status: '',
     startDate: null,
 

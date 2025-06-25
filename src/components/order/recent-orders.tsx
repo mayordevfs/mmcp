@@ -6,6 +6,8 @@ import { useTranslation } from 'next-i18next';
 import { useQuery } from 'react-query';
 import axiosInstance from '@/utils/fetch-function';
 import { useIsRTL } from '@/utils/locals';
+import Badge from '../ui/badge/badge';
+import { getStatusColor } from '@/utils/data-mappers';
 
 type IProps = {
   orders: Order[];
@@ -59,14 +61,10 @@ const RecentOrders = ({ orders, title }: IProps) => {
       title: t('table:table-item-status'),
       dataIndex: 'status',
       key: 'status',
-      align: alignLeft,
-      render: (status: OrderStatus) => (
-        <span
-          className="whitespace-nowrap font-semibold"
-          style={{ color: status?.color! }}
-        >
-          {status?.name}
-        </span>
+      align: 'center',
+      width: 80,
+      render: (status: string) => (
+        <Badge className='whitespace-nowrap' text={status} color={getStatusColor(status)} />
       ),
     },
   ];
@@ -75,7 +73,7 @@ const RecentOrders = ({ orders, title }: IProps) => {
     <>
       <div className="overflow-hidden rounded shadow">
         <h3 className="border-b border-border-200 bg-light px-4 py-3 text-center font-semibold text-heading">
-          Tran Summary
+          Transaction Summary
         </h3>
         <Table
           //@ts-ignore

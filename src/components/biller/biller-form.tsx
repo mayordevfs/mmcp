@@ -14,6 +14,8 @@ import TextArea from '@/components/ui/text-area';
 import SelectInput from '@/components/ui/select-input';
 import Label from '@/components/ui/label';
 import { useEffect } from 'react';
+import FileInput from '../ui/file-input';
+import axiosInstanceNoAuth from '@/utils/fetch-function-no-auth';
 
 
 type SelectOption = {
@@ -47,9 +49,6 @@ type FormValues = {
   bankName: string;
   billerShortName: string;
   billerDescription: string;
-  billerCategoryCode: string;
-  billerCategory: string;
-  logoURL: string;
   status: string;
   billerRef: string;
   countryCode: string;
@@ -58,14 +57,23 @@ type FormValues = {
   maxAmount: number;
   products: Product[];
   paymentData: PaymentField[];
+  billerCategory: string;
+  amountType: string;
+  validationRequired: string;
+  logoURL: File | null; 
 };
 
-type FormValuesWithSelectObjects = Omit<FormValues, 'status' | 'products' | 'paymentData'> & {
+type FormValuesWithSelectObjects = Omit<FormValues, 'status' | 'billerCategory' | 'amountType'  | 'validationRequired' |'products' | 'paymentData'> & {
   status: SelectOption | null;
+  billerCategory: SelectOption | null
+  amountType: SelectOption | null
+  validationRequired: SelectOption | null
+
   products: Array<Omit<Product, 'amountType' | 'status'> & {
     amountType: SelectOption | null;
     status: SelectOption | null;
   }>;
+
   paymentData: Array<Omit<PaymentField, 'fieldDataType' | 'mandatoryFlag' | 'inputOrOutput'> & {
     fieldDataType: SelectOption | null;
     mandatoryFlag: SelectOption | null;
@@ -79,9 +87,11 @@ const defaultValues: FormValuesWithSelectObjects = {
   bankName: '',
   billerShortName: '',
   billerDescription: '',
-  billerCategoryCode: '',
-  billerCategory: '',
-  logoURL: '',
+  // billerCategoryCode: '',
+  billerCategory: null,
+  logoURL: null,
+  amountType: null,
+  validationRequired: null,
   status: null,
   billerRef: '',
   countryCode: 'NG',
@@ -112,8 +122,10 @@ const defaultValues: FormValuesWithSelectObjects = {
 };
 
 const amountOptions: SelectOption[] = [
-  { id: 'fixed', name: 'FIXED' },
-  { id: 'variable', name: 'VARIABLE' }, 
+  { name: 'Fixed', id: 'FIXED' },
+  { name: 'Variable', id: 'VARIABLE' },
+  { name: 'Range', id: 'RANGE' }, 
+  
 ];
 
 const datatypeOptions: SelectOption[] = [
@@ -153,7 +165,12 @@ const BillerCreateForm = () => {
     'productStatus',
     () =>
       axiosInstance.get(
-        'lookupdata/getdatabycategorycode/STATUS?entityCode=ETZ'
+        'lookupdata/getdatabycategorycode/STATUS',
+        {
+          params: {
+            entityCode: 'ETZ',
+          }
+        }
       ),
     {
       select: (data) =>
@@ -165,6 +182,28 @@ const BillerCreateForm = () => {
     }
   );
 
+  const { data: BillerCategoryData } = useQuery(
+    'billerCategory',
+    () =>
+      axiosInstanceNoAuth.get(
+        'lookupdata/new-list', 
+        {
+          params: {
+            categoryCode: 'BILLER_CATEGORY',
+            entityCode: 'ETZ'
+          }
+        }
+      ),
+    {
+      select: (data) => {
+        return data.data.list.map((item: any) => ({
+          id: item.code,
+          name: item.name,
+        }));
+      },
+    }
+  );
+
   const { t } = useTranslation();
   const router = useRouter();
 
@@ -173,6 +212,7 @@ const BillerCreateForm = () => {
     handleSubmit,
     setError,
     control,
+    watch,
     formState: { errors },
   } = useForm<FormValuesWithSelectObjects>({
     defaultValues,
@@ -183,6 +223,7 @@ const BillerCreateForm = () => {
     console.log('Form errors:', errors);
   }, [errors]);
 
+  
   const { mutate: createBiller, isLoading: saving } = useMutation(
     (formData: FormValues) =>
       axiosInstance.request({
@@ -235,6 +276,11 @@ const BillerCreateForm = () => {
     const payload: FormValues = {
       ...values,
       status: values.status?.id || '',
+      billerCategory: values.billerCategory?.id || '',
+      amountType: values.amountType?.id || '',
+      validationRequired: values.validationRequired?.id || '',
+
+      logoURL:values.logoURL,
       products: values.products.map((product) => ({
         ...product,
         amountType: product.amountType?.id || '',
@@ -249,15 +295,17 @@ const BillerCreateForm = () => {
     };
     createBiller(payload);
   };
+  const logoURL = watch('logoURL');
+  console.log(logoURL);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="my-5 flex flex-wrap sm:my-8">
-        <Description
+        {/* <Description
           title={t('form:item-description')}
           details={t('form:biller-form-info-help-text')}
           className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
-        />
+        /> */}
         <Card className="w-full sm:w-8/12 md:w-2/3">
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
             <div className="mt-2 pt-5 md:col-span-2">
@@ -282,13 +330,13 @@ const BillerCreateForm = () => {
               error={t(errors.billerName?.message!)}
             />
 
-            <Input
+            {/* <Input
               label={t('form:input-label-bank-name')}
               {...register('bankName')}
               variant="outline"
               className="mb-5"
               error={t(errors.bankName?.message!)}
-            />
+            /> */}
 
             <Input
               label={t('form:input-label-biller-short-name')}
@@ -306,29 +354,71 @@ const BillerCreateForm = () => {
               error={t(errors.billerDescription?.message!)}
             />
 
-            <Input
+            {/* <Input
               label={t('form:input-label-biller-category-code')}
               {...register('billerCategoryCode')}
               variant="outline"
               className="mb-5"
               error={t(errors.billerCategoryCode?.message!)}
-            />
+            /> */}
 
-            <Input
+            {/* <Input
               label={t('form:input-label-biller-category')}
               {...register('billerCategory')}
               variant="outline"
               className="mb-5"
               error={t(errors.billerCategory?.message!)}
-            />
+            /> */}
 
-            <Input
+            <div className="mb-5">
+              <Label>{t('form:input-label-biller-category')}</Label>
+              <SelectInput
+                name="billerCategory"
+                control={control}
+                getOptionLabel={(option: any) => option.name}
+                getOptionValue={(option: any) => option.id}
+                options={BillerCategoryData || []}
+                isLoading={!BillerCategoryData}
+              />
+              {/* {errors.products?.[0]?.status?.message && (
+                <p className="mt-1 text-xs text-red-500">
+                  {t(errors.products[0].status.message)}
+                </p>
+              )} */}
+            </div>
+
+            {/* <Input
               label={t('form:input-label-logo-url')}
               {...register('logoURL')}
               variant="outline"
               className="mb-5"
               error={t(errors.logoURL?.message!)}
-            />
+            /> */}
+            <div className="mb-5">
+              <Label>{t('form:input-label-validation-required')}</Label>
+              <SelectInput
+                name="validationRequired"
+                control={control}
+                getOptionLabel={(option: any) => option.name}
+                getOptionValue={(option: any) => option.id}
+                options={mandatoryFlagOptions}
+              />
+              {/* {errors.paymentData?.[0]?.mandatoryFlag?.message && (
+                <p className="mt-1 text-xs text-red-500">
+              {t(errors.paymentData[0].mandatoryFlag.message)}
+                </p>
+              )} */}
+            </div>
+            <div className="mb-5">
+              <Label>{t('form:input-label-logo-url')}</Label>
+              <FileInput
+                {...register('logoURL')}
+                name="biller.logoURL"
+                control={control}
+                multiple={false}
+                error={t(errors.logoURL?.message!)}
+              />
+            </div>
       
             <div className="mb-5">
               <Label>{t('form:input-label-status')}</Label>
@@ -354,6 +444,22 @@ const BillerCreateForm = () => {
               className="mb-5"
               error={t(errors.billerRef?.message!)}
             />
+
+            <div className="mb-5">
+                <Label>{t('form:input-label-amount-type')}</Label>
+                <SelectInput
+                  name="amountType"
+                  control={control}
+                  getOptionLabel={(option: any) => option.name}
+                  getOptionValue={(option: any) => option.id}
+                  options={amountOptions}
+                />
+                {/* {errors.products?.[0]?.amountType?.message && (
+                  <p className="mt-1 text-xs text-red-500">
+                  {t(errors.products[0].amountType.message)}
+                </p>
+              )} */}
+            </div>
 
             <Input
               label={t('form:input-label-service-provider')}
@@ -524,13 +630,12 @@ const BillerCreateForm = () => {
               </div>
             </div>
           </div>
+          <div className="mb-4 text-end">
+            <Button type="submit" loading={saving} disabled={saving}>
+              {t('form:button-label-add-biller')}
+            </Button>
+          </div>
         </Card>
-      </div>
-
-      <div className="mb-4 text-end">
-        <Button type="submit" loading={saving} disabled={saving}>
-          {t('form:button-label-add-biller')}
-        </Button>
       </div>
     </form>
   );
