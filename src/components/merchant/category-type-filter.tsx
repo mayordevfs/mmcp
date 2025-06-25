@@ -4,7 +4,7 @@ import Label from '@/components/ui/label';
 import cn from 'classnames';
 import Input from '@/components/ui/input';
 import Button from '../ui/button';
-import Button from '../ui/button';
+
 
 type Props = {
   onNameFilter: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -30,8 +30,8 @@ export default function MerchantTypeFilter({
         <Input
           name="name"
           placeholder={t('common:enter-name')}
-          onChange={handleChange}
-          value={merchantFilter.name}
+          onChange={onNameFilter}
+          
           className="w-full"
         />
       </div>
@@ -41,8 +41,8 @@ export default function MerchantTypeFilter({
         <Input
           name="code"
           placeholder={t('common:enter-merchant-code')}
-          onChange={handleChange}
-          value={merchantFilter.code}
+          onChange={onCodeFilter}
+          
           className="w-full"
         />
       </div>
