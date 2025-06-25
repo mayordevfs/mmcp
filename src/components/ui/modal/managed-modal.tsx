@@ -2,6 +2,8 @@ import Modal from '@/components/ui/modal/modal';
 import dynamic from 'next/dynamic';
 import { MODAL_VIEWS, useModalAction, useModalState } from './modal.context';
 import GenerateUserQr from '@/components/user/qr-code-gen';
+import BillerProductEdit from '@/components/biller/biller-product-edit';
+import BillerCollectionEdit from '@/components/biller/biller-collection-edit';
 const TagDeleteView = dynamic(() => import('@/components/tag/tag-delete-view'));
 const TaxDeleteView = dynamic(() => import('@/components/tax/tax-delete-view'));
 const BanCustomerView = dynamic(
@@ -180,6 +182,10 @@ function renderModal(view: MODAL_VIEWS | undefined, data: any) {
       return <BillerView />;
     case 'BILLER_EDIT':
       return <BillerEdit />;
+    case 'BILLER_PRODUCT_EDIT':
+      return <BillerProductEdit />;
+    case 'BILLER_COLLECTION_EDIT':
+      return <BillerCollectionEdit />;
     case 'DELETE_QUESTION':
       return <QuestionDeleteView />;
     case 'DELETE_REVIEW':

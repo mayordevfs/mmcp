@@ -9,6 +9,9 @@ import Input from '@/components/ui/input';
 import { DatePicker } from '@/components/ui/date-picker';
 import Button from '../ui/button';
 import { TranFilterType } from '@/pages/transactions';
+import axiosInstanceNoAuth from '@/utils/fetch-function-no-auth';
+import { useQuery } from 'react-query';
+import SelectInput from '../ui/select-input';
 
 type Props = {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -23,6 +26,12 @@ type Props = {
   className?: string;
 };
 
+type TransactionOption = {
+  value: string;
+  label: string;
+  data: any;
+};
+
 export default function CategoryTypeFilter({
   className,
   handleChange,
@@ -33,18 +42,40 @@ export default function CategoryTypeFilter({
 }: Readonly<Props>) {
   const { t } = useTranslation();
 
-  const transactionTypes = [
-    { value: 'purchase', label: t('common:purchase') },
-    { value: 'refund', label: t('common:refund') },
-    { value: 'void', label: t('common:void') },
-    { value: 'preauth', label: t('common:preauth') },
-  ];
+  // const transactionTypes = [
+  //   { value: 'purchase', label: t('common:purchase') },
+  //   { value: 'refund', label: t('common:refund') },
+  //   { value: 'void', label: t('common:void') },
+  //   { value: 'preauth', label: t('common:preauth') },
+  // ];
 
   const statusOptions = [
-    { value: 'success', label: t('common:success') },
-    { value: 'failed', label: t('common:failed') },
-    { value: 'pending', label: t('common:pending') },
+    { value: 'Successful', label: t('common:success') },
+    { value: 'FAILED', label: t('common:failed') },
+    { value: 'Pending', label: t('common:pending') },
   ];
+
+  const { data: transactionTypes } = useQuery<any>(
+    'transactionTypes',
+    () =>
+      axiosInstanceNoAuth.get(
+        'lookupdata/new-list', 
+        {
+          params: {
+            categoryCode: 'TRAN_CODE',
+            entityCode: 'ETZ'
+          }
+        }
+      ),
+    {
+      select: (data) => {
+        return data.data.list.map((item: { code: string; name: string }) => ({
+          value: item.code, 
+          label: item.name  
+        }));
+      },
+    }
+  );
 
   return (
     <div
@@ -53,7 +84,7 @@ export default function CategoryTypeFilter({
         className
       )}
     >
-      <div className="w-full">
+      {/* <div className="w-full">
         <Label>{t('common:transaction-type')}</Label>
         <Select
           name="transactionType"
@@ -62,7 +93,33 @@ export default function CategoryTypeFilter({
           onChange={handleSelectChange}
           value={tranFilter.transactionType}
         />
+      </div> */}
+
+      <div className="w-full">
+        <Label>{t('common:transaction-type')}</Label>
+        <Select
+          name="transactionType"
+          options={transactionTypes}
+          placeholder={t('common:select-transaction-type')}
+          onChange={handleSelectChange}
+          value={transactionTypes?.find(option => option.value === tranFilter.transactionType) || null}
+          getOptionLabel={(option) => option.label}
+          getOptionValue={(option) => option.value}
+        />
       </div>
+      
+
+      {/* <div className="mb-5">
+        <Label>{t('common:transaction-type')}</Label>
+        <SelectInput
+          name="transactionTypes"
+          control={""}
+          getOptionLabel={(option: any) => option.name}
+          getOptionValue={(option: any) => option.id}
+          options={transactionTypesData || []}
+          isLoading={!transactionTypesData}
+        />
+      </div> */}
 
       <div className="w-full">
         <Label>{t('common:start-date')}</Label>
@@ -100,7 +157,7 @@ export default function CategoryTypeFilter({
         <Select
           options={statusOptions}
           placeholder={t('common:select-status')}
-          value={tranFilter.status}
+          value={statusOptions.find(option => option.value === tranFilter.status) || null}
           onChange={handleSelectChange}
           name="status"
         />

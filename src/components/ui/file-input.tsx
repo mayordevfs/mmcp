@@ -8,6 +8,7 @@ interface FileInputProps {
   acceptFile?: boolean;
   helperText?: string;
   defaultValue?: any;
+  error?: any;
 }
 
 const FileInput = ({

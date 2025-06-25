@@ -3,12 +3,17 @@ import * as yup from 'yup';
 export const billerValidationSchema = yup.object().shape({
   billerCode: yup.string().required('Biller code is required'),
   billerName: yup.string().required('Biller name is required'),
-  bankName: yup.string().required('Bank name is required'),
   billerShortName: yup.string().required('Biller short name is required'),
   billerDescription: yup.string().required('Biller description is required'),
-  billerCategoryCode: yup.string().required('Biller category code is required'),
-  billerCategory: yup.string().required('Biller category is required'),
-  logoURL: yup.string().url('Must be a valid URL').required('Logo URL is required'),
+  // billerCategory: yup.string().required('Biller category is required'),
+  // logoURL: yup.string().url('Must be a valid URL').required('Logo URL is required'),
+  billerCategory: yup.object().required('Biller category is required'),
+  validationRequired: yup.object().required('Validation is required'),
+  amountType: yup.object().required('Amount type is required'),
+  logoURL: yup
+    .mixed()
+    .test('fileSize', 'File too large', (value) => !value || (value && value.size <= 1024 * 1024)) // 1MB
+    .test('fileType', 'Unsupported file type', (value) => !value || (value && ['image/jpeg', 'image/png'].includes(value.type))),
   status: yup.object().required('Status is required'),
   billerRef: yup.string().required('Biller reference is required'),
   countryCode: yup.string().required('Country code is required'),

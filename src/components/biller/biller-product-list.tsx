@@ -101,10 +101,11 @@ const BillerProductList = ({ products, onSort, onOrder }: IProps) => {
       key: 'actions',
       align: 'center',
       width: 80,
-      render: (id: string) => (
+      render: (_: any, record: any, id: string) => (
         <ActionButtons
-          id={id}
-          editUrl={`/billers/edit-product/${id}`}
+          id={record.id}
+          billerCode={record.billerCode}
+          editModalView= "BILLER_PRODUCT_EDIT"
           deleteModalView="DELETE_PRODUCT"
         />
       ),

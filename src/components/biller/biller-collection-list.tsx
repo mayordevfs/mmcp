@@ -90,10 +90,11 @@ const BillerCollectionList = ({ collections, onSort, onOrder }: IProps) => {
       key: 'actions',
       align: 'center',
       width: 80,
-      render: (id: string) => (
+      render: (_: any, record: any) => (
         <ActionButtons
-          id={id}
-          editUrl={`/billers/edit-payment-data/${id}`}
+          id={record.id}
+          billerCode={record.billerCode}
+          editModalView="BILLER_COLLECTION_EDIT"
           deleteModalView="DELETE_PAYMENT_DATA"
         />
       ),

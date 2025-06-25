@@ -121,7 +121,7 @@ const BarChart = ({
         <Chart
           options={options.options}
           series={options.series}
-          height="350"
+          height="450"
           width="100%"
           type="bar"
         />

@@ -2,6 +2,7 @@ import { CartIconBig } from '@/components/icons/cart-icon-bag';
 import { CoinIcon } from '@/components/icons/coin-icon';
 import ColumnChart from '@/components/widgets/column-chart';
 import StickerCard from '@/components/widgets/sticker-card';
+import DashboardCard from '@/components/widgets/dashboard-card';
 import ErrorMessage from '@/components/ui/error-message';
 import usePrice from '@/utils/use-price';
 import Loader from '@/components/ui/loader/loader';
@@ -15,6 +16,7 @@ import { ShopIcon } from '@/components/icons/sidebar';
 import { DollarIcon } from '@/components/icons/shops/dollar';
 import { useAnalyticsQuery, usePopularProductsQuery } from '@/data/dashboard';
 import { useRouter } from 'next/router';
+import ApprovalRateChart from '@/components/widgets/approval-rate-chart';
 
 export default function Dashboard() {
   const { t } = useTranslation();
@@ -53,7 +55,7 @@ export default function Dashboard() {
     <>
       <div className="mb-6 grid w-full grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
         <div className="w-full ">
-          <StickerCard
+          <DashboardCard
             titleTransKey="Total Transactions"
             // subtitleTransKey="sticker-card-subtitle-rev"
             icon={<DollarIcon className="h-5 w-5" color="#047857" />}
@@ -62,22 +64,23 @@ export default function Dashboard() {
           />
         </div>
         <div className="w-full ">
-          <StickerCard
+          <DashboardCard
             titleTransKey="Linked Terminals"
+            // subtitleTransKey="This is the total linked terminals"
             // subtitleTransKey="sticker-card-subtitle-order"
             icon={<CartIconBig />}
             price={data?.totalLinkTerminals}
           />
         </div>
         <div className="w-full ">
-          <StickerCard
+          <DashboardCard
             titleTransKey="Total Terminals"
             icon={<CoinIcon />}
             price={data?.totalTerminals}
           />
         </div>
         <div className="w-full ">
-          <StickerCard
+          <DashboardCard
             titleTransKey="Total Merchants"
             icon={<ShopIcon className="w-5" color="#1D4ED8" />}
             iconBgStyle={{ backgroundColor: '#93C5FD' }}
@@ -86,26 +89,31 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="mb-6 flex w-full flex-wrap md:flex-nowrap">
-        <ColumnChart
-          widgetTitle={t('Transaction History')}
-          colors={['#007ee6']}
-          series={salesByYear}
-          categories={[
-            t('common:january'),
-            t('common:february'),
-            t('common:march'),
-            t('common:april'),
-            t('common:may'),
-            t('common:june'),
-            t('common:july'),
-            t('common:august'),
-            t('common:september'),
-            t('common:october'),
-            t('common:november'),
-            t('common:december'),
-          ]}
-        />
+      <div className="mb-6 grid w-full grid-cols-1 gap-5 lg:grid-cols-3">
+        <div className="lg:col-span-2">
+          <ColumnChart
+            widgetTitle={t('Transaction History')}
+            colors={['#007ee6']}
+            series={salesByYear}
+            categories={[
+              t('common:january'),
+              t('common:february'),
+              t('common:march'),
+              t('common:april'),
+              t('common:may'),
+              t('common:june'),
+              t('common:july'),
+              t('common:august'),
+              t('common:september'),
+              t('common:october'),
+              t('common:november'),
+              t('common:december'),
+            ]}
+          />
+        </div>
+        <div className="lg:col-span-1">
+          <ApprovalRateChart />
+        </div>
       </div>
 
       <div className="mb-6 flex w-full flex-wrap space-y-6 rtl:space-x-reverse xl:flex-nowrap xl:space-y-0 xl:space-x-5">
