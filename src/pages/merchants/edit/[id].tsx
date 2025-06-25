@@ -9,21 +9,13 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import EditMerchantForm from '@/components/merchant/update-merchant-form';
 
 export default function UpdateMerchantPage() {
-  const { query } = useRouter();
   const { t } = useTranslation();
-  const {
-    data,
-    isLoading: loading,
-    error,
-  } = useShippingQuery(query.id as string);
-  if (loading) return <Loader text={t('common:text-loading')} />;
-  if (error) return <ErrorMessage message={error.message} />;
-
+  
   return (
     <>
       <div className="flex border-b border-dashed border-border-base py-5 sm:py-8">
         <h1 className="text-lg font-semibold text-heading">
-          {t('form:form-title-update-merchant')} #{data?.id}
+          {t('form:form-title-update-merchant')}
         </h1>
       </div>
       <EditMerchantForm />
