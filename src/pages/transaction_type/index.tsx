@@ -17,6 +17,7 @@ import TransactionTypeList from '@/components/transaction_type/transaction-type-
 import { useQuery } from 'react-query';
 import axiosInstance from '@/utils/fetch-function';
 import { useTransactionTypeStore } from '@/contexts/editContext/transactionTypeContext';
+import { adminOnly } from '@/utils/auth-utils';
 
 export default function TransactionTypePage() {
   const { t } = useTranslation();
@@ -98,6 +99,9 @@ export default function TransactionTypePage() {
     total: data?.data?.totalCount,
     hasMorePages: data?.data?.totalPages > page,
   };
+
+  console.log(data);
+  
   
   return (
     <>
@@ -163,6 +167,10 @@ export default function TransactionTypePage() {
 }
 
 TransactionTypePage.Layout = Layout;
+
+TransactionTypePage.authenticate = {
+  permissions:adminOnly
+}
 
 export const getStaticProps = async ({ locale }: any) => ({
   props: {

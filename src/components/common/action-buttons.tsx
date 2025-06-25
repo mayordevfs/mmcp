@@ -22,7 +22,15 @@ type Props = {
   detailsModal?:string | any
   qrCodeModal?:string | any
   orderItems?:any
-  user?: any
+  user?: any,
+  terminalEditModal?:any;
+  terminal?:any;
+  lookupEditModal?:any;
+  lookup?:any;
+  settlementTransModal?:any;
+  settlementTrans?:any;
+  terminal_monitoring?:any;
+  terminal_monitoring_modal?:any;
   isUserActive?: boolean;
   userStatus?: boolean;
   isShopActive?: boolean;
@@ -49,6 +57,14 @@ const ActionButtons = ({
   qrCodeModal,
   orderItems,
   user,
+  terminal,
+  terminalEditModal,
+  terminal_monitoring,
+  terminal_monitoring_modal,
+  lookup,
+  lookupEditModal,
+  settlementTrans,
+  settlementTransModal,
   userStatus = false,
   isUserActive = false,
   isShopActive,
@@ -151,6 +167,30 @@ const ActionButtons = ({
   function handleQrCodeModal(){
     openModal('QR_CODE_MODAL',{
       user:user
+    })
+  }
+
+  function handleTHModal(){
+    openModal('TERMINAL_HEALTH_MONITORING_MODAL',{
+      terminal_monitoring
+    })
+  }
+
+  function handleTerminalModel(){
+    openModal('TERMINAL_MODAL',{
+      terminal
+    })
+  }
+
+   function handlelookupEditModal(){
+    openModal('LOOKUP_MODAL',{
+      lookup
+    })
+  }
+
+   function handleSettletransModal(){
+    openModal('SETTLE_TRANS_MODAL',{
+      settlementTrans
     })
   }
 
@@ -310,6 +350,46 @@ const ActionButtons = ({
           onClick={handleQrCodeModal}
         >
           <QrCode width={24} />
+        </button>
+      )}
+
+      {terminal_monitoring_modal && (
+        <button 
+          className="ml-2 text-base transition duration-200 hover:text-heading"
+          title={t('common:text-view')}
+          onClick={handleTHModal}
+        >
+          <Eye width={24} />
+        </button>
+      )}
+
+      {terminalEditModal && (
+        <button 
+          className="ml-2 text-base transition duration-200 hover:text-heading"
+          title={t('common:text-view')}
+          onClick={handleTerminalModel}
+        >
+          <EditIcon width={24} />
+        </button>
+      )}
+
+      {lookupEditModal && (
+        <button 
+          className="ml-2 text-base transition duration-200 hover:text-heading"
+          title={t('common:text-view')}
+          onClick={handlelookupEditModal}
+        >
+          <EditIcon width={24} />
+        </button>
+      )}
+
+      {settlementTransModal && (
+        <button 
+          className="ml-2 text-base transition duration-200 hover:text-heading"
+          title={t('common:text-view')}
+          onClick={handleSettletransModal}
+        >
+          <Eye width={24} />
         </button>
       )}
     </div>

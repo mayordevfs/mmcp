@@ -4,15 +4,15 @@ import Layout from '@/components/layouts/admin';
 import MerchantList from '@/components/merchant/merchant-list';
 import Search from '@/components/common/search';
 import LinkButton from '@/components/ui/link-button';
-
+import ErrorMessage from '@/components/ui/error-message';
 import Loader from '@/components/ui/loader/loader';
-
+import { useShippingClassesQuery } from '@/data/merchant';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Routes } from '@/config/routes';
 import { SortOrder } from '@/types';
 import { adminOnly } from '@/utils/auth-utils';
-
+import { useRouter } from 'next/router';
 import cn from 'classnames';
 import { ArrowDown } from '@/components/icons/arrow-down';
 import { ArrowUp } from '@/components/icons/arrow-up';
@@ -23,44 +23,30 @@ import { useQuery } from 'react-query';
 export default function MerchantsPage() {
   const { t } = useTranslation();
 
+  const [searchTerm, setSearch] = useState('');
   const [orderBy, setOrder] = useState('created_at');
   const [sortedBy, setColumn] = useState<SortOrder>(SortOrder.Desc);
   const [page, setPage] = useState(1);
   const [visible, setVisible] = useState(false);
-
-  const [merchantFilters, setMerchantFilters] = useState({
-    name: '',
-    code: '',
-  });
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setMerchantFilters((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-  const [applyFilter, setApplyFilter] = useState(false);
-  const handleSubmit: () => void = () => {
-    setApplyFilter((prev) => !prev);
-    setPage(1);
-  };
+  const [name, setName] = useState<string>('');
+  const [code, setCode] = useState<string>('');
+  const [applyFilter,setApplyFilter] = useState(false)
   const {
     data,
     isLoading: loading,
     isFetching,
+    error,
   } = useQuery(
-    ['merchants', page, applyFilter],
+    ['merchants', page,applyFilter],
     () =>
       axiosInstance.request({
         method: 'GET',
         url: '/merchant/all',
         params: {
           pageNumber: page,
-          pageSize: 10,
-          name: merchantFilters?.name ?? '',
-          merchantCode: merchantFilters.code ?? '',
-          role: '',
-          mobileNo: '',
+          pageSize: 100,
+          name,
+          merchantId:code
         },
       }),
     {}
@@ -74,12 +60,15 @@ export default function MerchantsPage() {
     links: [],
     nextPageUrl: null,
     path: '',
-    perPage: 10,
+    perPage: 100,
     prevPageUrl: null,
     to: 10,
-    total: data?.data?.totalCount,
+    total: data?.data?.totalItems,
     hasMorePages: data?.data?.totalPages > page,
   };
+
+  console.log(data);
+  
 
   const toggleVisible = () => {
     setVisible((v) => !v);
@@ -87,21 +76,41 @@ export default function MerchantsPage() {
 
   if (loading) return <Loader text={t('common:text-loading')} />;
 
+  function handleSearch({ searchText }: { searchText: string }) {
+    setSearch(searchText);
+  }
+
   function handlePagination(current: number) {
     setPage(current);
   }
 
+  const handleNameFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
+
+  const handleCodeFilter = (selectedOption: any) => {
+    setCode(selectedOption?.value || null);
+  };
+
+  const handleApplyFilter = ()=>{
+    setPage(1)
+    setApplyFilter(!applyFilter)
+  }
+  
+  if(error) return <ErrorMessage message={`Something went wrong!`}/>
   return (
     <>
       <Card className="mb-8 flex flex-col">
-        <div className="flex w-full flex-col items-center md:flex-row md:justify-between">
+        <div className="flex w-full flex-col items-center md:flex-row">
           <div className="mb-4 md:mb-0 md:w-1/4">
             <h1 className="text-xl font-semibold text-heading">
               {t('form:input-label-merchants')}
             </h1>
           </div>
 
-          <div className="flex  flex-col items-center space-y-4 ms-auto md:flex-row md:space-y-0 ">
+          <div className="flex w-full flex-col items-center space-y-4 ms-auto md:flex-row md:space-y-0 xl:w-1/2">
+            <Search onSearch={handleSearch} />
+
             <LinkButton
               href={`${Routes.merchant.create}`}
               className="h-12 w-full md:w-auto md:ms-6"
@@ -134,9 +143,9 @@ export default function MerchantsPage() {
         >
           <div className="mt-5 flex w-full flex-col border-t border-gray-200 pt-5 md:mt-8 md:flex-row md:items-center md:pt-8">
             <MerchantTypeFilter
-              handleChange={handleChange}
-              handleSubmit={handleSubmit}
-              merchantFilter={merchantFilters}
+              onCodeFilter={handleCodeFilter}
+              onNameFilter={handleNameFilter}
+              handleApplyFilter ={handleApplyFilter}
             />
           </div>
         </div>
