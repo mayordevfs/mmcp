@@ -138,7 +138,7 @@ export default function CategoryTypeFilter({
           className="w-full"
         />
       </div>
-      <Button onClick={handleSubmit}>Submit</Button>
+      <Button onClick={handleSubmit}>Search</Button>
     </div>
   );
 }

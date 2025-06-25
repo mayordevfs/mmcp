@@ -1,10 +1,9 @@
-import Select from '@/components/ui/select/select';
 import React from 'react';
 import { useTranslation } from 'next-i18next';
 import Label from '@/components/ui/label';
 import cn from 'classnames';
-import { ActionMeta } from 'react-select';
 import Input from '@/components/ui/input';
+import Button from '../ui/button';
 import Button from '../ui/button';
 
 type Props = {
@@ -19,7 +18,7 @@ export default function MerchantTypeFilter({
   onCodeFilter,
   handleApplyFilter,
   className,
-}: Props) {
+}: Readonly<Props>) {
   const { t } = useTranslation();
 
   return (
@@ -29,9 +28,10 @@ export default function MerchantTypeFilter({
         <div className="w-full">
         <Label>{t('common:name')}</Label>
         <Input
-          name='name'
+          name="name"
           placeholder={t('common:enter-name')}
-          onChange={onNameFilter}
+          onChange={handleChange}
+          value={merchantFilter.name}
           className="w-full"
         />
       </div>
@@ -39,9 +39,10 @@ export default function MerchantTypeFilter({
       <div className="w-full">
         <Label>{t('common:code')}</Label>
         <Input
-          name='name'
+          name="code"
           placeholder={t('common:enter-merchant-code')}
-          onChange={onCodeFilter}
+          onChange={handleChange}
+          value={merchantFilter.code}
           className="w-full"
         />
       </div>
