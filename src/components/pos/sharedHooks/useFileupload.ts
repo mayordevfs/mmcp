@@ -40,6 +40,9 @@ export const useFileUpload = () => {
     });
   }, [selectedFile]);
 
+  console.log(fileUrl);
+  
+
   const handleFileChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     originalImageUrl?: string

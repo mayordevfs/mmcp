@@ -35,9 +35,11 @@ export default function TerminalsPage() {
   const [visible, setVisible] = useState(false);
   const [terminalId, setTerminalId] = useState<string>('');
   const [status, setStatus] = useState<string>('');
+  const [bankCode,setBankCode] = useState('')
   const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
+  const [applyFilter,setApplyFilter] = useState(false)
   const { data, isLoading: loading } = useQuery(
-    'terminals',
+    ['terminals',page,applyFilter],
     () =>
       axiosInstance.request({
         method: 'GET',
@@ -45,14 +47,34 @@ export default function TerminalsPage() {
         params: {
           pageNumber: page,
           pageSize: 100,
-          name: searchTerm,
+          name:searchTerm,
           entityCode: 'ETZ',
-          bankCode: '',
-          terminalId: terminalId,
+          status,
+          bankCode:bankCode,
+          terminalId:terminalId,
         },
       }),
     {}
   );
+
+  console.log(bankCode);
+  
+
+  const newPaginatorInfo = {
+    currentPage: page,
+    firstPageUrl: '',
+    from: 1,
+    lastPage: data?.data?.totalPages,
+    lastPageUrl: '',
+    links: [],
+    nextPageUrl: null,
+    path: '',
+    perPage: 100,
+    prevPageUrl: null,
+    to: 10,
+    total: data?.data?.totalCount,
+    hasMorePages: data?.data?.totalPages > page,
+  };
 
   console.log(data);
   
@@ -71,15 +93,23 @@ export default function TerminalsPage() {
   }
 
   const handleTerminalIdFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPage(1);
     setTerminalId(e.target.value);
   };
 
   const handleStatusFilter = (selectedOption: any) => {
-    setPage(1);
     setStatus(selectedOption?.value || null);
   };
 
+  const handleBankCodeFilter = (selectedOption: any) => {
+    setBankCode(selectedOption?.id || null);
+  };
+
+  const handleApplyFilter = ()=>{
+    setApplyFilter(!applyFilter)
+  }
+  
+  
+  
   return (
     <>
       <Card className="mb-8 flex flex-col">
@@ -91,7 +121,7 @@ export default function TerminalsPage() {
           </div>
 
           <div className="flex w-full flex-col items-center space-y-4 ms-auto md:flex-row md:space-y-0 xl:w-1/2">
-            <Search onSearch={handleSearch} />
+            {/* <Search onSearch={handleSearch} /> */}
             {/* <button className="ml-5 inline-flex h-12 flex-shrink-0 items-center justify-center rounded border border-transparent bg-accent px-5 py-0 font-semibold leading-none text-light outline-none transition duration-300 ease-in-out hover:bg-accent-hover focus:shadow focus:outline-none">
               <Link href={'/terminals/create'}>Create Terminal</Link>
             </button> */}
@@ -136,6 +166,8 @@ export default function TerminalsPage() {
             <CategoryTypeFilter
               onStatusFilter={handleStatusFilter}
               onTerminalIdFilter={handleTerminalIdFilter}
+              onBankCodeFilter={handleBankCodeFilter}
+              onApplyFilter={handleApplyFilter}
             />
           </div>
         </div>
@@ -145,6 +177,8 @@ export default function TerminalsPage() {
         onOrder={setOrder}
         onSort={setColumn}
         terminals={data?.data?.terminalList ?? []}
+        paginatorInfo={newPaginatorInfo}
+        onPagination={handlePagination}
       />
 
       {/* Link Terminal Modal */}

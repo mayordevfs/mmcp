@@ -114,6 +114,14 @@ const UserItem = dynamic(()=>import('@/components/user/qr-code-gen'))
 
 const LinkTerminalToMerchant = dynamic(()=>import('@/components/merchant/link-terminal'))
 
+const TerminalMonitoringDetails = dynamic(()=>import('@/components/terminal_monitoring/terminal_monitoring_view'))
+
+const UpdateTerminalForm = dynamic(()=>import('@/components/terminal/updateTerminalForm'))
+
+const LookupEditModal = dynamic(()=>import('@/components/lookup_data/lookupEditModal'))
+
+const SettleTransDetails = dynamic(()=>import('@/components/reconciled_transaction/settle-trans-details'))
+
 function renderModal(view: MODAL_VIEWS | undefined, data: any) {
   switch (view) {
     case 'DELETE_PRODUCT':
@@ -197,6 +205,14 @@ function renderModal(view: MODAL_VIEWS | undefined, data: any) {
       return <UserItem/>
     case 'LINK_TERMINAL_MODAL':
       return <LinkTerminalToMerchant/>
+    case 'TERMINAL_HEALTH_MONITORING_MODAL':
+      return <TerminalMonitoringDetails/>
+    case 'TERMINAL_MODAL':
+      return <UpdateTerminalForm/>
+    case 'LOOKUP_MODAL':
+      return <LookupEditModal/>
+    case 'SETTLE_TRANS_MODAL':
+      return <SettleTransDetails/>
     default:
       return null;
   }

@@ -6,14 +6,17 @@ import { useTranslation } from 'next-i18next';
 import { useIsRTL } from '@/utils/locals';
 import { useState } from 'react';
 import TitleWithSort from '@/components/ui/title-with-sort';
+import Pagination from '../ui/pagination';
 
 export type IProps = {
   terminals: Merchant[] | undefined;
   onSort: (current: any) => void;
   onOrder: (current: string) => void;
+  paginatorInfo?:any
+  onPagination?: any
 };
 
-const TerminalList = ({ terminals, onSort, onOrder }: IProps) => {
+const TerminalList = ({ terminals, onSort, onOrder,paginatorInfo,onPagination }: IProps) => {
   const { t } = useTranslation();
   const { alignLeft } = useIsRTL();
 
@@ -40,6 +43,8 @@ const TerminalList = ({ terminals, onSort, onOrder }: IProps) => {
     },
   });
 
+  const renderText = (text:string)=>text?text:'N/A'
+
   const columns = [
     {
       title: t('table:table-item-terminal-serial-no'),
@@ -48,7 +53,7 @@ const TerminalList = ({ terminals, onSort, onOrder }: IProps) => {
       align: 'center',
       width: 80,
       render:(serialNumber:string)=>{
-        return <span className='whitespace-nowrap'>{serialNumber}</span>
+        return <span className='whitespace-nowrap'>{renderText(serialNumber)}</span>
       }
     },
     {
@@ -57,6 +62,9 @@ const TerminalList = ({ terminals, onSort, onOrder }: IProps) => {
       key: 'terminalId',
       align: 'center',
       width: 80,
+      render:(terminalId:string)=>{
+        return <span className='whitespace-nowrap'>{renderText(terminalId)}</span>
+      }
     },
     // {
     //   title: (
@@ -81,6 +89,9 @@ const TerminalList = ({ terminals, onSort, onOrder }: IProps) => {
       key: 'terminalModel',
       align: alignLeft,
       width: 80,
+      render:(terminalModel:string)=>{
+        return <span className='whitespace-nowrap'>{renderText(terminalModel)}</span>
+      }
     },
     {
       title: t('table:table-item-merchant-id'),
@@ -88,6 +99,9 @@ const TerminalList = ({ terminals, onSort, onOrder }: IProps) => {
       key: 'merchantId',
       align: 'center',
       width: 80,
+      render:(merchantId:string)=>{
+        return <span className='whitespace-nowrap'>{renderText(merchantId)}</span>
+      }
     },
     {
       title: t('table:table-item-bank-name'),
@@ -95,6 +109,9 @@ const TerminalList = ({ terminals, onSort, onOrder }: IProps) => {
       key: 'bankName',
       align: 'center',
       width: 80,
+      render:(bankName:string)=>{
+        return <span className='whitespace-nowrap'>{renderText(bankName)}</span>
+      }
     },
     {
       title: t('table:table-item-teller'),
@@ -102,6 +119,9 @@ const TerminalList = ({ terminals, onSort, onOrder }: IProps) => {
       key: 'teller',
       align: 'center',
       width: 80,
+      render:(name:string)=>{
+        return <span className='whitespace-nowrap'>{renderText(name)}</span>
+      }
     },
     {
       title: t('table:table-item-ptsp'),
@@ -109,6 +129,9 @@ const TerminalList = ({ terminals, onSort, onOrder }: IProps) => {
       key: 'ptsp',
       align: 'center',
       width: 80,
+      render:(ptsp:string)=>{
+        return <span className='whitespace-nowrap'>{renderText(ptsp)}</span>
+      }
     },
     {
       title: t('table:table-item-address'),
@@ -116,8 +139,8 @@ const TerminalList = ({ terminals, onSort, onOrder }: IProps) => {
       key: 'address',
       align: 'center',
       width: 80,
-      render:(address:string)=>{
-        return <span className='whitespace-nowrap'>{address}</span>
+      render:(serialNumber:string)=>{
+        return <span className='whitespace-nowrap'>{renderText(serialNumber)}</span>
       }
     },
     // {
@@ -153,9 +176,9 @@ const TerminalList = ({ terminals, onSort, onOrder }: IProps) => {
       key: 'status',
       align: 'center',
       width: 80,
-      render: (status: string) => (
-        <span className="capitalize whitespace-nowrap">{status?.toLowerCase()}</span>
-      ),
+      render:(status:string)=>{
+        return <span className='whitespace-nowrap capitalize'>{renderText(status)}</span>
+      }
     },
     {
       title: t('table:table-item-actions'),
@@ -163,11 +186,11 @@ const TerminalList = ({ terminals, onSort, onOrder }: IProps) => {
       key: 'actions',
       align: 'center',
       width: 50,
-      render: (id: string, { slug, is_active }: any) => (
+      render: (id: string, record: any) => (
         <ActionButtons
           id={id}
-          editUrl={`${Routes.merchant.list}/edit/${id}`}
-          detailsUrl={`/${slug}`}
+          terminalEditModal={'TERMINAL_EDIT_MODAL'}
+          terminal={record}
           // addTerminalUrl={`${Routes.merchant.list}/${id}/add-terminal`}
         />
       ),
@@ -175,7 +198,8 @@ const TerminalList = ({ terminals, onSort, onOrder }: IProps) => {
   ];
 
   return (
-    <div className="mb-8 overflow-hidden rounded shadow">
+    <>
+      <div className="mb-8 overflow-hidden rounded shadow">
       <Table
         //@ts-ignore
         columns={columns}
@@ -185,6 +209,17 @@ const TerminalList = ({ terminals, onSort, onOrder }: IProps) => {
         scroll={{ x: 900 }}
       />
     </div>
+    {!!paginatorInfo?.total && (
+        <div className="flex items-center justify-end">
+          <Pagination
+            total={paginatorInfo.total}
+            current={paginatorInfo.currentPage}
+            pageSize={paginatorInfo.perPage}
+            onChange={onPagination}
+          />
+        </div>
+      )}
+    </>
   );
 };
 

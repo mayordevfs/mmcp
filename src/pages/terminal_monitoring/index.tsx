@@ -29,7 +29,7 @@ export default function TransactionsPage() {
   const { t } = useTranslation();
   const [orderBy, setOrder] = useState('created_at');
   const [sortedBy, setColumn] = useState<SortOrder>(SortOrder.Desc);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [visible, setVisible] = useState(false);
 
   const [termFilter, setTermFilter] = useState({
@@ -76,11 +76,12 @@ export default function TransactionsPage() {
     const year = date.getFullYear();
     return `${day}-${month}-${year}`;
   };
-
+  console.log(termFilter);
+  
   const today = formatDate(new Date());
   const firstDayOfYear = getFirstDayOfYear();
   const { error, data, isLoading, isFetching } = useQuery(
-    ['terminalmonitoring', applyFilter],
+    ['terminalmonitoring', applyFilter,page],
     () =>
       axiosInstance.request({
         method: 'GET',
@@ -109,7 +110,7 @@ export default function TransactionsPage() {
   const newPaginatorInfo = {
     currentPage: page,
     firstPageUrl: '',
-    from: 0,
+    from: 1,
     lastPage: data?.data?.totalPages,
     lastPageUrl: '',
     links: [],
@@ -118,7 +119,7 @@ export default function TransactionsPage() {
     perPage: 20,
     prevPageUrl: null,
     to: 20,
-    total: data?.data?.totalCount,
+    total: data?.data?.totalElements,
     hasMorePages: data?.data?.totalPages > page,
   };
 
@@ -191,6 +192,7 @@ export default function TransactionsPage() {
         onPagination={handlePagination}
       />
     </>
+    
   );
 }
 

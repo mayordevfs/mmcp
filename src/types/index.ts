@@ -991,7 +991,7 @@ export interface MerchantInput {
   mobileNo: string;
   address: string;
   state?: SelectOption;
-  settlementType?: SelectOption;
+  settlementAccountType?: any;
   firstName: string;
   lastName: string;
   bvn: string;
@@ -999,9 +999,9 @@ export interface MerchantInput {
   businessName: string;
   businessType?: SelectOption;
   businessAddress: string;
-  bank?: SelectOption;
-  settlementAccount: string;
-  settlementAccountName: string;
+  bankName?: SelectOption;
+  bankAccountNo: string;
+  bankAccountName: string;
   terminalId: string;
   terminalSerialNo: string;
   businessLogo: File | null;
@@ -1009,6 +1009,12 @@ export interface MerchantInput {
   isVerified?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
+  businessRegNo?:string;
+  sweepSessions?:[
+    {id:string,name:string,description:string}
+  ] | any
+  settlementPeriodType:any;
+
 }
 
 export interface TransTypeInput {

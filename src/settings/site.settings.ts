@@ -197,7 +197,16 @@ export const siteSettings = {
         label: 'Transfer Master List',
         icon: 'MasterListIcon',
       },
-
+      {
+        href: Routes.fetch_templates,
+        label: 'Messaging Templates',
+        icon: 'SaveMessagingTemplateIcon',
+      },
+      {
+        href: Routes.lookup_data,
+        label: 'Lookup Data',
+        icon: 'LookupDataIcon',
+      },
     ],
     shop: [
       {

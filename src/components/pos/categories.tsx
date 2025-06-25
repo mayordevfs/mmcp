@@ -20,7 +20,7 @@ if (error) return <ErrorMessage message={t('Something went wrong!')}/>
 console.log(data);
 
   return (
-    <div className={`w-full overflow-x-auto grid  grid-cols-6 gap-y-3 gap-x-5 ${data?.length<6?`lg:grid-cols-[${data?.length}]`:`lg:grid-cols-6`}`}>
+    <div className={`w-full overflow-x-auto grid  grid-cols-110 gap-y-3 gap-x-5`}>
         
         {data?.map((item:ProductCategoriesProps,index:number)=>(
             <button key={index} 

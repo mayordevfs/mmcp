@@ -61,7 +61,11 @@ const TerminalHealthList = ({
       key: 'serialNo',
       align: 'center',
       width: 50,
-      render: (_: any, __: any, index: number) => <span className="whitespace-nowrap">{index + 1}</span>,
+      render: (text: any, record: any, index: number) => {
+        // Calculate serial number based on current page and page size
+        const { currentPage = 1, perPage = 20 } = paginatorInfo || {};
+        return (currentPage - 1) * perPage + index + 1;
+      },
     },
     {
       title: t('table:table-item-terminal-id'),
@@ -164,21 +168,20 @@ const TerminalHealthList = ({
     //     <Badge text={status} color={getStatusColor(status)} />
     //   ),
     // },
-    // {
-    //   title: t('table:table-item-actions'),
-    //   dataIndex: 'tranRefNo',
-    //   key: 'actions',
-    //   align: 'center',
-    //   width: 50,
-    //   render: (transactionRef: string) => (
-    //     <ActionButtons
-    //       id={transactionRef}
-    //       // editUrl={`${Routes.merchant.list}/edit/${transactionRef}`}
-    //       detailsUrl={`${Routes.transaction.list}/${transactionRef}`}
-    //       // addTerminalUrl={`${Routes.merchant.list}/${id}/add-terminal`}
-    //     />
-    //   ),
-    // },
+    {
+      title: t('table:table-item-actions'),
+      dataIndex: 'tranRefNo',
+      key: 'actions',
+      align: 'center',
+      width: 50,
+      render: (id:any,record: string) => (
+        <ActionButtons
+          id={id}
+          terminal_monitoring_modal={`TERMINAL_HEALTH_MONITORING_MODAL`}
+          terminal_monitoring={record}
+        />
+      ),
+    },
   ];
   if (isFetching) {
     return <Loader text={t('common:text-loading')} />;
