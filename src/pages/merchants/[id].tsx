@@ -147,9 +147,9 @@ const MerchantDetails = () => {
             <div className="relative mb-5 h-36 w-36 rounded-full">
               <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-full border border-gray-100">
                 <Image
-                  src={'/avatar-placeholder.svg'}
+                  src={merchantDetails?.businessLogo||'/avatar-placeholder.svg'}
                   layout="fill"
-                  objectFit="contain"
+                  objectFit="cover"
                   alt={'image'}
                 />
               </div>
@@ -167,10 +167,10 @@ const MerchantDetails = () => {
             </div>
 
             <h1 className="mb-2 text-xl font-semibold text-heading">
-              {merchantDetails.businessName}
+              {merchantDetails?.businessName}
             </h1>
             <p className="text-center text-sm text-body">
-              <ReadMore character={70}>{merchantDetails.email}</ReadMore>
+              <ReadMore character={70}>{merchantDetails?.email}</ReadMore>
             </p>
 
             <div className="mt-5 flex w-full justify-start">
@@ -236,7 +236,7 @@ const MerchantDetails = () => {
                   {t('common:text-account-no')}:
                 </span>{' '}
                 <span className="font-semibold">
-                  {merchantDetails.accountNo}
+                  {merchantDetails?.accountNo}
                 </span>
               </p>
             </div>

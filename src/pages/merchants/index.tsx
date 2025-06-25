@@ -30,23 +30,23 @@ export default function MerchantsPage() {
   const [visible, setVisible] = useState(false);
   const [name, setName] = useState<string>('');
   const [code, setCode] = useState<string>('');
+  const [applyFilter,setApplyFilter] = useState(false)
   const {
     data,
     isLoading: loading,
     isFetching,
     error,
   } = useQuery(
-    ['merchants', page],
+    ['merchants', page,applyFilter],
     () =>
       axiosInstance.request({
         method: 'GET',
         url: '/merchant/all',
         params: {
           pageNumber: page,
-          pageSize: 10,
-          name: searchTerm,
-          role: '',
-          mobileNo: '',
+          pageSize: 100,
+          name,
+          merchantId:code
         },
       }),
     {}
@@ -60,12 +60,15 @@ export default function MerchantsPage() {
     links: [],
     nextPageUrl: null,
     path: '',
-    perPage: 10,
+    perPage: 100,
     prevPageUrl: null,
     to: 10,
-    total: data?.data?.totalCount,
+    total: data?.data?.totalItems,
     hasMorePages: data?.data?.totalPages > page,
   };
+
+  console.log(data);
+  
 
   const toggleVisible = () => {
     setVisible((v) => !v);
@@ -82,15 +85,19 @@ export default function MerchantsPage() {
   }
 
   const handleNameFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPage(1);
     setName(e.target.value);
   };
 
   const handleCodeFilter = (selectedOption: any) => {
-    setPage(1);
     setCode(selectedOption?.value || null);
   };
 
+  const handleApplyFilter = ()=>{
+    setPage(1)
+    setApplyFilter(!applyFilter)
+  }
+  
+  if(error) return <ErrorMessage message={`Something went wrong!`}/>
   return (
     <>
       <Card className="mb-8 flex flex-col">
@@ -138,6 +145,7 @@ export default function MerchantsPage() {
             <MerchantTypeFilter
               onCodeFilter={handleCodeFilter}
               onNameFilter={handleNameFilter}
+              handleApplyFilter ={handleApplyFilter}
             />
           </div>
         </div>

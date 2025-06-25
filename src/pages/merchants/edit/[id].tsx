@@ -6,6 +6,7 @@ import Loader from '@/components/ui/loader/loader';
 import { useShippingQuery } from '@/data/shipping';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import EditMerchantForm from '@/components/merchant/update-merchant-form';
 
 export default function UpdateMerchantPage() {
   const { query } = useRouter();
@@ -25,7 +26,7 @@ export default function UpdateMerchantPage() {
           {t('form:form-title-update-merchant')} #{data?.id}
         </h1>
       </div>
-      <CreateOrUpdateMerchantForm initialValues={data} />
+      <EditMerchantForm />
     </>
   );
 }

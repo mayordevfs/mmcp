@@ -9,36 +9,46 @@ import { useTypesQuery } from '@/data/type';
 import { ActionMeta } from 'react-select';
 import Input from '@/components/ui/input';
 import { DatePicker } from '@/components/ui/date-picker';
+import useGetLookup from '@/hooks/useGetLookup';
+import Button from '../ui/button';
 
 type Props = {
   onTerminalIdFilter: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onStatusFilter: (newValue: any, actionMeta: ActionMeta<unknown>) => void;
-
+  onBankCodeFilter: (newValue: any) => void;
+  onApplyFilter: ()=>void
   className?: string;
 };
 
 export default function CategoryTypeFilter({
   onTerminalIdFilter,
   onStatusFilter,
+  onBankCodeFilter,
+  onApplyFilter,
   className,
 }: Props) {
   const { locale } = useRouter();
   const { t } = useTranslation();
+  const bankCode = useGetLookup('BANK')
+
+  // console.log(bankCode);
+  
 
   const statusOptions = [
-    { value: 'success', label: t('common:success') },
-    { value: 'failed', label: t('common:failed') },
-    { value: 'pending', label: t('common:pending') },
+    { value: 'Assigned', label: t('Assigned') },
+    { value: 'Available', label: t('Available') },
+    { value: 'Damaged', label: t('Damaged') },
   ];
 
   return (
     <div
       className={cn(
-        'grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4',
+        'space-y-3',
         className
       )}
     >
-      <div className="w-full">
+      <div className='grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+        <div className="w-full">
         <Label>{t('common:terminal-id')}</Label>
         <Input
           name="terminalId"
@@ -56,6 +66,19 @@ export default function CategoryTypeFilter({
           onChange={onStatusFilter}
         />
       </div>
-    </div>
+
+      <div className="w-full">
+        <Label>{t('Bank Code')}</Label>
+        <Select
+          options={bankCode}
+          getOptionLabel={(option:any)=>option?.name}
+          getOptionValue={(option:any)=>option?.id}
+          placeholder={t('Bank Code')}
+          onChange={onBankCodeFilter}
+        />
+      </div>
+      </div>
+      <Button onClick={onApplyFilter}>Filter</Button>
+    </div> 
   );
 }

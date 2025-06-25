@@ -57,13 +57,15 @@ const TransactionList = ({
   const columns = [
     {
       title: t('table:table-item-transaction-serial-no'),
-      dataIndex: 'id',
-      key: 'id',
+      dataIndex: 'serialNo',
+      key: 'serialNo',
       align: 'center',
       width: 50,
-      render: (id:string)=>(
-        <span className='whitespace-nowrap'>{id}</span>
-      )
+      render: (text: any, record: any, index: number) => {
+        // Calculate serial number based on current page and page size
+        const { currentPage = 1, perPage = 20 } = paginatorInfo || {};
+        return (currentPage - 1) * perPage + index + 1;
+      },
     },
     {
       title: t('table:table-item-transaction-ref'),

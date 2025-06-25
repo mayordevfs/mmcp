@@ -70,7 +70,7 @@ const TransactionTypeList = ({
       align: 'left',
       width: 340,
       render:(tranName:string)=>(
-        <span className='whitespace-nowrap'>{tranName}</span>
+        <span className='whitespace-nowrap'>{tranName?tranName:'N/A'}</span>
       )
     },
     {
@@ -79,6 +79,9 @@ const TransactionTypeList = ({
       key: 'tranCode',
       align: 'center',
       width: 240,
+      render:(tranCode:string)=>(
+        <span className='whitespace-nowrap'>{tranCode?tranCode:'N/A'}</span>
+      )
     },
     // {
     //   title: (

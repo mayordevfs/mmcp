@@ -86,6 +86,7 @@ export default function CategoryTypeFilter({
           value={termFilter.terminalId}
           onChange={handleChange}
           className="w-full"
+          inputClassName='bg-white'
         />
       </div>
       </div>

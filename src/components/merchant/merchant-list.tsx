@@ -45,7 +45,9 @@ const MerchantList = ({
       });
     },
   });
+  
 
+  const renderText = (text:any)=>text?text:'N/A'
   const columns = [
     {
       title: t('table:table-item-serial-no'),
@@ -53,7 +55,11 @@ const MerchantList = ({
       key: 'serialNo',
       align: 'center',
       width: 50,
-      render: (text: string, record: any, index: number) => index + 1,
+      render: (text: any, record: any, index: number) => {
+        // Calculate serial number based on current page and page size
+        const { currentPage = 1, perPage = 20 } = paginatorInfo || {};
+        return (currentPage - 1) * perPage + index + 1;
+      },
     },
     {
       title: t('table:table-item-merchant-id'),
@@ -62,7 +68,7 @@ const MerchantList = ({
       align: 'center',
       width: 240,
       render:(merchantId:string)=>(
-        <span className='whitespace-nowrap'>{merchantId}</span>
+        <span className='whitespace-nowrap'>{renderText(merchantId)}</span>
       )
     },
     {
@@ -81,7 +87,7 @@ const MerchantList = ({
       key: 'businessName',
       align: alignLeft,
       render:(businessName:string)=>(
-        <span className='whitespace-nowrap'>{businessName}</span>
+        <span className='whitespace-nowrap'>{renderText(businessName)}</span>
       ),
       width: 140,
       onHeaderCell: () => onHeaderClick('businessName'),
@@ -93,7 +99,7 @@ const MerchantList = ({
       align: alignLeft,
       width: 200,
       render:(email:string)=>(
-        <span className='whitespace-nowrap'>{email}</span>
+        <span className='whitespace-nowrap'>{renderText(email)}</span>
       )
     },
     {
@@ -103,19 +109,19 @@ const MerchantList = ({
       align: 'center',
       width: 120,
       render:(businessType:string)=>(
-        <span className='whitespace-nowrap'>{businessType}</span>
+        <span className='whitespace-nowrap'>{renderText(businessType)}</span>
       )
     },
-    {
-      title: t('table:table-item-terminal-id'),
-      dataIndex: 'terminalId',
-      key: 'terminalId',
-      align: 'center',
-      width: 80,
-      render:(terminalId:string)=>(
-        <span className='whitespace-nowrap'>{terminalId}</span>
-      )
-    },
+    // {
+    //   title: t('table:table-item-terminal-id'),
+    //   dataIndex: 'terminalId',
+    //   key: 'terminalId',
+    //   align: 'center',
+    //   width: 80,
+    //   render:(terminalId:string)=>(
+    //     <span className='whitespace-nowrap'>{terminalId?terminalId:'N/A'}</span>
+    //   )
+    // },
     // {
     //   title: t('table:table-item-show-logo'),
     //   dataIndex: 'showLogo',

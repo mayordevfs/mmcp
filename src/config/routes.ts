@@ -28,6 +28,11 @@ export const Routes = {
   send_money:'/money_transfer/send_money',
   link: '/admin/rest/src/pages/terminals/link.tsx',
   transfer_master_list:'/transfers',
+  save_template:'/messaging_templates/create',
+  fetch_templates:'/messaging_templates',
+  lookup_data:'/lookup_data',
+  create_lookup_data:'/lookup_data/create',
+
   user: {
     ...routesFactory('/users'),
   },

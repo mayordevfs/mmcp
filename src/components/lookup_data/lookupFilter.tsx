@@ -8,14 +8,13 @@ import Input from '@/components/ui/input';
 import Button from '../ui/button';
 
 type Props = {
-  onNameFilter: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  
   onCodeFilter: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleApplyFilter: ()=>void
   className?: string;
 };
 
-export default function MerchantTypeFilter({
-  onNameFilter,
+export default function LookupTypeFilter({
   onCodeFilter,
   handleApplyFilter,
   className,
@@ -27,24 +26,15 @@ export default function MerchantTypeFilter({
       
       <div className='grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
         <div className="w-full">
-        <Label>{t('common:name')}</Label>
+        <Label>{t('Category Code')}</Label>
         <Input
-          name='name'
-          placeholder={t('common:enter-name')}
-          onChange={onNameFilter}
-          className="w-full"
-        />
-      </div>
-
-      <div className="w-full">
-        <Label>{t('common:code')}</Label>
-        <Input
-          name='name'
-          placeholder={t('common:enter-merchant-code')}
+          name='categoryCode'
+          placeholder={t('Category Code')}
           onChange={onCodeFilter}
           className="w-full"
         />
       </div>
+
       </div>
 
       <Button onClick={handleApplyFilter}>

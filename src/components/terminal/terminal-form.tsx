@@ -36,18 +36,6 @@ type IProps = {
   initialValues?: Shipping | undefined | null;
 };
 
-const terminalModelOptions = [
-  { id: 'model1', name: 'Model 1' },
-  { id: 'model2', name: 'Model 2' },
-  { id: 'model3', name: 'Model 3' },
-];
-
-const bankOptions = [
-  { id: 'access', name: 'Access Bank' },
-  { id: 'zenith', name: 'Zenith Bank' },
-];
-
-
 const conditionOptions = [
   { id: 'new', name: 'New' },
   { id: 'used', name: 'Used' },
@@ -60,6 +48,11 @@ export default function CreateTerminalForm({ initialValues }: IProps) {
   const terminalModelOptions = useGetLookup('TERMINAL_MODEL');
   const bankOptions = useGetLookup('BANK');
   const terminalStatusOptions = useGetLookup('TERMINAL_STATUS');
+
+  console.log(terminalStatusOptions);
+  console.log(bankOptions);
+  
+  
   
   const {
     register,
@@ -113,11 +106,12 @@ export default function CreateTerminalForm({ initialValues }: IProps) {
   const onSubmit = async (values: TerminalInput) => {
     const payload = {
       terminalId: values.terminalId,
-      terminalSerialNo: values.terminalSerialNo,
+      serialNumber: values.terminalSerialNo,
       terminalModel: values.terminalModel?.id,
-      operatingSystem: values.operatingSystem,
+      // : values.operatingSystem,
       appVersion: values.appVersion,
-      bank: values.bank?.id,
+      bankName: values.bank?.name,
+      bankCode:values?.bank?.id,
       terminalStatus: values.terminalStatus?.id,
       condition: values.condition?.id,
       id: 0

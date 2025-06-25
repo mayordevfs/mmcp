@@ -119,15 +119,15 @@ export default function ReconcileTransactionsPage() {
   const newPaginatorInfo = {
     currentPage: page,
     firstPageUrl: '',
-    from: 0,
+    from: 1,
     lastPage: data?.data?.totalPages,
     lastPageUrl: '',
     links: [],
     nextPageUrl: null,
     path: '',
-    perPage: 20,
+    perPage: 100,
     prevPageUrl: null,
-    to: 20,
+    to: 100,
     total: data?.data?.totalCount,
     hasMorePages: data?.data?.totalPages > page,
   };

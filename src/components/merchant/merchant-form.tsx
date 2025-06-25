@@ -9,11 +9,13 @@ import { Shipping, MerchantInput } from '@/types';
 
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
-import FileInput from '@/components/ui/file-input';
 import { toast } from 'react-toastify';
 import axiosInstance from '@/utils/fetch-function';
 import { useMutation } from 'react-query';
 import useGetLookup from '@/hooks/useGetLookup';
+import { randomNDigitNumber } from '@/lib/helper';
+import { useFileUpload } from '@/hooks/useFileUpload';
+import { Routes } from '@/config/routes';
 
 const defaultValues = {
   merchantId: '',
@@ -28,11 +30,14 @@ const defaultValues = {
   lastName: '',
   bvn: '',
   businessName: '',
-  settlementAccount: '',
-  settlementAccountName: '',
+  bankAccountNo: '',
+  bankAccountName: '',
   terminalId: '',
   terminalSerialNo: '',
   businessLogo: null,
+  businessRegNo:'',
+  sweepSessions:[''],
+  settlementAccountType:''
 };
 
 type IProps = {
@@ -63,11 +68,24 @@ export default function CreateOrUpdateMerchantForm({
   const bankOptions = useGetLookup('BANK');
   // const stateOptions = useGetLookup('STATES');
   const businessTypeOptions = useGetLookup('BUSINESS_TYPE');
+  const settlementPeriodType= useGetLookup('SETTLEMENT_PERIOD_TYPE')
+  const sweepSessionType= useGetLookup('SWEEP_SESSION')
+  const settlementAccountType= useGetLookup('SETTLEMENT_ACCOUNT_TYPE')
+  
+  console.log(settlementPeriodType);
 
-  const { register, handleSubmit, control, watch } = useForm<MerchantInput>({
+  console.log(bankOptions);
+  
+
+  const { register, handleSubmit, control, watch,getValues } = useForm<MerchantInput>({
     shouldUnregister: true,
     defaultValues: defaultValues,
   });
+
+  console.log(getValues());
+  
+
+  const {fileUrl,handleFileChange,fileInputRef,fileError,previewUrl,selectedFile,isUploadingFile} = useFileUpload()
 
   const { mutate: saveMerchant, isLoading: ismerchantLoading } = useMutation(
     (formData: any) =>
@@ -88,8 +106,9 @@ export default function CreateOrUpdateMerchantForm({
           entityCode: 'ETZ',
           merchantGroupCode: 'M0001',
           identityLink: 'https://testt',
-          settlementBankCode: '000111',
+          // settlementBankCode: '000111',
           branchCode: 'ETZ_HO',
+          id:0,
         },
       }),
     {
@@ -99,7 +118,7 @@ export default function CreateOrUpdateMerchantForm({
           return;
         }
         toast.success('Merchant created successfully');
-        router.back();
+        router.push(Routes?.merchant?.list);
       },
       onError: (error: any) => {
         console.log(error);
@@ -118,12 +137,14 @@ export default function CreateOrUpdateMerchantForm({
       },
     }
   );
-
+  console.log(fileUrl);
+  
   const onSubmit = async (values: MerchantInput) => {
+     const sweepSessions = values?.sweepSessions?.map((item:any)=>item?.id)
     const payload = {
       // Personal Information
-      // firstName: values.firstName,
-      // lastName: values.lastName,
+      firstname: values.firstName,
+      lastname: values.lastName,
       bvn: values.bvn,
       // gender: values?.gender?.id,
 
@@ -131,6 +152,7 @@ export default function CreateOrUpdateMerchantForm({
       // merchantId: values.merchantId,
       businessName: values.businessName,
       businessType: values?.businessType?.id,
+      businessRegNo:values?.businessRegNo,
       // registrationNo: values.registrationNo,
 
       // Contact Information
@@ -138,24 +160,28 @@ export default function CreateOrUpdateMerchantForm({
       mobileNo: values.mobileNo,
       address: values.address,
       state: values.state?.id,
-      settlementType: values.settlementType?.id,
+      settlementAccountType: values.settlementAccountType?.id,
 
       // Bank Information
-      settlementBank: values.bank?.id,
-      settlementBankAccount: values.settlementAccount,
+      bankName: values.bankName?.name,
+      bankCode:values.bankName?.id,
+      bankAccountNo: values.bankAccountNo,
+      bankAccountName:values?.bankAccountName,
       // settlementAccountName: values.settlementAccountName,
       terminalId: values.terminalId,
       terminalSerialNo: values.terminalSerialNo,
 
       // File
-      businessLogo: values.businessLogo,
-      username: values.firstName + values.merchantId,
+      businessLogo: fileUrl||'',
+      username: values.firstName + randomNDigitNumber(5),
       password: 'password',
+      settlementPeriodType:values?.settlementPeriodType?.id,
+      sweepSessions:sweepSessions
     };
     saveMerchant(payload);
   };
-  const businessLogo = watch('businessLogo');
-  console.log(businessLogo);
+  // const businessLogo = watch('businessLogo');
+  // console.log(businessLogo);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -244,7 +270,7 @@ export default function CreateOrUpdateMerchantForm({
 
           <Input
             label={t('form:input-label-registration-no')}
-            {...register('registrationNo')}
+            {...register('businessRegNo')}
             variant="outline"
             className="mb-5"
           />
@@ -290,16 +316,6 @@ export default function CreateOrUpdateMerchantForm({
             />
           </div>
 
-          <div className="mb-5">
-            <Label>{t('form:input-label-settlement-type')}</Label>
-            <SelectInput
-              name="settlementType"
-              control={control}
-              getOptionLabel={(option: any) => option.name}
-              getOptionValue={(option: any) => option.id}
-              options={settlementTypeOptions}
-            />
-          </div>
         </div>
 
         {/* Bank Information */}
@@ -312,7 +328,7 @@ export default function CreateOrUpdateMerchantForm({
           <div className="mb-5">
             <Label>{t('form:input-label-bank')}</Label>
             <SelectInput
-              name="bank"
+              name="bankName"
               control={control}
               getOptionLabel={(option: any) => option.name}
               getOptionValue={(option: any) => option.id}
@@ -322,14 +338,14 @@ export default function CreateOrUpdateMerchantForm({
 
           <Input
             label={t('form:input-label-settlement-account')}
-            {...register('settlementAccount')}
+            {...register('bankAccountNo')}
             variant="outline"
             className="mb-5"
           />
 
           <Input
-            label={t('form:input-label-settlement-account-name')}
-            {...register('settlementAccountName')}
+            label={t('form:input-label-terminal-serial-no')}
+            {...register('terminalSerialNo')}
             variant="outline"
             className="mb-5"
           />
@@ -342,21 +358,93 @@ export default function CreateOrUpdateMerchantForm({
           />
 
           <Input
-            label={t('form:input-label-terminal-serial-no')}
-            {...register('terminalSerialNo')}
+            label={t('form:input-label-settlement-account-name')}
+            {...register('bankAccountName')}
             variant="outline"
             className="mb-5"
           />
+
+          <div className="mb-5">
+            <Label>{t('Settlement Account Type')}</Label>
+            <SelectInput
+              name="settlementAccountType"
+              control={control}
+              getOptionLabel={(option: any) => option.name}
+              getOptionValue={(option: any) => option.id}
+              options={settlementAccountType}
+            />
+          </div>
+
+          <div className="mb-5">
+            <Label>{t('Settlement Period Type')}</Label>
+            <SelectInput
+              name="settlementPeriodType"
+              control={control}
+              getOptionLabel={(option: any) => option.name}
+              getOptionValue={(option: any) => option.id}
+              options={settlementPeriodType}
+            />
+          </div>
+
+          <div className="mb-5">
+            <Label>{t('Sweep Session')}</Label>
+            <SelectInput
+              name="sweepSessions"
+              control={control}
+              getOptionLabel={(option: any) => option.name}
+              getOptionValue={(option: any) => option.id}
+              options={sweepSessionType}
+              isMulti
+            />
+          </div>
         </div>
 
-        <div className="mb-5">
-          <Label>{t('form:input-label-business-logo')}</Label>
-          <FileInput
-            name="merchant.businessLogo"
-            control={control}
-            multiple={false}
-          />
-        </div>
+         
+            {/* File upload */}
+            <Card className="w-full  mb-5">
+                      <div className="space-y-4">
+                        <Label>{t('Business Logo')} *</Label>
+            
+                        {/* File Input */}
+                        <div className="relative">
+                          <input
+                            ref={fileInputRef}
+                            type="file"
+                            accept="image/jpeg,image/jpg,image/png,image/webp,image/svg+xml"
+                            onChange={handleFileChange}
+                            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 border border-gray-300 rounded-lg cursor-pointer"
+                          />
+                        </div>
+            
+                        {/* Error Message */}
+                        {fileError && (
+                          <p className="text-sm text-red-600 mt-1">{fileError}</p>
+                        )}
+            
+                        {/* File Info */}
+                        {selectedFile && !fileError && (
+                          <div className="text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">
+                            <p><strong>Selected:</strong> {selectedFile[0].name}</p>
+                            <p><strong>Size:</strong> {(selectedFile[0].size / 1024 / 1024).toFixed(2)} MB</p>
+                            <p><strong>Type:</strong> {selectedFile[0].type}</p>
+                          </div>
+                        )}
+            
+                        {/* Image Preview */}
+                        {previewUrl && !fileError && (
+                          <div className="mt-4">
+                            <Label>Preview:</Label>
+                            <div className="mt-2 border border-gray-200 rounded-lg p-4 bg-gray-50">
+                              <img
+                                src={previewUrl}
+                                alt="Category logo preview"
+                                className="max-w-full max-h-32 object-contain mx-auto"
+                              />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </Card>
         <div className="mb-4 text-end">
           {initialValues && (
             <Button
@@ -369,7 +457,7 @@ export default function CreateOrUpdateMerchantForm({
             </Button>
           )}
 
-          <Button loading={ismerchantLoading} disabled={ismerchantLoading}>
+          <Button loading={ismerchantLoading} disabled={ismerchantLoading||isUploadingFile}>
             {t('form:button-label-add-merchant')}
           </Button>
         </div>

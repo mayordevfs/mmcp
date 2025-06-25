@@ -25,8 +25,8 @@ export const useFileUpload = () => {
     
     uploadClient.upload(fileArray)
     .then((res: any) => {
-      const filename = res?.data?.refNo.split('/').pop();
-      setFileUrl(`/${filename}`);
+      const filename = res?.data?.refNo;
+      setFileUrl(filename);
       toast.success("Image uploaded successfully");
     })
     .catch((err) => {

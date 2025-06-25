@@ -55,6 +55,8 @@ const TransactionList = ({
     },
   });
 
+  const renderText = (text:any)=>text?text:'N/A'
+
   const columns = [
     {
       title: t('table:table-item-serial-no'),
@@ -62,7 +64,12 @@ const TransactionList = ({
       key: 'serialNo',
       align: 'center',
       width: 50,
-      render: (_: any, __: any, index: number) => <span className="whitespace-nowrap">{index + 1}</span>,
+      render: (text: any, record: any, index: number) => {
+        // // Calculate serial number based on current page and page size
+        // const { currentPage = 1, perPage = 20 } = paginatorInfo || {};
+        // return (currentPage - 1) * perPage + index + 1;
+        return <span>{index+1}</span>
+      },
     },
     {
       title: t('table:table-item-transaction-time'),
@@ -71,7 +78,7 @@ const TransactionList = ({
       align: alignLeft,
       width: 180,
       render:(tranDate:string)=>(
-        <span className='whitespace-nowrap'>{tranDate}</span>
+        <span className='whitespace-nowrap'>{renderText(tranDate)}</span>
       )
     },
     {
@@ -81,7 +88,7 @@ const TransactionList = ({
       align: alignLeft,
       width: 180,
       render:(rrn:string)=>(
-        <span className='whitespace-nowrap'>{rrn}</span>
+        <span className='whitespace-nowrap'>{renderText(rrn)}</span>
       )
     },
     {
@@ -91,7 +98,7 @@ const TransactionList = ({
       align: alignLeft,
       width: 150,
       render:(stan:string)=>(
-        <span className='whitespace-nowrap'>{stan}</span>
+        <span className='whitespace-nowrap'>{renderText(stan)}</span>
       )
     },
     {
@@ -101,7 +108,7 @@ const TransactionList = ({
       align: alignLeft,
       width: 80,
       render:(terminalId:string)=>(
-        <span className='whitespace-nowrap'>{terminalId}</span>
+        <span className='whitespace-nowrap'>{renderText(terminalId)}</span>
       )
     },
 
@@ -112,7 +119,7 @@ const TransactionList = ({
       align: alignLeft,
       width: 180,
       render:(cardNo:string)=>(
-        <span className='whitespace-nowrap'>{cardNo}</span>
+        <span className='whitespace-nowrap'>{renderText(cardNo)}</span>
       )
     },
     {
@@ -122,7 +129,7 @@ const TransactionList = ({
       align: 'center',
       width: 80,
       render: (amount: number) =>{
-        formatPrice({ amount, currencyCode: 'NGN', locale: 'en-NG' })
+        return amount?formatPrice({ amount, currencyCode: 'NGN', locale: 'en-NG' }):'N/A'
       }
         ,
     },
@@ -175,21 +182,20 @@ const TransactionList = ({
     //   align: 'center',
     //   width: 80,
     // },
-    // {
-    //   title: t('table:table-item-actions'),
-    //   dataIndex: 'tranRefNo',
-    //   key: 'actions',
-    //   align: 'center',
-    //   width: 50,
-    //   render: (transactionRef: string) => (
-    //     <ActionButtons
-    //       id={transactionRef}
-    //       // editUrl={`${Routes.merchant.list}/edit/${transactionRef}`}
-    //       detailsUrl={`${Routes.transaction.list}/${transactionRef}`}
-    //       // addTerminalUrl={`${Routes.merchant.list}/${id}/add-terminal`}
-    //     />
-    //   ),
-    // },
+    {
+      title: t('table:table-item-actions'),
+      dataIndex: 'tranRefNo',
+      key: 'actions',
+      align: 'center',
+      width: 50,
+      render: (tranId: string,record:any) => (
+        <ActionButtons
+          id={tranId}
+          settlementTransModal={'SETTLE_TRANS_MODAL'}
+          settlementTrans={record}
+        />
+      ),
+    },
   ];
   if (isFetching) {
     return <Loader text={t('common:text-loading')} />;
