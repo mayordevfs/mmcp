@@ -29,25 +29,6 @@ const BillerView = () => {
   const [sortedBy, setColumn] = useState<SortOrder>(SortOrder.Desc);
   const [activeTab, setActiveTab] = useState<'products' | 'paymentData'>('products');
 
-  // Get biller details
-  // const { data: billerDetails, isLoading } = useQuery(
-  //   ['biller-details', modalData?.billerCode],
-  //   async () => {
-  //     const response = await axiosInstance.get(
-  //       'getbillerdetail',
-  //       {
-  //         params: {
-  //           billerCode: modalData?.billerCode,
-  //         },
-  //       }
-  //     );
-  //     return response.data;
-  //   },
-  //   {
-  //     enabled: !!modalData?.billerCode, // Only run query if billerCode exists
-  //   }
-  // );
-
   const { data: billerDetails, isLoading } = useQuery(
     ['biller-details', billerCode],
     async () => {
@@ -72,7 +53,7 @@ const BillerView = () => {
 
   const billerCollections = billerDetails?.paymentData || [];
   const billerProducts = billerDetails?.products || [];
-
+  console.log("Biller Deets: ", billerDetails)
   return (
     <div className="m-auto w-[1000px] rounded bg-light px-4">
       <div className="flex border-b border-dashed border-border-base py-2 sm:py-4">

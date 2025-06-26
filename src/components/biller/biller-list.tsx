@@ -130,10 +130,10 @@ const BillerList = ({ merchants, onSort, onOrder }: IProps) => {
       key: 'billerCode',
       align: 'center',
       width: 80,
-      render: (billerCode: string, _: any, record: any) => (
+      render: (billerCode: string, _: any, record: any, id: string) => (
         <ActionButtons
           id={billerCode}
-          billerCode={record.billerCode}
+          billerCode={billerCode}
           editUrl={`${Routes.biller.list}/edit/${billerCode}`}
           editModalView="BILLER_EDIT"
           editViewModal="BILLER_VIEW"
