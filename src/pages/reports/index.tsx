@@ -35,6 +35,9 @@ export default function TerminalsPage() {
   const [isLinkModalOpen, setIsLinkModalOpen] = useState(false);
   const reportCodes = useGetLookup('REPORT_CODE');
 
+  console.log(reportCodes);
+  
+
   const toggleVisible = () => {
     setVisible((v) => !v);
   };

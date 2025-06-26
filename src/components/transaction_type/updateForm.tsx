@@ -54,7 +54,9 @@ export default function UpdateTransactionTypeForm({ id }: { id: string | string[
   const transactionTypeOptions = useGetLookup('TRAN_CODE');
   const setUpRefNo = random20DigitNumber();
   const { transactionTypes,clearTransactionTypes } = useTransactionTypeStore();
+  
 
+  
   const {
     register,
     handleSubmit,

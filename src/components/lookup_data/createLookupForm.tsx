@@ -7,16 +7,18 @@ import Label from '@/components/ui/label';
 import { useTranslation } from 'next-i18next';
 import { toast } from 'react-toastify';
 import axiosInstance from '@/utils/fetch-function';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import TextArea from '../ui/text-area';
 import 'react-quill/dist/quill.snow.css'
 import { useState } from 'react';
 
 import { Routes } from '@/config/routes';
 import { useRouter } from 'next/router';
+import useGetLookup from '@/hooks/useGetLookup';
+import useGetCategoryCode from '@/hooks/useGetCategoryCode';
 
 interface messagingTemplateType{
- categoryCode:string;
+ categoryCode:{code:string,name:string};
  lookupCode:string;
  lookupName:string;
  lookupDesc:string;
@@ -24,7 +26,7 @@ interface messagingTemplateType{
 }
 
 const defaultValues:messagingTemplateType = { 
-  categoryCode:'',
+  categoryCode:{code:'',name:''},
   lookupCode:'',
   lookupName:'',
   status:{id:'',name:''},
@@ -45,6 +47,11 @@ export default function CreateLookupForm() {
     defaultValues: defaultValues,
   });
 
+  const {data:dropdownData} = useGetCategoryCode()
+  const categoryOptions = dropdownData?.data?.list
+  
+  console.log(dropdownData);
+  
   const { mutate: saveLookupData, isLoading: isLookupLoading,data } = useMutation(
     (formData: any) =>
       axiosInstance.request({
@@ -96,7 +103,7 @@ export default function CreateLookupForm() {
       lookupName:values?.lookupName,
       lookupCode:values?.lookupCode,
       status:values?.status?.id,
-      categoryCode:values?.categoryCode,
+      categoryCode:values?.categoryCode?.code,
       usageAccess:'All'
     };
     
@@ -117,13 +124,19 @@ export default function CreateLookupForm() {
             className="mb-5"
           />
           
-          
-          <Input
-            label={t('Category Code')}
-            {...register('categoryCode',{required:'This field is required'})}
-            variant="outline"
-            className="mb-5"
-          />
+          <div className="mb-5">
+            <Label>{t('Category Code')}</Label>
+            <SelectInput
+              name="categoryCode"
+              control={control}
+              getOptionLabel={(option: any) => option.name}
+              getOptionValue={(option: any) => option.code}
+              options={categoryOptions}
+              rules={{
+                required:'This field is required'
+              }}
+            />
+          </div>
 
           <div className="mb-5">
             <Label>{t('Status')}</Label>

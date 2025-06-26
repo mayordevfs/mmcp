@@ -15,9 +15,10 @@ import { useEffect, useState } from 'react';
 import { Routes } from '@/config/routes';
 import { useRouter } from 'next/router';
 import { useModalAction, useModalState } from '../ui/modal/modal.context';
+import useGetCategoryCode from '@/hooks/useGetCategoryCode';
 
 interface messagingTemplateType {
-  categoryCode: string;
+  categoryCode: { code: string, name: string } | null;
   lookupCode: string;
   lookupName: string;
   lookupDesc: string;
@@ -25,7 +26,7 @@ interface messagingTemplateType {
 }
 
 const defaultValues: messagingTemplateType = { 
-  categoryCode: '',
+  categoryCode: null,
   lookupCode: '',
   lookupName: '',
   status: null,
@@ -41,8 +42,12 @@ export default function LookupEditForm() {
   const { t } = useTranslation();
   const router = useRouter();
   const { data } = useModalState();
-  const {closeModal} = useModalAction()
+  const { closeModal } = useModalAction();
   const [isFormPopulated, setIsFormPopulated] = useState(false);
+  
+  // Get category code options
+  const { data: dropdownData } = useGetCategoryCode();
+  const categoryOptions = dropdownData?.data?.list;
   
   const { 
     register, 
@@ -96,23 +101,24 @@ export default function LookupEditForm() {
     }
   );
 
-  // Helper function to find option by value - same as the terminal form
+  // Helper function to find option by value
   const findOptionByValue = (options: any[], value: any) => {
     if (!options || !Array.isArray(options) || value === null || value === undefined) return null;
     
     return options.find((option: any) => {
       // Direct equality check first
-      if (option.id === value || option.name === value) {
+      if (option.id === value || option.name === value || option.code === value) {
         return true;
       }
       
       // String comparison (case-insensitive) only if both values can be converted to strings
       try {
         const valueStr = String(value).toLowerCase();
-        const optionIdStr = String(option.id).toLowerCase();
-        const optionNameStr = String(option.name).toLowerCase();
+        const optionIdStr = String(option.id || '').toLowerCase();
+        const optionNameStr = String(option.name || '').toLowerCase();
+        const optionCodeStr = String(option.code || '').toLowerCase();
         
-        return optionIdStr === valueStr || optionNameStr === valueStr;
+        return optionIdStr === valueStr || optionNameStr === valueStr || optionCodeStr === valueStr;
       } catch (error) {
         // If string conversion fails, skip string comparison
         return false;
@@ -124,8 +130,8 @@ export default function LookupEditForm() {
   useEffect(() => {
     const lookupData = data?.lookup;
     
-    // Only proceed if we have lookup data and form hasn't been populated yet
-    if (lookupData && !isFormPopulated) {
+    // Only proceed if we have lookup data and form hasn't been populated yet and categoryOptions are available
+    if (lookupData && !isFormPopulated && categoryOptions) {
       console.log('Populating form with lookup data:', lookupData);
       
       // Debug: Log lookup data types
@@ -144,12 +150,12 @@ export default function LookupEditForm() {
       
       // Create form data with proper dropdown selections
       const formData = {
-        categoryCode: lookupData?.categoryCode || '',
         lookupCode: lookupData?.lookupCode || '',
         lookupName: lookupData?.lookupName || '',
         lookupDesc: lookupData?.lookupDesc || '',
         
-        // Handle dropdown field - convert string to object
+        // Handle dropdown fields - convert string to object
+        categoryCode: findOptionByValue(categoryOptions, lookupData.categoryCode),
         status: findOptionByValue(status, lookupData.status),
       };
       
@@ -162,7 +168,8 @@ export default function LookupEditForm() {
       setIsFormPopulated(true);
     }
   }, [
-    data?.lookupData,
+    data?.lookup,
+    categoryOptions,
     reset, 
     isFormPopulated
   ]);
@@ -181,7 +188,7 @@ export default function LookupEditForm() {
       lookupName: values?.lookupName,
       lookupCode: values?.lookupCode,
       status: values?.status?.id,
-      categoryCode: values?.categoryCode,
+      categoryCode: values?.categoryCode?.code,
       usageAccess: 'All'
     };
     
@@ -213,13 +220,18 @@ export default function LookupEditForm() {
             error={t(errors.lookupName?.message!)}
           />
 
-          <Input
-            label={t('Category Code')}
-            {...register('categoryCode', { required: 'This field is required' })}
-            variant="outline"
-            error={t(errors.categoryCode?.message!)}
-            disabled
-          />
+          <div>
+            <Label>{t('Category Code')}</Label>
+            <SelectInput
+              name="categoryCode"
+              control={control}
+              getOptionLabel={(option: any) => option.name}
+              getOptionValue={(option: any) => option.code}
+              options={categoryOptions}
+              rules={{ required: 'This field is required' }}
+              disabled
+            />
+          </div>
 
           <div>
             <Label>{t('Status')}</Label>
