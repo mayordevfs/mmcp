@@ -122,6 +122,8 @@ const LookupEditModal = dynamic(()=>import('@/components/lookup_data/lookupEditM
 
 const SettleTransDetails = dynamic(()=>import('@/components/reconciled_transaction/settle-trans-details'))
 
+const TransferDetails = dynamic(()=>import('@/components/transfers/transfer-details'))
+
 function renderModal(view: MODAL_VIEWS | undefined, data: any) {
   switch (view) {
     case 'DELETE_PRODUCT':
@@ -213,6 +215,8 @@ function renderModal(view: MODAL_VIEWS | undefined, data: any) {
       return <LookupEditModal/>
     case 'SETTLE_TRANS_MODAL':
       return <SettleTransDetails/>
+    case 'TRANSFER_MASTER_MODAL':
+      return <TransferDetails/>
     default:
       return null;
   }

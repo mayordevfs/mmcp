@@ -209,6 +209,20 @@ const TransactionList = ({
         <span className='whitespace-nowrap'>{purpose?purpose:'N/A'}</span>
       )
     },
+    {
+      title: t('table:table-item-actions'),
+      dataIndex: 'id',
+      key: 'id',
+      align: 'center',
+      width: 50,
+      render: (transferId: string, record: any) => (
+        <ActionButtons
+          id={transferId}
+          transfer_master_list_modal={'TRANSFER_MASTER_MODAL'}
+          transfer_details={record}
+        />
+      ),
+    },
   ];
 
   if (isFetching) {
