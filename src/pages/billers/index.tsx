@@ -68,6 +68,9 @@ export default function BillersPage() {
     setVisible((v) => !v);
   };
 
+  console.log(data);
+  
+
   if (isLoading) return <Loader text={t('common:text-loading')} />;
 
   function handleSearch({ searchText }: { searchText: string }) {

@@ -179,12 +179,12 @@ const CustomerCreateForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="my-5 flex flex-wrap sm:my-8">
-        <Description
-          title={t('form:item-description')}
+        {/* <Description
+          title={t('User Information')}
           details={t('form:user-form-info-help-text')}
           className="w-full px-0 pb-5 sm:w-4/12 sm:py-8 sm:pe-4 md:w-1/3 md:pe-5"
-        />
-        <Card className="w-full sm:w-8/12 md:w-2/3">
+        /> */}
+        <Card className="w-full sm:w-8/12 md:w-2/3 mx-auto">
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
             <div className="mt-2 pt-5 md:col-span-2">
               <h3 className="mb-5 text-lg font-semibold">
@@ -288,13 +288,13 @@ const CustomerCreateForm = () => {
               error={t(errors.password?.message!)}
             />
           </div>
-        </Card>
-      </div>
 
-      <div className="mb-4 text-end">
+          <div className="mb-4 text-end">
         <Button type="submit" loading={saving} disabled={saving}>
           {t('form:button-label-add-user')}
         </Button>
+      </div>
+        </Card>
       </div>
     </form>
   );
