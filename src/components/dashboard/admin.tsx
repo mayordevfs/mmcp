@@ -124,12 +124,12 @@ export default function Dashboard() {
           />
         </div>
 
-        <div className="w-full xl:w-1/2">
+        {/* <div className="w-full xl:w-1/2">
           <RecentOrders
             orders={[]}
             title={t('table:recent-order-table-title')}
           />
-        </div>
+        </div> */}
       </div>
       {/* <div className="mb-6 w-full xl:mb-0">
         <PopularProductList
