@@ -47,6 +47,9 @@ const BillerList = ({ merchants, onSort, onOrder }: IProps) => {
       key: 'serialNo',
       align: 'center',
       width: 50,
+      render: (text: any, record: any, index: number) => {
+        return <span>{index+1}</span>
+      },
       // render: (text: any, record: any, index: number) => {
       //   // Calculate serial number based on current page and page size
       //   const { currentPage = 1, perPage = 20 } = paginatorInfo || {};
