@@ -6,11 +6,11 @@ import cn from 'classnames';
 import { ActionMeta } from 'react-select';
 import Input from '@/components/ui/input';
 import Button from '../ui/button';
+import useGetCategoryCode from '@/hooks/useGetCategoryCode';
 
 type Props = {
-  
   onCodeFilter: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleApplyFilter: ()=>void
+  handleApplyFilter: () => void;
   className?: string;
 };
 
@@ -20,27 +20,39 @@ export default function LookupTypeFilter({
   className,
 }: Props) {
   const { t } = useTranslation();
+  const { data: dropdownData } = useGetCategoryCode();
+  const categoryOptions = dropdownData?.data?.list;
+
+  const handleSelectChange = (selectedOption: any) => {
+    
+    const syntheticEvent = {
+      target: {
+        value: selectedOption ? selectedOption.code : ''
+      }
+    } as React.ChangeEvent<HTMLInputElement>;
+    
+    onCodeFilter(syntheticEvent);
+  };
 
   return (
     <div className={cn('space-y-3', className)}>
-      
       <div className='grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
         <div className="w-full">
-        <Label>{t('Category Code')}</Label>
-        <Input
-          name='categoryCode'
-          placeholder={t('Category Code')}
-          onChange={onCodeFilter}
-          className="w-full"
-        />
-      </div>
-
+          <Label>{t('Category Code')}</Label>
+          <Select
+            name="categoryCode"
+            options={categoryOptions}
+            placeholder={t('Category Code')}
+            getOptionLabel={(option: any) => option.name}
+            getOptionValue={(option: any) => option.code}
+            onChange={handleSelectChange}
+          />
+        </div>
       </div>
 
       <Button onClick={handleApplyFilter}>
         Filter
       </Button>
-      
     </div>
   );
 }

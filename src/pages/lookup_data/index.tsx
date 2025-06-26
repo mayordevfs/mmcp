@@ -14,6 +14,7 @@ import { ArrowUp } from 'lucide-react';
 import { ArrowDown } from '@/components/icons/arrow-down';
 import { cn } from '@/lib/utils';
 import LookupTypeFilter from '@/components/lookup_data/lookupFilter';
+import useGetCategoryCode from '@/hooks/useGetCategoryCode';
 
 export default function LookupDataScreen (){
   const {t} = useTranslation()
@@ -21,8 +22,6 @@ export default function LookupDataScreen (){
   const [visible, setVisible] = useState(false);
   const [applyFilter, setApplyFilter] = useState(false);
   const [categoryCode,setCategoryCode] = useState('')
-  
-  
   const handleSubmit: () => void = () => {
     setApplyFilter((prev) => !prev);
     setPage(1);
