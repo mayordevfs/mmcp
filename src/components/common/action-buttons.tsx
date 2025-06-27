@@ -32,6 +32,8 @@ type Props = {
   settlementTrans?:any;
   terminal_monitoring?:any;
   terminal_monitoring_modal?:any;
+  transfer_master_list_modal?:any;
+  transfer_details?:any;
   isUserActive?: boolean;
   userStatus?: boolean;
   isShopActive?: boolean;
@@ -63,6 +65,8 @@ const ActionButtons = ({
   terminalEditModal,
   terminal_monitoring,
   terminal_monitoring_modal,
+  transfer_master_list_modal,
+  transfer_details,
   lookup,
   lookupEditModal,
   settlementTrans,
@@ -212,6 +216,12 @@ const ActionButtons = ({
    function handleSettletransModal(){
     openModal('SETTLE_TRANS_MODAL',{
       settlementTrans
+    })
+  }
+
+  function handleTransferMasterList(){
+    openModal('TRANSFER_MASTER_MODAL',{
+      transfer_details
     })
   }
 
@@ -434,6 +444,16 @@ const ActionButtons = ({
           className="ml-2 text-base transition duration-200 hover:text-heading"
           title={t('common:text-view')}
           onClick={handleSettletransModal}
+        >
+          <Eye width={24} />
+        </button>
+      )}
+
+      {transfer_master_list_modal && (
+        <button 
+          className="ml-2 text-base transition duration-200 hover:text-heading"
+          title={t('common:text-view')}
+          onClick={handleTransferMasterList}
         >
           <Eye width={24} />
         </button>

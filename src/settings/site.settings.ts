@@ -182,11 +182,11 @@ export const siteSettings = {
       //   label: 'sidebar-nav-item-reviews',
       //   icon: 'ReviewIcon',
       // },
-      {
-        href: Routes.settings,
-        label: 'sidebar-nav-item-settings',
-        icon: 'SettingsIcon',
-      },
+      // {
+      //   href: Routes.settings,
+      //   label: 'sidebar-nav-item-settings',
+      //   icon: 'SettingsIcon',
+      // },
       // {
       //   href: Routes.money_transfer,
       //   label: 'Money Transfer',
